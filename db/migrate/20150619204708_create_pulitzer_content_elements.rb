@@ -5,6 +5,7 @@ class CreatePulitzerContentElements < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.integer :post_id
+      t.integer :content_type_id
 
       t.timestamps null: false
     end

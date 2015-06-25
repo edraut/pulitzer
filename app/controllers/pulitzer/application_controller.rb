@@ -1,4 +1,2 @@
-module Pulitzer
-  class ApplicationController < ActionController::Base
-  end
+class Pulitzer::ApplicationController < Pulitzer.base_controller
 end
