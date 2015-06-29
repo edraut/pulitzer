@@ -1,0 +1,10 @@
+<h1> Post Types </h1>
+
+<div id="post_types_container">
+  <% @post_types.each do |post_type| %>
+    <%= render partial: 'show_wrapper', locals: {post_type: post_type} %>
+  <% end %>
+</div>
+<%= ajax_link 'add a new post type', new_post_type_path, {}, '#new_post_type' %>
+<div id="new_post_type">
+</div>

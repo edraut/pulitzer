@@ -1,0 +1,5 @@
+<%= form_for post_type, html: ajax_form_hash('#post_types_container', insert_method: 'append', sub_class: "AddALineForm", container: '#new_post_type') do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>

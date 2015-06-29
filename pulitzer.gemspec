@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Pulitzer::VERSION
   s.authors     = ["Eric Draut"]
   s.email       = ["edraut@gmail.com"]
-  s.homepage    = "TODO"
+  s.homepage    = "https://github.com/edraut/pulitzer"
   s.summary     = "A content management engine for Ruby on Rails."
   s.description = "A content management system that works with your view templates. Keep the presses hot!"
   s.license     = "MIT"

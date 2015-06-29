@@ -1,0 +1,5 @@
+<%= form_for post_type, html: ajax_form_hash(dom_target(post_type)) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>
