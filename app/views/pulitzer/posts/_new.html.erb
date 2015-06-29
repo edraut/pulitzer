@@ -1,0 +1,6 @@
+<%= form_for post, html: ajax_form_hash('#posts_container', insert_method: 'append', sub_class: "AddALineForm", container: '#new_post') do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.hidden_field :post_type_id %>
+  <%= f.submit %>
+<% end %>

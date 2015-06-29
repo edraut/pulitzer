@@ -1,0 +1,9 @@
+<h1>Posts</h1>
+
+<div id="posts_container">
+  <% @posts.each do |post| %>
+    <%= render partial: 'show_wrapper', locals: {post: post} %>
+  <% end %>
+</div>
+<%= ajax_link 'add a new post', new_post_path(post_type_id: params[:post_type_id]), {}, '#new_post' %>
+<div id="new_post"></div>

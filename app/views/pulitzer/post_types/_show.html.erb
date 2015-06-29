@@ -1,9 +1,19 @@
-<%= ajax_link post_type.name, edit_post_type_path(post_type), {}, dom_target(post_type) %>
-<ul id="post_type_content_element_types_container_<%= dom_id(post_type) %>">
-  <% post_type.post_type_content_element_types.each do |ptcet| %>
-    <%= render partial: '/pulitzer/post_type_content_element_types/show_wrapper', locals: {ptcet: ptcet} %>
-  <% end %>
-</ul>
+<div class="pulitzer-row">
+  <ul class="inline-list">
+    <li>
+      <%= ajax_link post_type.name, edit_post_type_path(post_type), {}, dom_target(post_type) %>
+    </li>
+    <li><%= link_to_post_type(post_type) %></li>
+  </ul>
+
+  <ul id="post_type_content_element_types_container_<%= dom_id(post_type) %>">
+    <% post_type.post_type_content_element_types.each do |ptcet| %>
+      <%= render partial: '/pulitzer/post_type_content_element_types/show_wrapper', locals: {ptcet: ptcet} %>
+    <% end %>
+  </ul>
+</div>
+
+
 <%= ajax_link 'add a new content element for ' + post_type.name, new_post_type_content_element_type_path(post_type_id: post_type.id), {}, "#new_post_type_content_element_type_#{dom_id(post_type)}" %>
 <div id="new_post_type_content_element_type_<%= dom_id(post_type) %>">
 </div>
