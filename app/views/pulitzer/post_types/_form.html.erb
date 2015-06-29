@@ -1,5 +1,9 @@
 <%= form_for post_type, html: ajax_form_hash(dom_target(post_type)) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
+  <%= f.label :plural %>
+  <%= f.check_box :plural %>
+  <%= f.label :template %>
+  <%= f.check_box :template %>
   <%= f.submit %>
 <% end %>
