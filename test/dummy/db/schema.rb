@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 20150629195832) do
     t.string   "title"
     t.text     "body"
     t.integer  "post_id"
-    t.integer  "content_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "content_element_type_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "pulitzer_post_tags", force: :cascade do |t|
