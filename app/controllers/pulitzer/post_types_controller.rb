@@ -30,7 +30,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def destroy
     @post_type.destroy
-    render nothing: true
+    render head :ok
   end
 
   protected
