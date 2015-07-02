@@ -1,0 +1,13 @@
+<h1>Content elements for <%= @post.title %></h1>
+
+<%= form_tag post_content_elements_update_multiple_path, method: :put do %>
+  <% @content_elements.each do |element| %>
+    <%= fields_for "content_elements[]", element  do |f| %>
+      <%= f.label element.label %>
+      <%= f.text_field :title, placeholder: 'Title' %>
+      <%= f.text_field :body, placeholder: 'Body' %>
+      <br>
+    <% end %>
+  <% end %>
+  <%= submit_tag "Update" %>
+<% end %>
