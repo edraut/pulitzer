@@ -12,6 +12,10 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def create
     @post_type = Pulitzer::PostType.create(post_type_params)
+    if @post_type.singular?
+      singleton_post = @post_type.posts.create(title: post_params_name)
+      Pulitzer::SetupPostElements.call(singleton_post)
+    end
     render partial: 'show_wrapper', locals: {post_type: @post_type}
   end
 
@@ -37,6 +41,10 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def post_type_params
     params[:post_type].permit!
+  end
+
+  def post_params_name
+    params[:post_type][:name]
   end
 
   def get_post_type

@@ -17,7 +17,7 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def show
-    render partial: 'show', locals: { post: @post }
+    
   end
 
   def edit
