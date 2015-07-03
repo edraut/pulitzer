@@ -3,7 +3,7 @@
     <li>
       <%= ajax_link post_type.name, edit_post_type_path(post_type), {}, dom_target(post_type) %>
     </li>
-    <li><%= link_to_post_type(post_type) %></li>
+    <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
   </ul>
 
   <ul id="post_type_content_element_types_container_<%= dom_id(post_type) %>">
