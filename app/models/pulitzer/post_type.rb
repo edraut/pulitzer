@@ -12,4 +12,8 @@ class Pulitzer::PostType < ActiveRecord::Base
   def singleton_post
     posts.first
   end
+
+  def singleton_post?
+    !!singleton_post
+  end
 end
