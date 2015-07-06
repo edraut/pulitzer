@@ -14,7 +14,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
     @post_type = Pulitzer::PostType.create(post_type_params)
     if @post_type.singular?
       singleton_post = @post_type.posts.create(title: post_params_name)
-      Pulitzer::SetupPostElements.call(singleton_post)
+      Pulitzer::SetupPostElements.new(singleton_post).call
     end
     render partial: 'show_wrapper', locals: {post_type: @post_type}
   end
