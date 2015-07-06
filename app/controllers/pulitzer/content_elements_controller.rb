@@ -6,8 +6,10 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   end
 
   def update_multiple
-    Pulitzer::ContentElement.update(params[:content_elements].keys,
-      params[:content_elements].values)
+    if params[:content_elements]
+      Pulitzer::ContentElement.update(params[:content_elements].keys,
+        params[:content_elements].values)
+    end
     flash[:notice] = "Contents elements updated"
     redirect_to action: :edit_multiple
   end
