@@ -10,6 +10,7 @@ class Pulitzer::PostTypeContentElementTypesController < Pulitzer::ApplicationCon
   def create
     @post_type = Pulitzer::PostType.find(ptcet_params[:post_type_id])
     @ptcet = @post_type.post_type_content_element_types.create(ptcet_params)
+    Pulitzer::SetupPostTypeElements.new(@ptcet).create
     render partial: 'show_wrapper', locals: {ptcet: @ptcet}
   end
 
@@ -22,7 +23,9 @@ class Pulitzer::PostTypeContentElementTypesController < Pulitzer::ApplicationCon
   end
 
   def update
+    old_label = @ptcet.label
     @ptcet.update_attributes(ptcet_params)
+    Pulitzer::SetupPostTypeElements.new(@ptcet, old_label).update
     render partial: 'show', locals: {ptcet: @ptcet}
   end
 
