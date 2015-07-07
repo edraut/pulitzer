@@ -9,4 +9,8 @@ module Pulitzer
     @@base_controller = base_controller_name.constantize
     @@metadata_closure = options[:metadata_authorization]
   end
+
+  def self.skip_metadata_auth?
+    self.metadata_closure.blank?
+  end
 end

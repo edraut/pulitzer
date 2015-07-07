@@ -5,7 +5,7 @@
     <%= render partial: 'show_wrapper', locals: {post_type: post_type} %>
   <% end %>
 </div>
-<% if self.instance_eval &Pulitzer.metadata_closure %>
+<% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
   <%= ajax_link 'add a new post type', new_post_type_path, {}, '#new_post_type' %>
 <% end %>
 <div id="new_post_type"></div>

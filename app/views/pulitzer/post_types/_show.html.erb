@@ -1,7 +1,7 @@
 <div class="pulitzer-row">
   <ul class="inline-list">
     <li>
-      <% if self.instance_eval &Pulitzer.metadata_closure %>
+      <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
         <%= ajax_link post_type.name, edit_post_type_path(post_type), {}, dom_target(post_type) %>
       <% else %>
         <%= post_type.name %>
