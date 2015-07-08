@@ -1,5 +1,6 @@
-require "pulitzer/engine"
+require 'pulitzer/engine'
 require 'thin_man'
+require 'hooch'
 
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure
