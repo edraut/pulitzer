@@ -16,4 +16,8 @@ class Pulitzer::PostType < ActiveRecord::Base
   def singleton_post?
     !!singleton_post
   end
+
+  def self.named(label)
+    self.find_by(name: label)
+  end
 end
