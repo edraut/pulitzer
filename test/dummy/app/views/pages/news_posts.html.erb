@@ -1,0 +1,8 @@
+<% @pulitzer_posts.each do |post| %>
+  <h1><%= post.title %></h1>
+  <div class="image_with_caption">
+    <%= image_tag post.content_element('Background').body %>
+  </div>
+  <h2><%= post.content_element('Main Body').title %></h2>
+  <p><%= post.content_element('Main Body').body %></p>
+<% end %>
