@@ -1,6 +1,7 @@
 require 'pulitzer/engine'
 require 'thin_man'
 require 'hooch'
+require 'carrierwave'
 
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure
