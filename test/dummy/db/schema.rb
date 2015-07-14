@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150702150819) do
     t.string   "label"
     t.string   "title"
     t.text     "body"
+    t.string   "image"
     t.integer  "post_id"
     t.integer  "content_element_type_id"
     t.datetime "created_at",              null: false
@@ -41,8 +42,10 @@ ActiveRecord::Schema.define(version: 20150702150819) do
     t.integer  "post_type_id"
     t.integer  "content_element_type_id"
     t.string   "label"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "height",                  default: 100
+    t.integer  "width",                   default: 100
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "pulitzer_post_types", force: :cascade do |t|

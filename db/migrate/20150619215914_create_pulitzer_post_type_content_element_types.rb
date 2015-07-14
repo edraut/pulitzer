@@ -4,6 +4,8 @@ class CreatePulitzerPostTypeContentElementTypes < ActiveRecord::Migration
       t.integer :post_type_id
       t.integer :content_element_type_id
       t.string :label
+      t.integer :height, default: 100
+      t.integer :width, default: 100
 
       t.timestamps null: false
     end
