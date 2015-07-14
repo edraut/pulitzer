@@ -6,11 +6,11 @@
       <%= f.label element.label %>
       <%= f.text_field :title, placeholder: 'Title' %>
       <% if element.image_type? %>
-        <%= image_tag element.body %>
-        <%= f.file_field :body, placeholder: 'Body' %>
+        <br>
+        <%= image_tag element.image_url %>
+        <%= f.file_field :image, placeholder: 'Image' %>
       <% else %>
-        <%= f.text_field :body, placeholder: 'Body' %>
-      <% end %>
+        <%= f.text_area :body, placeholder: 'Body' %>
       <br>
     <% end %>
   <% end %>
