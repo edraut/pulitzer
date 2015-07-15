@@ -12,6 +12,7 @@ class Pulitzer::SetupPostTypeElements
       post.content_elements.create do |ce|
         ce.label = ptcet.label
         ce.content_element_type = ptcet.content_element_type
+        ce.post_type_content_element_type = ptcet
       end
     end
   end
@@ -19,7 +20,8 @@ class Pulitzer::SetupPostTypeElements
   def update
     post_type.posts.each do |post|
       post.content_elements.where(label: old_label).each do |ce|
-        ce.update(label: ptcet.label, content_element_type: ptcet.content_element_type)
+        ce.update(label: ptcet.label, content_element_type: ptcet.content_element_type,
+          post_type_content_element_type: ptcet)
       end
     end
   end
