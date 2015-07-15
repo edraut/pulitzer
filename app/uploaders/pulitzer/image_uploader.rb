@@ -1,4 +1,8 @@
 class Pulitzer::ImageUploader < Pulitzer::BaseUploader
-  storage :file
 
+  process :resize_image
+
+  def resize_image
+    self.class.process resize_to_fit: [model.height, model.width]
+  end
 end
