@@ -7,13 +7,10 @@ class ApplicationController < ActionController::Base
 
   def setup_user
     @current_user = User.new
-    if params[:admin]
-      @current_user.admin = true
-    end
-  end
-
-  def self.foo
-    'bar'
+    @current_user.admin = true
+    # if params[:admin]
+    #   @current_user.admin = true
+    # end
   end
 
   def current_user
