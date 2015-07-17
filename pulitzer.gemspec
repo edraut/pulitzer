@@ -26,9 +26,9 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave"
   s.add_dependency "carrierwave-aws"
   s.add_dependency "mini_magick"
+  s.add_dependency "cancancan"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "minitest"
   s.add_development_dependency "byebug"
-  s.add_development_dependency "cancancan"
 end
