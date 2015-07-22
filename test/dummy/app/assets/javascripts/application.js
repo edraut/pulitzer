@@ -13,3 +13,4 @@
 //= require jquery
 //= require thin_man
 //= require hooch
+//= require pulitzer
