@@ -6,5 +6,6 @@ module Pulitzer
     belongs_to :post_type_content_element_type
     delegate :type, :image_type?, to: :content_element_type
     delegate :height, :width, to: :post_type_content_element_type
+    default_scope { order(id: :asc) }
   end
 end
