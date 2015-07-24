@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716214850) do
+ActiveRecord::Schema.define(version: 20150724152813) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -63,7 +63,10 @@ ActiveRecord::Schema.define(version: 20150716214850) do
     t.string   "status",       default: "unpublished"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.string   "slug"
   end
+
+  add_index "pulitzer_posts", ["slug"], name: "index_pulitzer_posts_on_slug", unique: true
 
   create_table "pulitzer_tags", force: :cascade do |t|
     t.string   "name"
