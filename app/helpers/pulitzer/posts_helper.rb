@@ -8,5 +8,11 @@ module Pulitzer
         link_to singular_label, post_path(post_type.singleton_post)
       end
     end
+
+    def render_video(element)
+      if element.video_link
+        content_tag(:iframe, nil, src: element.video_link)
+      end
+    end
   end
 end

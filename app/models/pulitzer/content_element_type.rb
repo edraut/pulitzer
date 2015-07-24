@@ -6,8 +6,10 @@ module Pulitzer
       name.downcase.to_sym
     end
 
-    def image_type?
-      type == :image
+    %i(text image video).each do |content_type|
+      define_method "#{content_type}_type?" do
+        type == content_type
+      end
     end
   end
 end

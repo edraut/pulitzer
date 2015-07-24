@@ -1,5 +1,5 @@
 class AddPulitzerContentElementTypes < ActiveRecord::Migration
-  ELEMENT_TYPES = %w(Text Image)
+  ELEMENT_TYPES = %w(Text Image Video)
 
   def up
     ELEMENT_TYPES.each do |type|

@@ -9,6 +9,10 @@
         <br>
         <%= image_tag element.image_url %>
         <%= f.file_field :image, placeholder: 'Image' %>
+      <% elsif element.video_type? %>
+        <%= f.text_field :body, placeholder: 'Link' %>
+        <br>
+        <%= render_video(element) %>
       <% else %>
         <%= f.text_area :body, placeholder: 'Body' %>
       <% end %>
