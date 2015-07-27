@@ -9,7 +9,7 @@ module Pulitzer
     default_scope { order(id: :asc) }
 
     def video_link
-      if video_type?
+      if video_type? && !body.nil?
         vimeo_video(body) || youtube_video(body)
       end
     end
