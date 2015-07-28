@@ -14,6 +14,10 @@ module Pulitzer
       end
     end
 
+    def html
+      body.html_safe if body
+    end
+
 private
     def vimeo_video(element)
       if element.match(/vimeo/) && code = element.split("/").last
