@@ -1,8 +1,9 @@
-require 'pulitzer/engine'
+require 'rails'
 require 'thin_man'
 require 'hooch'
 require 'carrierwave'
 require 'friendly_id'
+require 'pulitzer/engine'
 
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure, :authentication_closure,
