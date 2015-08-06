@@ -1,6 +1,6 @@
 <h1>Posts</h1>
 
-<%= ajax_link 'add a new post', new_post_path(post_type_id: params[:post_type_id]), {}, '#new_post' %>
+<%= ajax_link "Add a new #{@post_type.name}", new_post_path(post_type_id: params[:post_type_id]), {}, '#new_post' %>
 <div id="new_post"></div>
 <%= link_to "Back to Post types", post_types_path %>
 

@@ -2,7 +2,8 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   before_filter :get_post, only: [:show, :edit, :update]
 
   def index
-    @posts = Pulitzer::Post.where(post_type_id: params[:post_type_id])
+    @post_type = Pulitzer::PostType.find params[:post_type_id]
+    @posts = Pulitzer::Post.where post_type: @post_type
   end
 
   def new
