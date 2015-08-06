@@ -12,7 +12,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def create
     @post_type = Pulitzer::PostType.create(post_type_params)
-    create_singleton_post(@post_type)
+    Pulitzer::CreateSingletonPost.new(@post_type, post_params_name).call
     render partial: 'show_wrapper', locals: {post_type: @post_type}
   end
 
@@ -26,7 +26,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def update
     @post_type.update_attributes(post_type_params)
-    create_singleton_post(@post_type)
+    Pulitzer::CreateSingletonPost.new(@post_type, post_params_name).call
     render partial: 'show', locals: {post_type: @post_type}
   end
 
@@ -47,13 +47,6 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def get_post_type
     @post_type = Pulitzer::PostType.find(params[:id])
-  end
-
-  def create_singleton_post(post_type)
-    if post_type.singular? && !post_type.singleton_post?
-      singleton_post = post_type.posts.create(title: post_params_name)
-      Pulitzer::SetupPostElements.new(singleton_post).call
-    end
   end
 
 end
