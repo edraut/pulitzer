@@ -1,7 +1,6 @@
 class Pulitzer::ApplicationController < Pulitzer.base_controller
   helper Pulitzer::Engine.helpers
   layout Pulitzer.layout
-  before_action :authenticate_user!
 
 private
   def authenticate_user!
