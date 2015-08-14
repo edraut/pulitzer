@@ -1,0 +1,17 @@
+<%= form_for content_element, html: ajax_form_hash(dom_target(content_element)), multipart: true do |f| %>
+  <%= f.label content_element.label %>
+  <%= f.text_field :title, placeholder: 'Title' %>
+  <% if content_element.image_type? %>
+    <br>
+    <%= image_tag content_element.image_url(:thumb) %>
+    <%= f.file_field :image, placeholder: 'Image' %>
+  <% elsif content_element.video_type? %>
+    <%= f.text_field :body, placeholder: 'Link' %>
+    <br>
+    <%= render_video(content_element) %>
+  <% else %>
+    <%= f.text_area :body, placeholder: 'Body' %>
+  <% end %>
+  <%= submit_tag "Update" %>
+<% end %>
+<%= render 'pulitzer/shared/error_messages', object: content_element %>

@@ -18,6 +18,10 @@ module Pulitzer
       body.html_safe if body
     end
 
+    def empty_body?
+      image_type? ? image_url.empty? : body.empty?
+    end
+
 private
     def vimeo_video(element)
       if element.match(/vimeo/) && code = element.split("/").last

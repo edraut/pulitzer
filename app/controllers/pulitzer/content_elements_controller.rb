@@ -1,16 +1,27 @@
 class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
+  before_filter :get_content_element, only: [:show, :edit, :update]
 
-  def edit_multiple
+  def index
     @post = Pulitzer::Post.find(params[:post_id])
     @content_elements = @post.content_elements
   end
 
-  def update_multiple
-    if params[:content_elements]
-      Pulitzer::ContentElement.update(params[:content_elements].keys,
-        params[:content_elements].values)
-    end
-    flash[:notice] = "Contents elements updated"
-    redirect_to action: :edit_multiple
+  def edit
+    render partial: 'form', locals: { content_element: @content_element }
+  end
+
+  def update
+    @content_element.update content_element_params
+    render partial: 'show', locals: { content_element: @content_element }
+  end
+
+  protected
+
+  def content_element_params
+    params[:content_element].permit!
+  end
+
+  def get_content_element
+    @content_element = Pulitzer::ContentElement.find(params[:id])
   end
 end

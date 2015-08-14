@@ -1,9 +1,6 @@
 Pulitzer::Engine.routes.draw do
   resources :posts do
-    get 'edit_multiple', to: 'content_elements#edit_multiple',
-      as: 'content_elements_edit_multiple'
-    put 'update_multiple', to: 'content_elements#update_multiple',
-      as: 'content_elements_update_multiple'
+    resources :content_elements
   end
   resources :content_elements
   resources :post_types
