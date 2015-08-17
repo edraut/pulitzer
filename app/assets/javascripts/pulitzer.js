@@ -21,8 +21,7 @@ $(document).ready(function(){
   };
 
   function uploadifySettings(input){
-    var $input = $(input);
-    var $form = $input.parents('form');
+    var $form = $("#" + input.movieName).parents('form');
     var form_data_array = $form.serializeArray();
     var form_data = arrayToObject(form_data_array);
     return form_data
@@ -36,7 +35,7 @@ $(document).ready(function(){
       uploader: $form.data('serverEndpoint'),
       fileObjName: 'content_element[image]',
       'onUploadStart': function(file) {
-        $this.uploadify('settings', 'formData', uploadifySettings($this));
+        $this.uploadify('settings', 'formData', uploadifySettings(this));
       }
     });
   })
