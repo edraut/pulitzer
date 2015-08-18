@@ -1,7 +1,7 @@
 <h1>Content elements for <%= @post.title %></h1>
 
+<%= link_back_to_posts(@post.post_type) %>
+
 <% @content_elements.each do |content_element| %>
   <%= render partial: 'show_wrapper', locals: {content_element: content_element} %>
 <% end %>
-
-<%= link_back_to_posts(@post.post_type) %>

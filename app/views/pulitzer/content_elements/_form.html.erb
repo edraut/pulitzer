@@ -6,7 +6,7 @@
   <% if content_element.image_type? %>
     <br>
     <%= image_tag content_element.image_url(:thumb) %>
-    <%= f.file_field :image, placeholder: 'Image', class: 'uploadify-image', id: "content_element_image_#{content_element.id}" %>
+    <%= f.file_field :image, placeholder: 'Image', class: 'uploadify-image', id: "content_element_image_#{content_element.id}", data: { 'uploadify_trigger' => true } %>
   <% elsif content_element.video_type? %>
     <%= f.text_field :body, placeholder: 'Link' %>
     <br>
