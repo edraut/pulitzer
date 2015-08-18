@@ -19,7 +19,7 @@ module Pulitzer
     end
 
     def empty_body?
-      image_type? ? !image? : body.empty?
+      image_type? ? !image? : body.blank?
     end
 
 private
