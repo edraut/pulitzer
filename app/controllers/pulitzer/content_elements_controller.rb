@@ -6,6 +6,10 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
     @content_elements = @post.content_elements
   end
 
+  def show
+    render partial: 'show', locals: { content_element: @content_element }
+  end
+
   def edit
     render partial: 'form', locals: { content_element: @content_element }
   end

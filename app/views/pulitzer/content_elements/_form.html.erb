@@ -15,5 +15,7 @@
     <%= f.text_area :body, placeholder: 'Body' %>
   <% end %>
   <%= submit_tag "Update" unless content_element.image_type? %>
+  <%= link_to('Cancel', content_element_path(content_element),
+    data: { ajax_link: true, ajax_target: dom_target(content_element) } ) %>
 <% end %>
 <%= render 'pulitzer/shared/error_messages', object: content_element %>
