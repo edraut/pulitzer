@@ -3,4 +3,6 @@
   <%= f.text_field :title %>
   <%= f.hidden_field :post_type_id %>
   <%= f.submit %>
+  <%= link_to('Cancel', '#',
+    data: { emptier: true, target: '#new_post' } ) %>
 <% end %>
