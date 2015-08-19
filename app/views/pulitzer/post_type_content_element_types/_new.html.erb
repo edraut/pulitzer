@@ -4,6 +4,6 @@
   <%= f.collection_select :content_element_type_id, Pulitzer::ContentElementType.all, :id, :name %>
   <%= f.hidden_field :post_type_id %>
   <%= f.submit "Content element" %>
-  <%= link_to('Cancel', '#',
+  <%= link_to('Cancel', '#', :class => 'button',
     data: { emptier: true, target: "#new_post_type_content_element_type_#{dom_id(ptcet.post_type)}" } ) %>
 <% end %>

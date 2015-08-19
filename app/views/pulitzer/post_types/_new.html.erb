@@ -6,7 +6,7 @@
   <%= f.label :template %>
   <%= f.check_box :template %>
   <%= f.submit %>
-  <%= link_to('Cancel', '#',
+  <%= link_to('Cancel', '#', :class => 'button',
     data: { emptier: true, target: '#new_post_type' } ) %>
 <% end %>
 <%= render 'pulitzer/shared/error_messages', object: post_type %>
