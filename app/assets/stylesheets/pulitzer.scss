@@ -136,3 +136,10 @@ textarea {
 #new_post_type {
   margin: 10px 0;
 }
+
+.upload-group {
+  max-width: 190px;
+  .button {
+    float: right;
+  }
+}
