@@ -1,0 +1,145 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica", "Verdana", "Geneva", sans-serif;
+  margin: 0;
+  padding: 10px;
+}
+
+a {
+  color: #32638a;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+form {
+  width: 100%;
+}
+
+input[type="submit"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #ccc;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  margin: 5px 0;
+  &:hover {
+    background-color: #1a1a1a;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  height: 34px;
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  min-width: 100%;
+  min-height: 100px;
+  padding: 6px 12px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #ccc;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  margin: 5px 0;
+  color: #000;
+  font-size: 12px;
+  &:hover {
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.pulitzer-row {
+  position: relative;
+  float: left;
+  width: 100%;
+  &.padding {
+    padding: 0px 20px;
+  }
+  &.right {
+    float: right;
+    text-align: right;
+  }
+  &.left {
+    text-align: left;
+    float: left;
+  }
+  &.margin-bottom {
+    margin-bottom: 1.4em;
+  }
+  &.list-item {
+    padding-bottom: 1em;
+    border-bottom: 1px solid grey;
+  }
+  .inline-list li{
+    display: inline;
+    margin: 0px 5px;
+  }
+  .list li{
+    list-style-type: none;
+  }
+}
+.pulitzer-span {
+  margin-left: 0;
+  position: relative;
+  float: left;
+  &.right {
+    float: right;
+    text-align: right;
+   }
+  &.left {
+    text-align: left;
+    float: left;
+  }
+  .icon-separator {
+    display: inline-block;
+    width: 5px;
+  }
+}
+.pulitzer-hidden{
+  display: none;
+}
+
+#new_post_type {
+  margin: 10px 0;
+}
+
+.upload-group {
+  max-width: 190px;
+  .button {
+    float: right;
+  }
+}

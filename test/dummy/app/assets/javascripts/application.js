@@ -12,3 +12,6 @@
 //
 //= require jquery
 //= require thin_man
+//= require hooch
+//= require jquery.uploadify
+//= require pulitzer

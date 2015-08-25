@@ -1,1 +1,7 @@
-<%= ajax_link ptcet.label, edit_post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
+<ul class="inline-list">
+  <li><%= ptcet.label %></li>
+  <li><%= ptcet.content_element_type.name %></li>
+  <li>
+    <%= ajax_link "Edit", edit_post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
+  </li>
+</ul>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625192930) do
+ActiveRecord::Schema.define(version: 20150724152813) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -23,10 +23,12 @@ ActiveRecord::Schema.define(version: 20150625192930) do
     t.string   "label"
     t.string   "title"
     t.text     "body"
+    t.string   "image"
     t.integer  "post_id"
-    t.integer  "content_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "post_type_content_element_type_id"
+    t.integer  "content_element_type_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "pulitzer_post_tags", force: :cascade do |t|
@@ -41,14 +43,18 @@ ActiveRecord::Schema.define(version: 20150625192930) do
     t.integer  "post_type_id"
     t.integer  "content_element_type_id"
     t.string   "label"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "height",                  default: 100
+    t.integer  "width",                   default: 100
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "pulitzer_post_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "plural"
+    t.boolean  "template"
   end
 
   create_table "pulitzer_posts", force: :cascade do |t|
@@ -57,7 +63,10 @@ ActiveRecord::Schema.define(version: 20150625192930) do
     t.string   "status",       default: "unpublished"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.string   "slug"
   end
+
+  add_index "pulitzer_posts", ["slug"], name: "index_pulitzer_posts_on_slug", unique: true
 
   create_table "pulitzer_tags", force: :cascade do |t|
     t.string   "name"

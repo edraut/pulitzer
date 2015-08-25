@@ -6,6 +6,7 @@ test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/.sass-cache
+test/dummy/public/uploads
 *.rbc
 capybara-*.html
 .rspec
@@ -41,3 +42,4 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+.DS_Store

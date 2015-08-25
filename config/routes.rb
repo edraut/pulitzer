@@ -1,5 +1,7 @@
 Pulitzer::Engine.routes.draw do
-  resources :posts
+  resources :posts do
+    resources :content_elements
+  end
   resources :content_elements
   resources :post_types
   resources :content_element_types

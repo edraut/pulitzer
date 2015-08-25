@@ -1,0 +1,5 @@
+<%= form_for post, html: ajax_form_hash(dom_target(post)) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.submit %>
+<% end %>

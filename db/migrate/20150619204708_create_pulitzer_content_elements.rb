@@ -4,8 +4,10 @@ class CreatePulitzerContentElements < ActiveRecord::Migration
       t.string :label
       t.string :title
       t.text :body
+      t.string :image
       t.integer :post_id
-      t.integer :content_type_id
+      t.integer :post_type_content_element_type_id
+      t.integer :content_element_type_id
 
       t.timestamps null: false
     end

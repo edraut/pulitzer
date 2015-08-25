@@ -12,6 +12,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def create
     @post_type = Pulitzer::PostType.create(post_type_params)
+    Pulitzer::CreateSingletonPost.new(@post_type, post_params_name).call
     render partial: 'show_wrapper', locals: {post_type: @post_type}
   end
 
@@ -25,18 +26,23 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def update
     @post_type.update_attributes(post_type_params)
+    Pulitzer::CreateSingletonPost.new(@post_type, post_params_name).call
     render partial: 'show', locals: {post_type: @post_type}
   end
 
   def destroy
     @post_type.destroy
-    render nothing: true
+    render head :ok
   end
 
   protected
 
   def post_type_params
     params[:post_type].permit!
+  end
+
+  def post_params_name
+    params[:post_type][:name]
   end
 
   def get_post_type

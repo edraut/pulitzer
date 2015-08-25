@@ -1,0 +1,28 @@
+<%= form_for content_element, html: ajax_form_hash(dom_target(content_element)), multipart: true,
+  data: { server_endpoint: content_element_path(content_element),
+    swf_path: image_url('uploadify.swf') } do |f| %>
+  <%= f.label content_element.label %>
+  <%= f.text_field :title, placeholder: 'Title' %>
+  <% if content_element.image_type? %>
+    <br>
+    <%= image_tag content_element.image_url(:thumb) %>
+    <div class="upload-group">
+      <%= link_to('Cancel', content_element_path(content_element), :class => 'button',
+      data: { ajax_link: true, ajax_target: dom_target(content_element) } ) %>
+      <%= f.file_field :image, placeholder: 'Image', class: 'uploadify-image', id: "content_element_image_#{content_element.id}", data: { 'uploadify_trigger' => true } %>
+    </div>
+  <% elsif content_element.video_type? %>
+    <%= f.text_field :body, placeholder: 'Link' %>
+    <%= submit_tag "Update" %>
+    <%= link_to('Cancel', content_element_path(content_element), :class => 'button',
+      data: { ajax_link: true, ajax_target: dom_target(content_element) } ) %>
+    <br>
+    <%= render_video(content_element) %>
+  <% else %>
+    <%= f.text_area :body, placeholder: 'Body' %>
+    <%= submit_tag "Update" %>
+    <%= link_to('Cancel', content_element_path(content_element), :class => 'button',
+      data: { ajax_link: true, ajax_target: dom_target(content_element) } ) %>
+  <% end %>
+<% end %>
+<%= render 'pulitzer/shared/error_messages', object: content_element %>

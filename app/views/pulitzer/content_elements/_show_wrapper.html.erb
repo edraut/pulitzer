@@ -1,0 +1,7 @@
+<div class="pulitzer-row margin-bottom list-item" id="<%= dom_id(content_element) %>">
+  <% if content_element.empty_body? %>
+    <%= render partial: 'form', locals: { content_element: content_element } %>
+  <% else %>
+    <%= render partial: 'show', locals: { content_element: content_element } %>
+  <% end %>
+</div>
