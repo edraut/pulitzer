@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.0.1)
+    pulitzer (0.0.2)
       carrierwave
       carrierwave-aws
       friendly_id
