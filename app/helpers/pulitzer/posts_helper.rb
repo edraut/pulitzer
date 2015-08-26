@@ -11,9 +11,9 @@ module Pulitzer
 
     def link_back_to_posts(post_type)
       if post_type.plural?
-        link_to 'back to posts', posts_path(post_type_id: post_type.id)
+        link_to 'Back to posts', posts_path(post_type_id: post_type.id)
       else
-        link_to 'back to posts', post_types_path
+        link_to 'Back to posts', post_types_path
       end
     end
 

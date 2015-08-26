@@ -1,10 +1,11 @@
-<h1>Posts</h1>
+<h1><%= @post_type.name.singularize %> Post</h1>
 
-<%= link_to "Back to Post types", post_types_path %>
-<br>
-<%= ajax_link "Add a new #{@post_type.name}", new_post_path(post_type_id: params[:post_type_id]), {}, '#new_post' %>
-<div id="new_post"></div>
-
+<div class="pulitzer-row margin-bottom list-item">
+  <%= link_to "Back to Post types", post_types_path %>
+  <br>
+  <%= ajax_link "Add a new #{@post_type.name.singularize} Post", new_post_path(post_type_id: params[:post_type_id]), {}, '#new_post' %>
+  <div id="new_post"></div>
+</div>
 
 <div id="posts_container">
   <% @posts.each do |post| %>
