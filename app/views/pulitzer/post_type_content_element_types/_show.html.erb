@@ -4,4 +4,7 @@
   <li>
     <%= ajax_link "Edit", edit_post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
   </li>
+  <li>
+    <%= ajax_delete 'Delete', post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
+  </li>
 </ul>
