@@ -12,6 +12,11 @@
         <%= post_type.name %>
       <% end %>
     </li>
+    <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+      <li>
+        <%= ajax_delete 'Delete', post_type_path(post_type), {}, dom_target(post_type) %>
+      </li>
+    <% end %>
   </ul>
 
   <div <%= collapsed("post_type_content_element_types_#{dom_id(post_type)}") %> style='display:none'>
