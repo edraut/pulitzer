@@ -1,7 +1,7 @@
 <h1>Content elements for <%= @post.title %></h1>
 
 <div class="pulitzer-row margin-bottom list-item">
-  <%= link_back_to_posts(@post.post_type) %>
+  <%= link_back_to_posts(@post.post_type, "Back to #{@post.post_type.name.singularize} Posts", 'Back to post types') %>
 </div>
 
 <% @content_elements.each do |content_element| %>

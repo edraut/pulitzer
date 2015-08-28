@@ -1,7 +1,7 @@
 <h1><%= @post_type.name.singularize %> Post</h1>
 
 <div class="pulitzer-row margin-bottom list-item">
-  <%= link_to "Back to Post types", post_types_path %>
+  <%= link_to "Back to post types", post_types_path %>
   <br>
   <%= ajax_link "Add a new #{@post_type.name.singularize} Post", new_post_path(post_type_id: params[:post_type_id]), {}, '#new_post' %>
   <div id="new_post"></div>
