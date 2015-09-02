@@ -30,5 +30,13 @@ module Pulitzer
         element.body
       end
     end
+
+    def humanize_class_name(klass)
+      underscore_class_name(klass).humanize
+    end
+
+    def underscore_class_name(klass)
+      klass.delete(":").underscore
+    end
   end
 end
