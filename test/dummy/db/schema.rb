@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901153531) do
+ActiveRecord::Schema.define(version: 20150902213853) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150901153531) do
   create_table "pulitzer_post_tags", force: :cascade do |t|
     t.integer  "post_id"
     t.integer  "label_id"
-    t.integer  "label_type"
+    t.string   "label_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
