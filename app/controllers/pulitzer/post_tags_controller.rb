@@ -1,5 +1,5 @@
 class Pulitzer::PostTagsController < Pulitzer::ApplicationController
-  before_filter :get_post, only: [:new, :create]
+  before_filter :get_post, only: [:new, :create, :destroy]
 
   def new
     @tag_model = params[:tag_model]
@@ -10,6 +10,11 @@ class Pulitzer::PostTagsController < Pulitzer::ApplicationController
   def create
     @tag = @post.post_tags.create post_tag_params
     render partial: 'show', locals: { post: @post, tag_model: @tag.label_type }
+  end
+
+  def destroy
+    @post_tag = @post.post_tags.find params[:id]
+    @post_tag.destroy
   end
 
   protected
