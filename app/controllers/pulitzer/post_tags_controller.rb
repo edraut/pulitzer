@@ -8,13 +8,14 @@ class Pulitzer::PostTagsController < Pulitzer::ApplicationController
   end
 
   def create
-    @tag = @post.post_tags.create post_tag_params
-    render partial: 'show', locals: { post: @post, tag_model: @tag.label_type }
+    @post_tag = Pulitzer::CreatePostTag.new(@post, params).call
+    render partial: 'show', locals: { post: @post, tag_model: @post_tag.label_type }
   end
 
   def destroy
     @post_tag = @post.post_tags.find params[:id]
     @post_tag.destroy
+    render nothing: true
   end
 
   protected

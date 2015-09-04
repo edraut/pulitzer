@@ -1,8 +1,8 @@
 <h3><%= humanize_class_name(tag_model).pluralize %></h3>
 <% post.post_tags.where(label_type: tag_model).each do |post_tag| %>
-  <ul class='inline-list'>
+  <ul class='inline-list' id="<%= dom_id(post_tag) %>">
     <li><%= post_tag.label.name %></li>
-    <li><%= ajax_delete 'delete', post_post_tag_path(post, post_tag), {}, "#new_tag_#{underscore_class_name(tag_model)}" %></li>
+    <li><%= ajax_delete 'delete', post_post_tag_path(post, post_tag), {}, dom_target(post_tag) %></li>
   </ul>
 <% end %>
 
