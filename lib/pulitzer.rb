@@ -14,7 +14,7 @@ module Pulitzer
     @@base_controller         = base_controller_name.constantize
     @@metadata_closure        = options[:metadata_authorization]
     @@authentication_closure  = options[:authentication]
-    @@tagging_models          = options[:tagging_models]
+    @@tagging_models          = options[:tagging_models] || []
     @@layout                  = options[:layout] || 'application'
   end
 
