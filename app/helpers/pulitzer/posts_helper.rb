@@ -30,5 +30,21 @@ module Pulitzer
         element.body
       end
     end
+
+    def humanize_class_name(klass)
+      underscore_class_name(klass).humanize
+    end
+
+    def underscore_class_name(klass)
+      klass.delete(":").underscore
+    end
+
+    def select2_html_options(tag_model)
+      if tag_model == "Pulitzer::Tag"
+        { class: 'seletct2-pulitzer-tags', data: { select2_trigger: true } }
+      else
+        { }
+      end
+    end
   end
 end

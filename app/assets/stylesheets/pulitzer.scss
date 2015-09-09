@@ -44,7 +44,7 @@ input[type="submit"] {
   }
 }
 
-input[type="text"] {
+input[type="text"], select {
   display: block;
   width: 100%;
   padding: 6px 12px;
@@ -99,6 +99,9 @@ textarea {
   }
   &.margin-bottom {
     margin-bottom: 1.4em;
+  }
+  &.margin-left {
+    margin-left: 1.4em;
   }
   &.list-item {
     padding-bottom: 1em;

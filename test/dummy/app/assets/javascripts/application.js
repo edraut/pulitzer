@@ -14,3 +14,4 @@
 //= require thin_man
 //= require hooch
 //= require pulitzer
+//= require select2
