@@ -3,19 +3,7 @@
     swf_path: image_url('uploadify.swf') } do |f| %>
   <%= f.label content_element.label %>
   <%= f.text_field :title, placeholder: 'Title' %>
-  <% if content_element.image_type? %>
-    <br>
-    <%= image_tag content_element.image_url(:thumb) %>
-    <div class="upload-group">
-      <%= f.file_field :image, placeholder: 'Image' %>
-    </div>
-  <% elsif content_element.video_type? %>
-    <%= f.text_field :body, placeholder: 'Link' %>
-    <br>
-    <%= render_video(content_element) %>
-  <% else %>
-    <%= f.text_area :body, placeholder: 'Body' %>
-  <% end %>
+  <%= content_element_input(content_element, f) %>
   <%= submit_tag "Update" %>
   <%= link_to('Cancel', content_element_path(content_element), :class => 'button',
     data: { ajax_link: true, ajax_target: dom_target(content_element) } ) %>
