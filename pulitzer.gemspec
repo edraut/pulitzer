@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "carrierwave-aws"
   s.add_dependency "mini_magick"
   s.add_dependency "friendly_id"
+  s.add_dependency "select2-rails", "~> 4.0.0"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "minitest"

@@ -3,6 +3,7 @@ require 'thin_man'
 require 'hooch'
 require 'carrierwave'
 require 'friendly_id'
+require 'select2-rails'
 require 'pulitzer/engine'
 
 module Pulitzer
