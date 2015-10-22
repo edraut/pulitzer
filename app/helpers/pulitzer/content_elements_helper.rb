@@ -21,8 +21,10 @@ module Pulitzer
     end
 
     def render_text_input(content_element, f)
-      html = render partial: "pulitzer/text_editors/#{content_element.text_editor.name.parameterize('_')}"
-      html << f.text_area(:body, placeholder: 'Body', data: {"rich-text-editor" => true})
+      text_editor_name = content_element.text_editor.normalized_name
+      html = render partial: "pulitzer/text_editors/#{text_editor_name}"
+      data_rich_text = { "rich-text-editor" => true } unless text_editor_name == "none"
+      html << f.text_area(:body, placeholder: 'Body', data: (data_rich_text))
       html.html_safe
     end
   end

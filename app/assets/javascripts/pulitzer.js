@@ -16,7 +16,6 @@ var ToggleContentElementAttr = Class.extend({
   toggleAttr: function(){
     var self = this;
     var selected = self.$form.find('[data-toggle-content-element-attr] option:selected').text().toLowerCase();
-    console.log(selected);
     self.$form.find("[data-content-element-attr]").hide();
     self.$form.find("[data-content-element-attr-" + selected + "]").show();
   }
