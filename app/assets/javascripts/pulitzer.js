@@ -7,17 +7,18 @@ var Select2Trigger = Class.extend({
 var ToggleContentElementAttr = Class.extend({
   init: function($list){
     var self = this;
-    self.form = $list.parents("form");
-    selected = $list.find(':selected').text();
-    self.toggleAttr(selected);
+    self.$form = $list.parents("form");
+    self.toggleAttr();
     $(document).on('change', $list, function(){
-      self.toggleAttr(selected);
+      self.toggleAttr();
     });
   },
-  toggleAttr: function(selected){
+  toggleAttr: function(){
     var self = this;
-    var type = selected.toLowerCase();
-    self.form.find("[data-content-element-attr-" + type + "]").toggle();
+    var selected = self.$form.find('[data-toggle-content-element-attr] option:selected').text().toLowerCase();
+    console.log(selected);
+    self.$form.find("[data-content-element-attr]").hide();
+    self.$form.find("[data-content-element-attr-" + selected + "]").show();
   }
 });
 

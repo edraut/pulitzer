@@ -1,0 +1,16 @@
+<%= f.label :label %>
+<%= f.text_field :label %>
+<%= f.label :content_element_type_id, "Type" %>
+<%= f.collection_select :content_element_type_id, Pulitzer::ContentElementType.all, :id, :name, {},
+{ data: { "toggle-content-element-attr" => true }} %>
+<%= f.hidden_field :post_type_id %>
+<span class= "pulitzer-hidden" data-content-element-attr data-content-element-attr-image>
+  <%= f.label :height %>
+  <%= f.text_field :height, placeholder: 'Height' %>
+  <%= f.label :width %>
+  <%= f.text_field :width, placeholder: 'Width' %>
+</span>
+<span class="pulitzer-hidden" data-content-element-attr data-content-element-attr-text>
+  <%= f.label :text_editor_id, "Text editor" %>
+  <%= f.collection_select :text_editor_id, Pulitzer::TextEditor.all, :id, :name %>
+</span>
