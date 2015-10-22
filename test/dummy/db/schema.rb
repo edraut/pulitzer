@@ -11,13 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902213853) do
+ActiveRecord::Schema.define(version: 20151021230344) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "text_editor_id"
   end
+
+  add_index "pulitzer_content_element_types", ["text_editor_id"], name: "index_pulitzer_content_element_types_on_text_editor_id"
 
   create_table "pulitzer_content_elements", force: :cascade do |t|
     t.string   "label"
@@ -47,7 +50,10 @@ ActiveRecord::Schema.define(version: 20150902213853) do
     t.integer  "width",                   default: 100
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.integer  "text_editor_id"
   end
+
+  add_index "pulitzer_post_type_content_element_types", ["text_editor_id"], name: "pulitzer_post_type_ce_text_editor_id"
 
   create_table "pulitzer_post_types", force: :cascade do |t|
     t.string   "name"
@@ -69,6 +75,18 @@ ActiveRecord::Schema.define(version: 20150902213853) do
   add_index "pulitzer_posts", ["slug"], name: "index_pulitzer_posts_on_slug", unique: true
 
   create_table "pulitzer_tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pulitzer_text_editors", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pultizer_text_editors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
