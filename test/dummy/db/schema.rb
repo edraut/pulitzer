@@ -11,16 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021230344) do
+ActiveRecord::Schema.define(version: 20151023000921) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "text_editor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "pulitzer_content_element_types", ["text_editor_id"], name: "index_pulitzer_content_element_types_on_text_editor_id"
 
   create_table "pulitzer_content_elements", force: :cascade do |t|
     t.string   "label"
@@ -81,12 +78,6 @@ ActiveRecord::Schema.define(version: 20151021230344) do
   end
 
   create_table "pulitzer_text_editors", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "pultizer_text_editors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
