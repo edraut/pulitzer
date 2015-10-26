@@ -27,7 +27,7 @@ module Pulitzer
       elsif element.video_type?
         render_video(element)
       else
-        element.body.html_safe
+        element.body.html_safe if element.body
       end
     end
 

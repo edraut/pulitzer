@@ -23,8 +23,10 @@ var ToggleContentElementAttr = Class.extend({
 
 var RichTextEditor = Class.extend({
   init: function($textarea){
+    self.$form = $textarea.parents("form");
+    self.$toolbar = self.$form.find('[data-pulitzer-toolbar]');
     self.editor = new wysihtml5.Editor($textarea[0], {
-      toolbar: 'toolbar',
+      toolbar: self.$toolbar[0],
       parserRules:  wysihtml5ParserRules
     });
   }

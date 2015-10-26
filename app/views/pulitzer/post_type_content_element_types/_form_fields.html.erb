@@ -11,6 +11,6 @@
   <%= f.text_field :width, placeholder: 'Width' %>
 </span>
 <span class="pulitzer-hidden" data-content-element-attr data-content-element-attr-text>
-  <%= f.label :text_editor_id, "Text editor" %>
-  <%= f.collection_select :text_editor_id, Pulitzer::TextEditor.all, :id, :name %>
+  <%= f.label :text_editor, "Text editor" %>
+  <%= f.select :text_editor, Pulitzer.text_editor_toolbars.map { |t| t[:name] } %>
 </span>

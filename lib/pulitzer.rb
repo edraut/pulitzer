@@ -8,7 +8,7 @@ require 'pulitzer/engine'
 
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure, :authentication_closure,
-  :tagging_models, :layout
+  :tagging_models, :layout, :text_editor_toolbars
 
   def self.config(options)
     base_controller_name = options[:base_controller_name]
@@ -17,6 +17,9 @@ module Pulitzer
     @@authentication_closure  = options[:authentication]
     @@tagging_models          = options[:tagging_models] || []
     @@layout                  = options[:layout] || 'application'
+    default_text_editor       = [{ name: 'None', template: 'pulitzer/text_editors/none'}]
+    user_text_editors         = options[:text_editor_toolbars].flatten || nil
+    @@text_editor_toolbars    = default_text_editor.push(*user_text_editors).compact
   end
 
   def self.skip_metadata_auth?
