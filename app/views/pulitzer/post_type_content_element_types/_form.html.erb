@@ -1,5 +1,5 @@
 <%= form_for ptcet, html: ajax_form_hash(dom_target(ptcet)) do |f| %>
-  <%= render partial: 'form_fields', locals: { f: f } %>
+  <%= render partial: 'form_fields', locals: { f: f, ptcet: ptcet } %>
   <%= f.submit "Update" %>
   <%= link_to('Cancel', post_type_content_element_type_path(ptcet), :class => 'button',
     data: { ajax_link: true, ajax_target: dom_target(ptcet) } ) %>
