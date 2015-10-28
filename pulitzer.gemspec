@@ -17,20 +17,21 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.2"
-  s.add_dependency "hooch"
-  s.add_dependency "sass-rails"
-  s.add_dependency "thin_man"
-  s.add_dependency "simple_form"
-  s.add_dependency "kaminari"
-  s.add_dependency "carrierwave"
-  s.add_dependency "carrierwave-aws"
-  s.add_dependency "mini_magick"
-  s.add_dependency "friendly_id"
+  s.add_dependency 'rails', '~> 4.2'
+  s.add_dependency 'hooch', '~> 0.3.0'
+  s.add_dependency 'sass-rails', '~> 4.0'
+  s.add_dependency 'thin_man', '~> 0.11.6'
+  s.add_dependency 'simple_form', '~> 3.2', '>= 3.2.0'
+  s.add_dependency 'kaminari', '~> 0.16.0'
+  s.add_dependency 'carrierwave', '~> 0.10.0'
+  s.add_dependency 'carrierwave-aws', '~> 0.4.1'
+  s.add_dependency 'mini_magick', '~> 4.3', '>= 4.3.0'
+  s.add_dependency 'friendly_id', '~> 5.1', '>= 5.1.0'
+  s.add_dependency 'select2-rails', '~> 4.0', '>= 4.0.0'
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "minitest"
-  s.add_development_dependency "byebug"
-  s.add_development_dependency "cancancan"
-  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency 'sqlite3', '~> 1.3'
+  s.add_development_dependency 'minitest', '~> 5.1'
+  s.add_development_dependency 'byebug', '~> 6.0'
+  s.add_development_dependency 'cancancan', '~> 1.10'
+  s.add_development_dependency 'rspec-rails', '~> 3.2', '>= 3.2.0'
 end

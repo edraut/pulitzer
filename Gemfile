@@ -13,4 +13,4 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'select2-rails', git: 'https://github.com/nilbus/select2-rails.git', branch: 'v4'
+gem 'wysihtml-rails', '~> 0.5.0.beta13'
