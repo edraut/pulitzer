@@ -1,9 +1,8 @@
 <%= form_for content_element, html: ajax_form_hash(dom_target(content_element)), multipart: true,
-  data: { server_endpoint: content_element_path(content_element),
-    swf_path: image_url('uploadify.swf') } do |f| %>
+  data: { server_endpoint: content_element_path(content_element) } do |f| %>
   <%= f.label content_element.label %>
   <%= f.text_field :title, placeholder: 'Title' %>
-  <%= content_element_input(content_element, f) %>
+  <%= render partial: "#{content_element.type}_fields", locals: { f: f, content_element: content_element } %>
   <%= submit_tag "Update" %>
   <%= link_to('Cancel', content_element_path(content_element), :class => 'button',
     data: { ajax_link: true, ajax_target: dom_target(content_element) } ) %>
