@@ -1,7 +1,7 @@
 <%= form_for post_tag, url: post_post_tags_path(post), html: ajax_form_hash("#show_#{underscore_class_name(tag_model)}") do |f| %>
   <%= f.label :name %>
   <%= f.select :label_id, options_from_collection_for_select(tag_model.constantize.all, :id, :name), {}, select2_html_options(tag_model) %>
-  <%= f.hidden_field :post_id, value: post.id %>
+  <%= f.hidden_field :version_id, value: post.active_version.id %>
   <%= f.hidden_field :label_type, value: tag_model %>
   <%= f.submit "Create" %>
   <%= link_to('Cancel', '#', class: 'button',

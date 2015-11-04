@@ -4,7 +4,7 @@ module Pulitzer
     has_many :versions
     belongs_to :post_type
     delegate :post_type_content_element_types, to: :post_type
-    delegate :content_elements, to: :active_version
+    delegate :content_elements, :post_tags, to: :active_version
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_version
 
