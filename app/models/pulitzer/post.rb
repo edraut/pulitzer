@@ -4,7 +4,7 @@ module Pulitzer
     has_many :versions
     belongs_to :post_type
     delegate :post_type_content_element_types, to: :post_type
-    delegate :content_elements, :post_tags, to: :active_version
+    delegate :content_elements, :post_tags, to: :preview_version
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_version
 
@@ -19,17 +19,17 @@ module Pulitzer
     end
 
     def active_version
-    	versions.find_by(status: Pulitzer::Version.statuses[:active])
+    	versions.active
     end
 
-    def activate(version)
-    	self.active_version.archived!
-    	version.active!
+    def preview_version
+    	versions.preview
     end
 
   private
     def create_version
-      self.versions.create status: :active
+      self.active_version.update(status: :archived) if self.active_version.any?
+      self.versions.create status: :preview
     end
 
   end
