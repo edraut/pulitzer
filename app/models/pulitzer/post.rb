@@ -19,16 +19,15 @@ module Pulitzer
     end
 
     def active_version
-    	versions.active
+    	versions.find_by(status: Pulitzer::Version.statuses[:active])
     end
 
     def preview_version
-    	versions.preview
+    	versions.find_by(status: Pulitzer::Version.statuses[:preview])
     end
 
-  private
     def create_version
-      self.active_version.update(status: :archived) if self.active_version.any?
+      self.active_version.update(status: :archived) unless self.active_version.nil?
       self.versions.create status: :preview
     end
 

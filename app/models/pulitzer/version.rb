@@ -5,7 +5,7 @@ module Pulitzer
     has_many :post_tags, dependent: :destroy
     belongs_to :post
 
-    scope :active,  -> { find_by(status: Pulitzer::Version.statuses[:active]) }
-    scope :preview, -> { find_by(status: Pulitzer::Version.statuses[:preview]) }
+    # scope :active,  -> { find_by(status: Pulitzer::Version.statuses[:active]) }
+    # scope :preview, -> { find_by(status: Pulitzer::Version.statuses[:preview]) }
   end
 end
