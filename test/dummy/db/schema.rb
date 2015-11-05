@@ -76,10 +76,10 @@ ActiveRecord::Schema.define(version: 20151029221444) do
   end
 
   create_table "pulitzer_versions", force: :cascade do |t|
-    t.integer  "status"
+    t.integer  "status",     default: 0
     t.integer  "post_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "search_locations", force: :cascade do |t|
