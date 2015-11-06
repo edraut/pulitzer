@@ -27,7 +27,7 @@ module Pulitzer
     end
 
     def create_version
-      self.active_version.update(status: :archived) unless self.active_version.nil?
+      self.active_version.update(status: :archived) if self.active_version
       self.versions.create status: :preview
     end
 

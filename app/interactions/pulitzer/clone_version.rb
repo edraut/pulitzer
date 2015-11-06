@@ -1,10 +1,9 @@
 class Pulitzer::CloneVersion
   attr_accessor :version, :action, :new_version
 
-  def initialize(version, action)
+  def initialize(version, new_version)
     self.version      = version
-    self.action       = action
-    self.new_version  = version.post.create_version
+    self.new_version  = new_version
   end
 
   def call
@@ -14,7 +13,6 @@ class Pulitzer::CloneVersion
     version.post_tags.each do |pt|
       new_version.post_tags << pt.clone
     end
-    version.update status: action
   end
 
 end
