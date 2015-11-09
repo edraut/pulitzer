@@ -3,7 +3,7 @@ class Pulitzer::PostTagsController < Pulitzer::ApplicationController
 
   def new
     @tag_model = params[:tag_model]
-    @post_tag = @post.post_tags.new
+    @post_tag = @post.preview_version.post_tags.new
     render partial: 'new', locals: { post: @post, tag_model: @tag_model, post_tag: @post_tag }
   end
 
@@ -13,7 +13,7 @@ class Pulitzer::PostTagsController < Pulitzer::ApplicationController
   end
 
   def destroy
-    @post_tag = @post.post_tags.find params[:id]
+    @post_tag = @post.preview_version.post_tags.find params[:id]
     @post_tag.destroy
     render nothing: true
   end
