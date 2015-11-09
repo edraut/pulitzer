@@ -3,7 +3,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
 
   def index
     @post = Pulitzer::Post.find(params[:post_id])
-    @content_elements = @post.content_elements
+    @content_elements = @post.preview_version.content_elements
   end
 
   def show

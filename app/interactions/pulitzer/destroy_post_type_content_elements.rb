@@ -8,7 +8,7 @@ class Pulitzer::DestroyPostTypeContentElements
 
   def call
     post_type.posts.each do |post|
-      post.content_elements.where(label: ptcet.label).each do |ce|
+      post.preview_version.content_elements.where(label: ptcet.label).each do |ce|
         ce.destroy
       end
     end
