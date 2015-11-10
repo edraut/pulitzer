@@ -1,4 +1,12 @@
-<%= form_for version do |f| %>
-  <%= f.submit "Activate", value: 'active' %>
-  <%= f.submit "Abandon", value: 'abandoned' %>
-<% end %>
+<div class="pulitzer-row">
+      <%= form_for version, html: { class: 'pulitzer-form-left' } do |f| %>
+        <%= f.submit "Activate" %>
+        <%= hidden_field_tag :status, :active %>
+      <% end %>
+
+      <%= form_for version,  html: { class: 'pulitzer-form-left' } do |f| %>
+        <%= f.submit "Abandon" %>
+        <%= hidden_field_tag :status, :abandoned %>
+      <% end %>
+
+</div>
