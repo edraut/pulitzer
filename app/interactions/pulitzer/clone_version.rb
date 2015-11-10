@@ -8,11 +8,14 @@ class Pulitzer::CloneVersion
 
   def call
     version.content_elements.each do |ce|
-      new_version.content_elements << ce.clone
+      element = ce.dup
+      element.version_id = nil
+      new_version.content_elements << element
     end
     version.post_tags.each do |pt|
-      new_version.post_tags << pt.clone
+      post_tag = pt.dup
+      post_tag.version_id = nil
+      new_version.post_tags << post_tag
     end
   end
-
 end
