@@ -6,7 +6,7 @@ module Pulitzer
     delegate :post_type_content_element_types, to: :post_type
     delegate :content_elements, :post_tags, to: :active_version, allow_nil: true
     friendly_id :title, use: [:slugged, :finders]
-    after_create :create_version
+    after_create :create_preview_version
 
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
 
@@ -19,16 +19,15 @@ module Pulitzer
     end
 
     def active_version
-    	versions.find_by(status: Pulitzer::Version.statuses[:active])
+    	versions.active.last
     end
 
     def preview_version
-    	versions.find_by(status: Pulitzer::Version.statuses[:preview])
+    	versions.preview.last
     end
 
-    def create_version
-      self.active_version.update(status: :archived) if self.active_version
-      self.versions.create status: :preview
+    def create_preview_version
+      versions.create(status: :preview)
     end
 
   end
