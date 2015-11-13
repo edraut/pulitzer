@@ -2,9 +2,11 @@
   <ul class="inline-list">
     <li><%= post_type.name %></li>
     <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
-    <li <%= expander("post_type_content_element_types_#{dom_id(post_type)}") %>>
-      <%= link_to "Template", '#', class: 'toggle-post-type-content-elements', data: { post_types: post_type.id } %>
-    </li>
+    <% if post_type.template? %>
+      <li <%= expander("post_type_content_element_types_#{dom_id(post_type)}") %>>
+        <%= link_to "Template", '#', class: 'toggle-post-type-content-elements', data: { post_types: post_type.id } %>
+      </li>
+    <% end %>
     <li>
       <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
         <%= ajax_link "Details", edit_post_type_path(post_type), {}, dom_target(post_type) %>

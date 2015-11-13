@@ -4,6 +4,13 @@
   <%= link_back_to_posts(@post.post_type, "Back to #{@post.post_type.name.singularize} Posts", 'Back to post types') %>
 </div>
 
+<% unless @post.post_type.template? %>
+  <div class="pulitzer-row margin-bottom list-item">
+    <%= ajax_link "add a new content element for #{@post.title}", new_content_element_path(version_id: @post.preview_version), {}, "#new_version_content_element_#{dom_id(@post.preview_version)}" %>
+    <div id="new_version_content_element_<%= dom_id(@post.preview_version) %>"></div>
+  </div>
+<% end %>
+
 <div class="pulitzer-row margin-bottom list-item">
   <h2>Tags</h2>
 
@@ -13,9 +20,11 @@
 
 </div>
 
-<% @content_elements.each do |content_element| %>
-  <%= render partial: 'show_wrapper', locals: {content_element: content_element } %>
-<% end %>
+<div id="version_content_element_container_<%= dom_id(@post.preview_version) %>">
+  <% @content_elements.each do |content_element| %>
+    <%= render partial: 'show_wrapper', locals: {content_element: content_element } %>
+  <% end %>
+</div>
 
 <div class="pulitzer-row">
   <%= render partial: 'pulitzer/versions/form', locals: { version: @post.preview_version } %>
