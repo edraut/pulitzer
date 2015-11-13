@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'sqlite3', '~> 1.3'
   s.add_development_dependency 'minitest', '~> 5.1'
-  s.add_development_dependency 'byebug', '~> 6.0'
+  s.add_development_dependency 'byebug', '~> 8.0'
   s.add_development_dependency 'cancancan', '~> 1.10'
   s.add_development_dependency 'rspec-rails', '~> 3.2', '>= 3.2.0'
 end

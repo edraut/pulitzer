@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026204453) do
+ActiveRecord::Schema.define(version: 20151029221444) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20151026204453) do
     t.string   "title"
     t.text     "body"
     t.string   "image"
-    t.integer  "post_id"
+    t.integer  "version_id"
     t.integer  "post_type_content_element_type_id"
     t.integer  "content_element_type_id"
     t.datetime "created_at",                        null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20151026204453) do
   end
 
   create_table "pulitzer_post_tags", force: :cascade do |t|
-    t.integer  "post_id"
+    t.integer  "version_id"
     t.integer  "label_id"
     t.string   "label_type"
     t.datetime "created_at", null: false
@@ -73,6 +73,13 @@ ActiveRecord::Schema.define(version: 20151026204453) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pulitzer_versions", force: :cascade do |t|
+    t.integer  "status",     default: 0
+    t.integer  "post_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "search_locations", force: :cascade do |t|

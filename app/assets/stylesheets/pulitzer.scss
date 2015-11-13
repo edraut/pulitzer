@@ -114,6 +114,10 @@ textarea {
   .list li{
     list-style-type: none;
   }
+  .preview-link{
+    float: left;
+    margin-top: 8px;
+  }
 }
 .pulitzer-span {
   margin-left: 0;
@@ -146,6 +150,12 @@ textarea {
     float: right;
   }
 }
+
+.pulitzer-form-left {
+  float:left !important;
+  width: 80px;
+}
+
 .wysihtml5-sandbox {
-  width: 100%!important;
+  width: 100% !important;
 }

@@ -12,7 +12,7 @@ class Pulitzer::CreatePostTag
       tag = Pulitzer::Tag.where(name: label_id).first_or_create
       request_params[:post_tag][:label_id] = tag.id
     end
-    post.post_tags.create post_tag_params
+    post.preview_version.post_tags.create post_tag_params
   end
 
   def post_tag_params
