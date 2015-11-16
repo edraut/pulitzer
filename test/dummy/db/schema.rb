@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113220908) do
+ActiveRecord::Schema.define(version: 20151116162913) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(version: 20151113220908) do
 
   create_table "pulitzer_post_types", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.boolean  "plural"
-    t.boolean  "template"
+    t.integer  "kind",       default: 0
   end
 
   create_table "pulitzer_posts", force: :cascade do |t|
