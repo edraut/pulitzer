@@ -2,7 +2,7 @@
   <ul class="inline-list">
     <li><%= post_type.name %></li>
     <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
-    <% if post_type.template? %>
+    <% if post_type.allow_template? %>
       <li <%= expander("post_type_content_element_types_#{dom_id(post_type)}") %>>
         <%= link_to "Template", '#', class: 'toggle-post-type-content-elements', data: { post_types: post_type.id } %>
       </li>

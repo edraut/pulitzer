@@ -4,7 +4,7 @@
   <%= link_back_to_posts(@post.post_type, "Back to #{@post.post_type.name.singularize} Posts", 'Back to post types') %>
 </div>
 
-<% unless @post.post_type.template? %>
+<% if @post.post_type.allow_free_form? %>
   <div class="pulitzer-row margin-bottom list-item">
     <%= ajax_link "add a new content element for #{@post.title}", new_content_element_path(version_id: @post.preview_version), {}, "#new_version_content_element_#{dom_id(@post.preview_version)}" %>
     <div id="new_version_content_element_<%= dom_id(@post.preview_version) %>"></div>
