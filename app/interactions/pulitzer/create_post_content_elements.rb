@@ -1,4 +1,4 @@
-class Pulitzer::SetupPostElements
+class Pulitzer::CreatePostContentElements
   attr_accessor :post
 
   def initialize(post)

@@ -13,7 +13,7 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
 
   def create
     @post = Pulitzer::Post.create(post_params)
-    Pulitzer::SetupPostElements.new(@post).call if @post
+    Pulitzer::CreatePostContentElements.new(@post).call if @post
     render partial: 'show_wrapper', locals: { post: @post }
   end
 

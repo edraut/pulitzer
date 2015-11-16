@@ -8,7 +8,7 @@ class Pulitzer::VersionsController < Pulitzer::ApplicationController
     if @active_version
       Pulitzer::CloneVersion.new(@active_version, new_version).call
     else
-      Pulitzer::SetupPostElements.new(@post).call
+      Pulitzer::CreatePostContentElements.new(@post).call
     end
     redirect_to post_content_elements_path(@post), notice: "Post #{@status}"
   end

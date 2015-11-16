@@ -9,7 +9,7 @@ class Pulitzer::CreateSingletonPost
   def call
     if post_type.singular? && !post_type.singleton_post?
       singleton_post = post_type.posts.create(title: title)
-      Pulitzer::SetupPostElements.new(singleton_post).call
+      Pulitzer::CreatePostContentElements.new(singleton_post).call
     end
   end
 end
