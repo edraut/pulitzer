@@ -18,7 +18,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   def create
     @version         = Pulitzer::Version.find content_element_params[:version_id]
     @content_element = @version.content_elements.create content_element_params
-    render partial: 'show_wrapper', locals: { content_element: @content_element, just_created: true }
+    render partial: 'show_wrapper', locals: { content_element: @content_element }
   end
 
   def show
