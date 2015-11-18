@@ -1,4 +1,9 @@
 <div class="pulitzer-row">
+  <div class="pulitzer-span right">
+    <%= render partial: '/pulitzer/shared/drag_handle' %>
+  </div>
+</div>
+<div class="pulitzer-row">
   <ul class="list">
     <% if content_element.free_form? %>
       <li><h2><%= content_element.label %></h2></li>
@@ -8,6 +13,3 @@
   </ul>
 </div>
 
-<div class="ih-span right">
-  <%= render partial: '/pulitzer/shared/drag_handle' %>
-</div>
