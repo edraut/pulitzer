@@ -12,6 +12,7 @@ module Pulitzer
     before_save :handle_sort_order
 
     default_scope { order(id: :asc) }
+    scope :free_form, -> { unscoped.where(kind: kinds[:free_form]).order(sort_order: :asc) }
 
     def video_link
       if video_type? && !body.nil?

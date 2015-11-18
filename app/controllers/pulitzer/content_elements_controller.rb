@@ -37,7 +37,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   def update_all
     content_elements = Pulitzer::ContentElement.find params[:content_element]
     content_elements.each do |ce|
-      new_sort_order = params[:heard_about_source].index(ce.id.to_s)
+      new_sort_order = params[:content_element].index(ce.id.to_s)
       ce.update_attribute(:sort_order, new_sort_order)
     end
     render nothing: true
