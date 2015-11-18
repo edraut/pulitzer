@@ -18,7 +18,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   def create
     @version         = Pulitzer::Version.find content_element_params[:version_id]
     @content_element = @version.content_elements.create content_element_params
-    render partial: 'show_wrapper', locals: { content_element: @content_element }
+    render partial: 'show_wrapper', locals: { content_element: @content_element, just_created: true }
   end
 
   def show
@@ -32,6 +32,15 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   def update
     @content_element.update content_element_params
     render partial: 'show', locals: { content_element: @content_element }
+  end
+
+  def update_all
+    content_elements = Pulitzer::ContentElement.find params[:content_element]
+    content_elements.each do |ce|
+      new_sort_order = params[:heard_about_source].index(ce.id.to_s)
+      ce.update_attribute(:sort_order, new_sort_order)
+    end
+    render nothing: true
   end
 
   protected
