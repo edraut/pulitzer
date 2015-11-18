@@ -8,5 +8,13 @@ module Pulitzer
     def content_element(label)
       self.content_elements.find_by(label: label)
     end
+
+    def template_content_elements
+      content_elements.template
+    end
+
+    def free_form_content_elements
+      content_elements.free_form
+    end
   end
 end

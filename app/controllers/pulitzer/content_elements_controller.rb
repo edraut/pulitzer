@@ -2,10 +2,11 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   before_filter :set_content_element, only: [:show, :edit, :update]
 
   def index
-    @post             = Pulitzer::Post.find(params[:post_id])
-    @content_elements = @post.preview_version.content_elements
-    route             = "pulitzer_preview_#{@post.title.parameterize('_')}_path"
-    @preview_path     = main_app.public_send(route) if main_app.respond_to?(route)
+    @post                       = Pulitzer::Post.find(params[:post_id])
+    @content_elements           = @post.preview_version.template_content_elements
+    @free_form_content_elements = @post.preview_version.free_form_content_elements
+    route                       = "pulitzer_preview_#{@post.title.parameterize('_')}_path"
+    @preview_path               = main_app.public_send(route) if main_app.respond_to?(route)
   end
 
   def new
