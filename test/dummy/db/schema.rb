@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116162913) do
+ActiveRecord::Schema.define(version: 20151118032759) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20151116162913) do
     t.integer  "height",                            default: 100
     t.integer  "width",                             default: 100
     t.integer  "sort_order"
+    t.integer  "kind",                              default: 0
   end
 
   create_table "pulitzer_post_tags", force: :cascade do |t|
