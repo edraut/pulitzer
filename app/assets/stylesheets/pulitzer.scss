@@ -159,3 +159,17 @@ textarea {
 .wysihtml5-sandbox {
   width: 100% !important;
 }
+
+.drag_handle {
+	margin-top: 6px;
+	width: 12px;
+	height: 9px;
+	.drag_handle_indent {
+		width: 100%;
+		height: 2px;
+		margin-bottom: 1px;
+		background-color: #e6e6e6;
+		border-top: 1px solid #636564;
+		border-left: 1px solid #636564;
+	}
+}
