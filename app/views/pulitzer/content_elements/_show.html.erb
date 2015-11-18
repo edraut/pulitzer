@@ -1,8 +1,10 @@
-<div class="pulitzer-row">
-  <div class="pulitzer-span right">
-    <%= render partial: '/pulitzer/shared/drag_handle' %>
+<% if content_element.free_form? %>
+  <div class="pulitzer-row">
+    <div class="pulitzer-span right">
+      <%= render partial: '/pulitzer/shared/drag_handle' %>
+    </div>
   </div>
-</div>
+<% end %>
 <div class="pulitzer-row">
   <ul class="list">
     <% if content_element.free_form? %>
@@ -12,4 +14,3 @@
     <li><%= ajax_link "Edit", edit_post_content_element_path(content_element.post, content_element), {}, dom_target(content_element) %></li>
   </ul>
 </div>
-
