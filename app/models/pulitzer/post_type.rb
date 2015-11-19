@@ -1,9 +1,14 @@
 class Pulitzer::PostType < ActiveRecord::Base
+  enum kind: [ :template, :free_form, :hybrid ]
   has_many :posts, dependent: :destroy
   has_many :post_type_content_element_types, dependent: :destroy
   has_many :content_element_types, through: :post_type_content_element_types
 
   validates :name, presence: true
+
+  def self.named(label)
+    self.find_by(name: label)
+  end
 
   def singular?
     !plural
@@ -17,7 +22,11 @@ class Pulitzer::PostType < ActiveRecord::Base
     !!singleton_post
   end
 
-  def self.named(label)
-    self.find_by(name: label)
+  def allow_template?
+    template? || hybrid?
+  end
+
+  def allow_free_form?
+    free_form? || hybrid?
   end
 end

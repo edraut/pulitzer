@@ -1,0 +1,25 @@
+<%= form_for content_element, html: ajax_form_hash("#version_content_element_container_#{dom_id(version)}", insert_method: 'append', sub_class: "AddALineForm", container: "#new_version_content_element_#{dom_id(version)}") do |f| %>
+  <%= f.collection_select :content_element_type_id, Pulitzer::ContentElementType.all, :id, :name, {},
+  { data: { "revealer" => true, "sub-type" => "FormFieldRevealer", "revealer-children-id" => dom_id(version, :revealer) }} %>
+
+  <div data-revealer-target="<%= dom_id(version, :revealer) %>"></div>
+
+  <div data-revealer_id="<%= dom_id(version, :revealer) %>" data-revealer-triggers="['<%= Pulitzer::ContentElementType.find_by(name: 'Image').id %>']">
+    <%= f.label :height %>
+    <%= f.text_field :height, placeholder: 'Height' %>
+    <%= f.label :width %>
+    <%= f.text_field :width, placeholder: 'Width' %>
+  </div>
+
+  <div data-revealer_id="<%= dom_id(version, :revealer) %>" data-revealer-triggers="['<%= Pulitzer::ContentElementType.find_by(name: 'Text').id %>']">
+    <%= f.label :text_editor, "Text editor" %>
+    <%= f.select :text_editor, Pulitzer.text_editor_toolbars.map { |t| t[:name] } %>
+  </div>
+
+  <%= f.hidden_field :version_id %>
+  <%= f.hidden_field :kind, value: :free_form %>
+
+  <%= submit_tag "Create" %>
+  <%= link_to('Cancel', '#', :class => 'button',
+    data: { emptier: true, target: "#new_version_content_element_#{dom_id(version)}" } ) %>
+<% end %>
