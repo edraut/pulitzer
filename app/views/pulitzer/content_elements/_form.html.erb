@@ -1,3 +1,6 @@
+<% if content_element.template? %>
+  <h3><%= content_element.label %></h3>
+<% end %>
 <%= form_for content_element, html: ajax_form_hash(dom_target(content_element)), multipart: true,
   data: { server_endpoint: content_element_path(content_element) } do |f| %>
   <%= f.text_field :title, placeholder: 'Title' %>
