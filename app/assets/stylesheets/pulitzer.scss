@@ -156,10 +156,6 @@ textarea {
   width: 80px;
 }
 
-.wysihtml5-sandbox {
-  width: 100% !important;
-}
-
 .drag_handle {
 	margin-top: 6px;
 	width: 12px;
@@ -172,4 +168,14 @@ textarea {
 		border-top: 1px solid #636564;
 		border-left: 1px solid #636564;
 	}
+}
+
+
+// wysihtml5
+.wysihtml5-sandbox {
+  width: 100% !important;
+}
+
+.wysiwyg-color-gold {
+  color: #b79c57;
 }
