@@ -1,16 +1,18 @@
-var wysihtml5ParserRules = {
-  classes: {
-    "wysiwyg-color-gold": 1
-  },
-  tags: {
-    "b": 1,
-    "strong": { "rename_tag": "b" },
-    "i": 1,
-    "h1": 1,
-    "p": 1,
-    "span": 1,
-    "ul": 1,
-    "li": 1
+if (typeof wysihtml5ParserRules === 'undefined') {
+  var wysihtml5ParserRules = {
+    classes: {
+      "wysiwyg-color-gold": 1
+    },
+    tags: {
+      "b": 1,
+      "strong": { "rename_tag": "b" },
+      "i": 1,
+      "h1": 1,
+      "p": 1,
+      "span": 1,
+      "ul": 1,
+      "li": 1
+    }
   }
 }
 
