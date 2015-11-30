@@ -21,7 +21,7 @@ module Pulitzer
     end
 
     def html
-      body.html_safe if body
+      body.blank? ? "" : body.html_safe
     end
 
     def empty_body?
