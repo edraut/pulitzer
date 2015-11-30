@@ -8,7 +8,9 @@ var wysihtml5ParserRules = {
     "i": 1,
     "h1": 1,
     "p": 1,
-    "span": 1
+    "span": 1,
+    "ul": 1,
+    "li": 1
   }
 }
 
