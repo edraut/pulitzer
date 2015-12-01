@@ -16,6 +16,10 @@ if (typeof wysihtml5ParserRules === 'undefined') {
   }
 }
 
+if (typeof wysihtml5Stylesheets === 'undefined') {
+  var wysihtml5Stylesheets = []
+}
+
 var Select2Trigger = Class.extend({
   init: function(jq_obj){
     jq_obj.select2({ tags: true });
@@ -28,7 +32,8 @@ var RichTextEditor = Class.extend({
     self.$toolbar = self.$form.find('[data-pulitzer-toolbar]');
     self.editor = new wysihtml5.Editor($textarea[0], {
       toolbar: self.$toolbar[0],
-      parserRules:  wysihtml5ParserRules
+      stylesheets: wysihtml5Stylesheets,
+      parserRules: wysihtml5ParserRules
     });
   }
 })
