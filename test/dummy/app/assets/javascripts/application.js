@@ -16,4 +16,3 @@
 //= require pulitzer
 //= require select2
 //= require wysihtml-toolbar
-//= require parser_rules/advanced_and_extended

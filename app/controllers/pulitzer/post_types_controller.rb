@@ -26,7 +26,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def update
     @post_type.update_attributes(post_type_params)
-    Pulitzer::CreateSingletonPost.new(@post_type, post_params_name).call
+    Pulitzer::UpdateSingletonPost.new(@post_type, post_params_name).call
     render partial: 'show', locals: {post_type: @post_type}
   end
 

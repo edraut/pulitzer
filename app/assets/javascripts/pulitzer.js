@@ -1,3 +1,25 @@
+if (typeof wysihtml5ParserRules === 'undefined') {
+  var wysihtml5ParserRules = {
+    classes: {
+      "wysiwyg-color-gold": 1
+    },
+    tags: {
+      "b": 1,
+      "strong": { "rename_tag": "b" },
+      "i": 1,
+      "h1": 1,
+      "p": 1,
+      "span": 1,
+      "ul": 1,
+      "li": 1
+    }
+  }
+}
+
+if (typeof wysihtml5Stylesheets === 'undefined') {
+  var wysihtml5Stylesheets = []
+}
+
 var Select2Trigger = Class.extend({
   init: function(jq_obj){
     jq_obj.select2({ tags: true });
@@ -10,7 +32,8 @@ var RichTextEditor = Class.extend({
     self.$toolbar = self.$form.find('[data-pulitzer-toolbar]');
     self.editor = new wysihtml5.Editor($textarea[0], {
       toolbar: self.$toolbar[0],
-      parserRules:  wysihtml5ParserRules
+      stylesheets: wysihtml5Stylesheets,
+      parserRules: wysihtml5ParserRules
     });
   }
 })

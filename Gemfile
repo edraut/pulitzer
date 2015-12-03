@@ -13,4 +13,4 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'wysihtml-rails', '~> 0.5.0.beta13'
+gem 'wysihtml-rails', '~> 0.5.2'
