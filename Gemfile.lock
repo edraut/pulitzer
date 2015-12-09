@@ -72,6 +72,11 @@ GEM
       carrierwave (>= 0.7)
     diff-lcs (1.2.5)
     erubis (2.7.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     globalid (0.3.6)
@@ -178,6 +183,7 @@ PLATFORMS
 DEPENDENCIES
   byebug (~> 8.0)
   cancancan (~> 1.10)
+  factory_girl_rails (~> 4.5.0)
   minitest (~> 5.1)
   pulitzer!
   rspec-rails (~> 3.2, >= 3.2.0)
