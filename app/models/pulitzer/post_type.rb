@@ -4,7 +4,8 @@ class Pulitzer::PostType < ActiveRecord::Base
   has_many :post_type_content_element_types, dependent: :destroy
   has_many :content_element_types, through: :post_type_content_element_types
 
-  validates :name, presence: true
+  validates :name, :kind, presence: true
+  validates :plural, :inclusion => { :in => [true, false] }
 
   def self.named(label)
     self.find_by(name: label)

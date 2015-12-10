@@ -4,7 +4,7 @@ describe Pulitzer::Version do
   let(:version) { build :version }
 
   it 'has a valid factory' do
-    expect(build(:version)).to be_valid
+    expect(version).to be_valid
   end
 
   describe "Active Model validations" do

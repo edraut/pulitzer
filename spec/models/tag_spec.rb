@@ -4,7 +4,7 @@ describe Pulitzer::Tag do
   let(:tag) { build :tag }
 
   it 'has a valid factory' do
-    expect(build(:tag)).to be_valid
+    expect(tag).to be_valid
   end
 
   describe "Active Model validations" do

@@ -4,7 +4,7 @@ describe Pulitzer::ContentElement do
   let(:content_element) { build :content_element }
 
   it 'has a valid factory' do
-    expect(build(:content_element)).to be_valid
+    expect(content_element).to be_valid
   end
 
   describe "Active Model validations" do

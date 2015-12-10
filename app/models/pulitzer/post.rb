@@ -8,6 +8,8 @@ module Pulitzer
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_preview_version
 
+    validates :title, presence: true
+
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
 
     def content_element(label)
