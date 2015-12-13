@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :post, class: Pulitzer::Post do
-    title { "Winterfell news" }
+    sequence(:title) { |n| "Winterfell news #{n}" }
     association :post_type
   end
 end

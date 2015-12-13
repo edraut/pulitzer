@@ -39,7 +39,7 @@ describe Pulitzer::ContentElement do
     end
 
     context 'video type' do
-      let(:content_element) { build :content_element, :video }
+      let(:content_element) { create :content_element, :video }
 
       it 'youtube' do
         expect(content_element.video_link).to match "https://www.youtube.com/embed/yLisM2KPDIA"

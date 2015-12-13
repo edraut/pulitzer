@@ -4,7 +4,7 @@ describe Pulitzer::Post do
   let(:post) { build :post }
 
   it 'has a valid factory' do
-    expect(build(:post)).to be_valid
+    expect(post).to be_valid
   end
 
   describe "Active Model validations" do
@@ -19,7 +19,7 @@ describe Pulitzer::Post do
     let(:post) { create :post }
 
     it 'for a new post' do
-      expect(post.slug).to eq 'winterfell-news'
+      expect(post.slug).to match 'winterfell-news-'
     end
 
     it 'updating a post' do
