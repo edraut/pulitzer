@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency 'rails', '~> 4.2'
+  s.add_dependency 'rails', '= 4.2.0'
   s.add_dependency 'hooch', '>= 0.3.0'
   s.add_dependency 'sass-rails', '~> 4.0'
   s.add_dependency 'thin_man', '>= 0.11.6'
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest', '~> 5.1'
   s.add_development_dependency 'byebug', '~> 8.0'
   s.add_development_dependency 'cancancan', '~> 1.10'
-  s.add_development_dependency 'rspec-rails', '~> 3.2', '>= 3.2.0'
+  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'factory_girl_rails', '~> 4.5.0'
   s.add_development_dependency 'shoulda-matchers', '~> 3.0.0'
   s.add_development_dependency 'database_cleaner', '~> 1.5.1'
