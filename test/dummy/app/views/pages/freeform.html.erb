@@ -1,0 +1,14 @@
+<h1><%= @pulitzer_post.title %></h1>
+
+<%= @pulitzer_post.content_elements.sorted.each do |content_element| %>
+  <% case content_element.type %>
+  <% when :image %>
+    <div class="image_with_caption">
+      <%= image_tag @pulitzer_post.content_element('Hero').body %>
+      <%= @pulitzer_post.content_element('Hero').title %>
+    </div>
+  <% when :text %>
+    <h2><%= @pulitzer_post.content_element('Main Body').title %></h2>
+    <p><%= @pulitzer_post.content_element('Main Body').body %></p>
+  <% end %>
+<% end %>
