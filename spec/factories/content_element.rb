@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :content_element, class: Pulitzer::ContentElement do
-    label       { "Slide 1 content element" }
-    title       { "Night's Watch" }
-    body        { "I pledge my life and honor to the Night's Watch, for this night and all the nights to come" }
-    association :content_element_type, :text
+    sequence(:label)  { |n| "Slide 1 content element #{n}" }
+    title             { "Night's Watch" }
+    body              { "I pledge my life and honor to the Night's Watch, for this night and all the nights to come" }
+    association :content_element_type
 
     trait :video do
       body { "https://www.youtube.com/watch?v=yLisM2KPDIA" }
