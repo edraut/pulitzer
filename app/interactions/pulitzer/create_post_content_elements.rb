@@ -6,6 +6,7 @@ class Pulitzer::CreatePostContentElements
   end
 
   def call
+    # Try to reload post here
     post.post_type_content_element_types.each do |cet|
       post.preview_version.content_elements.create do |ce|
         ce.label                          = cet.label
