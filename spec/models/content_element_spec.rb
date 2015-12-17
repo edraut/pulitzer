@@ -7,12 +7,15 @@ describe Pulitzer::ContentElement do
     expect(content_element).to be_valid
   end
 
-  describe "Active Model validations" do
-    it { should validate_presence_of(:label) }
-    it { should validate_uniqueness_of(:label).scoped_to(:version_id) }
+  describe 'Active Model validations' do
+    context 'Only for temple kind' do
+      let(:subject) { build :content_element }
+      it { should validate_presence_of(:label) }
+      it { should validate_uniqueness_of(:label).scoped_to(:version_id) }
+    end
   end
 
-  describe "ActiveRecord associations" do
+  describe 'ActiveRecord associations' do
     it { should belong_to(:version) }
     it { should belong_to(:content_element_type) }
     it { should belong_to(:post_type_content_element_type) }

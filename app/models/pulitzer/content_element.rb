@@ -11,7 +11,7 @@ module Pulitzer
     delegate :post, to: :version
 
     # Validations
-    validates :label, presence: true, uniqueness: { scope: :version_id }
+    validates :label, presence: true, uniqueness: { scope: :version_id }, unless: :free_form?
 
     # Callbacks
     before_save :handle_sort_order
