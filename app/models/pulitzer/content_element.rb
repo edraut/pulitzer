@@ -3,14 +3,20 @@ module Pulitzer
     mount_uploader :image, Pulitzer::ImageUploader
     enum kind: [ :template, :free_form ]
 
+    # Associations
     belongs_to :version
     belongs_to :content_element_type
     belongs_to :post_type_content_element_type
     delegate :type, :text_type?, :image_type?, :video_type?, to: :content_element_type
     delegate :post, to: :version
 
+    # Validations
+    validates :label, presence: true, uniqueness: { scope: :version_id }, unless: :free_form?
+
+    # Callbacks
     before_save :handle_sort_order
 
+    # Scopes
     default_scope { order(id: :asc) }
     scope :free_form, -> { where(kind: kinds[:free_form]).reorder(sort_order: :asc) }
 

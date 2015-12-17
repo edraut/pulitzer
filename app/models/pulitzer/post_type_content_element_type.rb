@@ -7,5 +7,7 @@ module Pulitzer
 
     default_scope { order(id: :asc) }
 
+    validates :label, presence: true
+
   end
 end
