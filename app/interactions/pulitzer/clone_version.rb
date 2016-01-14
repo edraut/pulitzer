@@ -23,11 +23,7 @@ class Pulitzer::CloneVersion
 private
   def clone_image(original, destination)
     if original.image.file && original.image.file.exists?
-      begin
-        destination.image = original.image.file
-      rescue
-        destination.remove_image!
-      end
+      destination.remote_image_url = original.image.url
     end
   end
 end
