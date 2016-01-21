@@ -20,7 +20,8 @@ module Pulitzer
     default_text_editor       = [{ name: 'None', template: 'pulitzer/text_editors/none'}]
     user_text_editors         = options[:text_editor_toolbars].flatten || nil
     @@text_editor_toolbars    = default_text_editor.push(*user_text_editors).compact
-    if queue_options = options.has_key?( :active_job_queues)
+    if options.has_key?( :active_job_queues)
+      queue_options = options[:active_job_queues]
       @@clone_queue           = queue_options.has_key?(:clone_post_version) ? queue_options[:clone_post_version] : :default
       @@image_queue           = queue_options.has_key?(:image_queue) ? queue_options[:image_reprocessing] : :default
     else
