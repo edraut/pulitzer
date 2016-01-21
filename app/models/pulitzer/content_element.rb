@@ -10,6 +10,8 @@ module Pulitzer
     delegate :type, :text_type?, :image_type?, :video_type?, to: :content_element_type
     delegate :post, to: :version
 
+    attr_accessor :version_unavailable
+
     # Validations
     validates :label, presence: true, uniqueness: { scope: :version_id }, unless: :free_form?
 
@@ -19,6 +21,15 @@ module Pulitzer
     # Scopes
     default_scope { order(id: :asc) }
     scope :free_form, -> { where(kind: kinds[:free_form]).reorder(sort_order: :asc) }
+
+    # def reprocess_versions
+    #   ReprocessContentImageJob.perform_later(self)
+    # end
+
+    # def reprocess_versions!
+    #   self.photo.recreate_versions!
+    #   self.broadcast_change
+    # end
 
     def video_link
       if video_type? && !body.nil?
@@ -32,6 +43,37 @@ module Pulitzer
 
     def empty_body?
       image_type? ? !image? : body.blank?
+    end
+
+    def clone_me
+      clone_attrs = self.attributes.dup
+      clone_attrs.delete 'id'
+      clone_attrs.delete 'version_id'
+
+      type_clone_method = 'clone_' + type.to_s
+      if respond_to? type_clone_method
+        my_clone = send type_clone_method, clone_attrs
+      else
+        my_clone = Pulitzer::ContentElement.create!(clone_attrs)
+      end
+      my_clone
+    end
+
+    def clone_image(clone_attrs)
+      clone_attrs.delete 'image'
+      my_clone = Pulitzer::ContentElement.new(clone_attrs)
+      if image.file && image.file.exists?
+        my_clone.remote_image_url = image.url
+        # If there is an error getting the image, don't bail out,
+        # create the content element clone without the image so the user can reupload later
+        if !my_clone.valid?
+          if my_clone.errors.get(:image).any?
+            my_clone = Pulitzer::ContentElement.new(clone_attrs)
+          end
+        end
+      end
+      my_clone.save!
+      my_clone
     end
 
 private

@@ -38,7 +38,26 @@ var RichTextEditor = Class.extend({
   }
 })
 
+var ContentElementEditor = Class.extend({
+  init: function($content_element){
+    if(typeof(window.thin_man) != 'undefined'){
+      this.$content_element = $content_element
+      var content_element_editor = this
+      $content_element.on('hover', function(){
+        content_element_editor.reveal_edit_link()
+      })
+    }
+  },
+  reveal_edit_link: function(){
+    var edit_link =
+    this.$content_element.append(edit_link)
+  }
+})
+
 $(document).ready(function(){
+  // window.any_time_manager.registerListWithClasses(
+  //   { 'pulitzer-element' : 'ContentElementEditor'}
+  // )
   window.any_time_manager.registerList([ 'select2-trigger', 'rich-text-editor' ]);
   window.any_time_manager.load();
 });

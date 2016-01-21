@@ -3,10 +3,16 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
 
   def index
     @post                       = Pulitzer::Post.find(params[:post_id])
-    @content_elements           = @post.preview_version.template_content_elements
-    @free_form_content_elements = @post.preview_version.free_form_content_elements
-    route                       = "pulitzer_preview_#{@post.post_type.name.parameterize('_')}_path"
-    @preview_path               = main_app.public_send(route, @post.slug) if main_app.respond_to?(route)
+    if @post.preview_version
+      @content_elements           = @post.preview_version.template_content_elements
+      @free_form_content_elements = @post.preview_version.free_form_content_elements
+      route                       = "pulitzer_preview_#{@post.post_type.name.parameterize('_')}_path"
+      @preview_path               = main_app.public_send(route, @post.slug) if main_app.respond_to?(route)
+    elsif @post.processing_version
+      render template: '/pulitzer/content_elements/index_processing' and return
+    else
+      render text: "There is a problem with this post", status: 404
+    end
   end
 
   def new

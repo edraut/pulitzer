@@ -20,6 +20,6 @@ describe Pulitzer::Version do
 
   describe 'ActiveRecord enums' do
     it { should define_enum_for(:status).
-      with([:preview, :active, :archived, :abandoned]) }
+      with([:preview, :active, :archived, :abandoned, :processing]) }
   end
 end
