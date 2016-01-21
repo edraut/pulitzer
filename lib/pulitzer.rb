@@ -8,7 +8,7 @@ require 'pulitzer/engine'
 
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure, :authentication_closure,
-  :tagging_models, :layout, :text_editor_toolbars, :clone_queue, :image_queue
+  :tagging_models, :layout, :text_editor_toolbars, :clone_queue, :image_queue, :aws_acl
 
   def self.config(options)
     base_controller_name = options[:base_controller_name]
