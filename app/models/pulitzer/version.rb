@@ -1,6 +1,6 @@
 module Pulitzer
   class Version < ActiveRecord::Base
-    enum status: [ :preview, :active, :archived, :abandoned ]
+    enum status: [ :preview, :active, :archived, :abandoned, :processing ]
     has_many :content_elements, dependent: :destroy
     has_many :post_tags, dependent: :destroy
     belongs_to :post

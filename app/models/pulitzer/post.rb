@@ -28,9 +28,16 @@ module Pulitzer
     	versions.preview.last
     end
 
+    def processing_version
+      versions.processing.last
+    end
+
     def create_preview_version
       versions.create(status: :preview)
     end
 
+    def create_processing_version
+      versions.create(status: :processing)
+    end
   end
 end

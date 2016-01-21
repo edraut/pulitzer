@@ -1,29 +1,25 @@
 class Pulitzer::CloneVersion
-  attr_accessor :version, :action, :new_version
 
-  def initialize(version, new_version)
-    self.version      = version
-    self.new_version  = new_version
+  def initialize(version)
+    @version = version
+    @post = @version.post
   end
 
   def call
-    version.content_elements.each do |ce|
-      element = ce.dup
-      clone_image(ce, element)
-      element.version_id = nil
-      new_version.content_elements << element
+    new_version = @post.create_processing_version
+    @version.content_elements.each do |ce|
+      begin
+        cloned_content_element = ce.clone_me
+        new_version.content_elements << cloned_content_element
+      rescue ActiveRecord::RecordInvalid => invalid
+        new_version.errors.add(:base, "ContentElement #{ce.id} could not be cloned: #{invalid.record.errors.full_messages.join(', ')}")
+      end
     end
-    version.post_tags.each do |pt|
-      post_tag = pt.dup
-      post_tag.version_id = nil
-      new_version.post_tags << post_tag
+    @version.post_tags.each do |pt|
+      new_version.post_tags << pt.clone_me
     end
+    new_version.update(status: :preview)
+    new_version
   end
 
-private
-  def clone_image(original, destination)
-    if original.image.file && original.image.file.exists?
-      destination.remote_image_url = original.image.url
-    end
-  end
 end
