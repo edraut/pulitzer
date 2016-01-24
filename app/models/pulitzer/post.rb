@@ -1,12 +1,15 @@
 module Pulitzer
   class Post < ActiveRecord::Base
+    include ForeignOffice::Broadcaster
     extend ::FriendlyId
     has_many :versions
     belongs_to :post_type
-    delegate :post_type_content_element_types, to: :post_type
+    delegate :post_type_content_element_types, :allow_free_form?, to: :post_type
     delegate :content_elements, :post_tags, to: :active_version, allow_nil: true
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_preview_version
+
+    attr_accessor :new_preview_version
 
     validates :title, presence: true
 
@@ -32,12 +35,25 @@ module Pulitzer
       versions.processing.last
     end
 
+    def processing_failed_version
+      versions.processing_failed.last
+    end
+
+    def next_version
+      preview_version || processing_version || processing_failed_version
+    end
+
     def create_preview_version
       versions.create(status: :preview)
     end
 
     def create_processing_version
       versions.create(status: :processing)
+    end
+
+    def serialize
+      self.attributes.merge \
+        new_preview_version: self.new_preview_version
     end
   end
 end

@@ -11,6 +11,6 @@
       <li><h3><%= content_element.label %></h3></li>
     <% end %>
     <li><%= render_element(content_element) %></li>
-    <li><%= ajax_link "Edit", edit_post_content_element_path(content_element.post, content_element), {}, dom_target(content_element) %></li>
+    <li><%= ajax_link "Edit", edit_content_element_path(content_element), {}, dom_target(content_element) %></li>
   </ul>
 </div>

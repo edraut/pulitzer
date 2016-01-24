@@ -1,9 +1,14 @@
 module Pulitzer
   class Version < ActiveRecord::Base
-    enum status: [ :preview, :active, :archived, :abandoned, :processing ]
+    include ForeignOffice::Broadcaster
+    enum status: [ :preview, :active, :archived, :abandoned, :processing, :processing_failed ]
     has_many :content_elements, dependent: :destroy
     has_many :post_tags, dependent: :destroy
     belongs_to :post
+
+    attr_accessor :processed_element_count
+
+    delegate :allow_free_form?, :title, to: :post
 
     validates :post_id, :status, presence: true
 
@@ -17,6 +22,11 @@ module Pulitzer
 
     def free_form_content_elements
       content_elements.free_form
+    end
+
+    def serialize
+      self.attributes.merge \
+        processed_element_count: self.processed_element_count
     end
   end
 end

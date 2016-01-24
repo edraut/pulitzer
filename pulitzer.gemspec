@@ -18,9 +18,10 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency 'rails', '= 4.2.0'
-  s.add_dependency 'hooch', '>= 0.3.0'
+  s.add_dependency 'hooch', '>= 0.7.0'
   s.add_dependency 'sass-rails', '~> 4.0'
-  s.add_dependency 'thin_man', '>= 0.11.6'
+  s.add_dependency 'thin_man', '>= 0.12.2'
+  s.add_dependency 'foreign_office', ">= 0.9.1"
   s.add_dependency 'simple_form', '~> 3.2', '>= 3.2.0'
   s.add_dependency 'kaminari', '~> 0.16.0'
   s.add_dependency 'carrierwave', '~> 0.10.0'

@@ -40,11 +40,7 @@ module Pulitzer
     end
 
     def select2_html_options(tag_model)
-      if tag_model == "Pulitzer::Tag"
-        { class: 'seletct2-pulitzer-tags', data: { select2_trigger: true } }
-      else
-        { }
-      end
+      { class: 'seletct2-pulitzer-tags', data: { select2_trigger: true } }
     end
   end
 end

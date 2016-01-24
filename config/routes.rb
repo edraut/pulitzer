@@ -1,8 +1,12 @@
 Pulitzer::Engine.routes.draw do
   resources :posts do
-    resources :content_elements
-    resources :post_tags
+    member do
+      get :processing_preview
+    end
   end
+  resources :content_elements
+  resources :post_tags
+
   resources :content_elements do
     collection do
       patch :update_all

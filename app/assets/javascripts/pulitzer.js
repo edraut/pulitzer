@@ -28,10 +28,11 @@ var Select2Trigger = Class.extend({
 
 var RichTextEditor = Class.extend({
   init: function($textarea){
-    self.$form = $textarea.parents("form");
-    self.$toolbar = self.$form.find('[data-pulitzer-toolbar]');
-    self.editor = new wysihtml5.Editor($textarea[0], {
-      toolbar: self.$toolbar[0],
+    var rich_text_editor = this
+    this.$form = $textarea.parents("form")
+    this.$toolbar = this.$form.find('[data-pulitzer-toolbar]')
+    this.editor = new wysihtml5.Editor($textarea[0], {
+      toolbar: rich_text_editor.$toolbar[0],
       stylesheets: wysihtml5Stylesheets,
       parserRules: wysihtml5ParserRules
     });
@@ -52,6 +53,14 @@ var ContentElementEditor = Class.extend({
     var edit_link =
     this.$content_element.append(edit_link)
   }
+})
+
+$(document).ajaxComplete(function(){
+  $.each(window.any_time_manager.recordedObjects["RichTextEditor"], function(){
+    if(this.$form.parents('body').length == 0){ //the form has been removed from the dom
+      this.editor.fire('destroy:composer')
+    }
+  })
 })
 
 $(document).ready(function(){
