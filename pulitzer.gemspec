@@ -17,11 +17,11 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency 'rails', '= 4.2.0'
-  s.add_dependency 'hooch', '>= 0.7.0'
-  s.add_dependency 'sass-rails', '~> 4.0'
-  s.add_dependency 'thin_man', '>= 0.12.2'
-  s.add_dependency 'foreign_office', ">= 0.9.1"
+  s.add_dependency 'rails', '= 4.2.0', '< 5.0'
+  s.add_dependency 'hooch', '>= 0.7.0', '< 1.0'
+  s.add_dependency 'sass-rails', '~> 4.0', '< 5.0'
+  s.add_dependency 'thin_man', '>= 0.12.2', '< 1.0'
+  s.add_dependency 'foreign_office', ">= 0.9.1", '< 1.0'
   s.add_dependency 'simple_form', '~> 3.2', '>= 3.2.0'
   s.add_dependency 'kaminari', '~> 0.16.0'
   s.add_dependency 'carrierwave', '~> 0.10.0'
@@ -30,15 +30,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'friendly_id', '~> 5.1', '>= 5.1.0'
   s.add_dependency 'select2-rails', '~> 4.0', '>= 4.0.0'
 
-  s.add_development_dependency 'sqlite3', '~> 1.3'
-  s.add_development_dependency 'minitest', '~> 5.1'
+  s.add_development_dependency 'sqlite3', '~> 1.3', '< 2.0'
+  s.add_development_dependency 'minitest', '~> 5.1', '< 6.0'
   s.add_development_dependency 'byebug', '~> 8.0'
   s.add_development_dependency 'pry-rails', '~> 0.3', '< 1.0'
   s.add_development_dependency 'pry-nav', '~> 0.2.4', '< 1.0'
   s.add_development_dependency 'pry-remote', '0.1.8', '< 1.0'
   s.add_development_dependency 'cancancan', '~> 1.10'
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'factory_girl_rails', '~> 4.5.0'
-  s.add_development_dependency 'shoulda-matchers', '~> 3.0.0'
-  s.add_development_dependency 'database_cleaner', '~> 1.5.1'
+  s.add_development_dependency 'rspec-rails', '~> 3.4', '< 4.0'
+  s.add_development_dependency 'factory_girl_rails', '~> 4.5.0', '< 5.0'
+  s.add_development_dependency 'shoulda-matchers', '~> 3.0.0', '< 4.0'
+  s.add_development_dependency 'database_cleaner', '~> 1.5.1', '< 2.0'
 end
