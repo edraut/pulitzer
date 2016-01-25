@@ -20,24 +20,24 @@ class Pulitzer::CloneVersion
         cloning_errors.push "ContentElement #{ce.id} could not be cloned: #{invalid.record.errors.full_messages.join(', ')}"
       end
       new_version.processed_element_count += 1
-      new_version.broadcast_change
+      new_version.broadcast_change if defined? ForeignOffice
     end
     @version.post_tags.each do |pt|
       new_version.post_tags << pt.clone_me
       new_version.processed_element_count += 1
-      new_version.broadcast_change
+      new_version.broadcast_change if defined? ForeignOffice
     end
     if cloning_errors.any?
       new_version.update(status: :processing_failed, cloning_errors: cloning_errors)
     else
       new_version.update(status: :preview)
       new_version.processed_element_count += 1
-      new_version.broadcast_change
+      new_version.broadcast_change if defined? ForeignOffice
     end
     @post.new_preview_version = edit_version_path(new_version)
     new_version.processed_element_count += 1
-    new_version.broadcast_change
-    @post.broadcast_change
+    new_version.broadcast_change if defined? ForeignOffice
+    @post.broadcast_change if defined? ForeignOffice
     new_version
   end
 

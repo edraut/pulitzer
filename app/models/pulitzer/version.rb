@@ -1,6 +1,6 @@
 module Pulitzer
   class Version < ActiveRecord::Base
-    include ForeignOffice::Broadcaster
+    include ForeignOffice::Broadcaster if defined? ForeignOffice
     enum status: [ :preview, :active, :archived, :abandoned, :processing, :processing_failed ]
     has_many :content_elements, dependent: :destroy
     has_many :post_tags, dependent: :destroy
