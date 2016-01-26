@@ -8,7 +8,7 @@ module Pulitzer
 
     attr_accessor :processed_element_count
 
-    delegate :allow_free_form?, :title, to: :post
+    delegate :allow_free_form?, :title, :slug, to: :post
 
     validates :post_id, :status, presence: true
 

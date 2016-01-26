@@ -56,11 +56,13 @@ var ContentElementEditor = Class.extend({
 })
 
 $(document).ajaxComplete(function(){
-  $.each(window.any_time_manager.recordedObjects["RichTextEditor"], function(){
-    if(this.$form.parents('body').length == 0){ //the form has been removed from the dom
-      this.editor.fire('destroy:composer')
-    }
-  })
+  if(window.any_time_manager.recordedObjects["RichTextEditor"]){
+    $.each(window.any_time_manager.recordedObjects["RichTextEditor"], function(){
+      if(this.$form.parents('body').length == 0){ //the form has been removed from the dom
+        this.editor.fire('destroy:composer')
+      }
+    })
+  }
 })
 
 $(document).ready(function(){
