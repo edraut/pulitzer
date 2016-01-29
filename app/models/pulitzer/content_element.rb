@@ -10,10 +10,10 @@ module Pulitzer
     delegate :type, :text_type?, :image_type?, :video_type?, to: :content_element_type
     delegate :post, to: :version
 
-    attr_accessor :version_unavailable
+    attr_accessor :version_unavailable, :ensure_unique
 
     # Validations
-    validates :label, presence: true, uniqueness: { scope: :version_id }, unless: :free_form?
+    validates_with ContentElementValidator
 
     # Callbacks
     before_save :handle_sort_order
@@ -51,6 +51,7 @@ module Pulitzer
       clone_attrs.delete 'version_id'
 
       type_clone_method = 'clone_' + type.to_s
+
       if respond_to? type_clone_method
         my_clone = send type_clone_method, clone_attrs
       else
@@ -67,7 +68,7 @@ module Pulitzer
         # If there is an error getting the image, don't bail out,
         # create the content element clone without the image so the user can reupload later
         if !my_clone.valid?
-          if my_clone.errors.get(:image).any?
+          if my_clone.errors.get(:image)
             my_clone = Pulitzer::ContentElement.new(clone_attrs)
           end
         end

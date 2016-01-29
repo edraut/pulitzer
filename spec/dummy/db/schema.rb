@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118031237) do
+ActiveRecord::Schema.define(version: 20160122204201) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -80,12 +80,8 @@ ActiveRecord::Schema.define(version: 20151118031237) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pulitzer_versions", force: :cascade do |t|
-    t.integer  "status",     default: 0
-    t.integer  "post_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
+# Could not dump table "pulitzer_versions" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "search_locations", force: :cascade do |t|
     t.string   "name"

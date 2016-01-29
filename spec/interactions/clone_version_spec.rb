@@ -5,11 +5,13 @@ describe Pulitzer::CloneVersion do
 
   it 'Clones version content elements' do
     expect(version.content_elements.size).to eq 3
+    version.post.create_processing_version
     new_version = Pulitzer::CloneVersion.new(version).call
     expect(new_version.content_elements.size).to eq 3
   end
 
   it 'Clones a valid content element' do
+    version.post.create_processing_version
     new_version = Pulitzer::CloneVersion.new(version).call
     content_element = new_version.content_elements.first
     expect(content_element.title).to eq "Night's Watch"

@@ -10,8 +10,6 @@ describe Pulitzer::ContentElement do
   describe 'Active Model validations' do
     context 'Only for temple kind' do
       let(:subject) { build :content_element }
-      it { should validate_presence_of(:label) }
-      it { should validate_uniqueness_of(:label).scoped_to(:version_id) }
     end
   end
 

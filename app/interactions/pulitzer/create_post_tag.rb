@@ -1,21 +1,19 @@
 class Pulitzer::CreatePostTag
-  attr_accessor :post, :request_params
 
-  def initialize(post, params)
-    self.post           = post
-    self.request_params = params
+  def initialize(params)
+    @request_params = params
   end
 
   def call
-    label_id = request_params[:post_tag][:label_id]
+    label_id = post_tag_params[:label_id]
     unless (Integer(label_id) rescue false)
       tag = Pulitzer::Tag.where(name: label_id).first_or_create
-      request_params[:post_tag][:label_id] = tag.id
+      @request_params[:post_tag][:label_id] = tag.id
     end
-    post.preview_version.post_tags.create post_tag_params
+    Pulitzer::PostTag.create post_tag_params
   end
 
   def post_tag_params
-    request_params[:post_tag].permit!
+    @request_params[:post_tag].permit!
   end
 end

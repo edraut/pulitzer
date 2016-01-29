@@ -1,19 +1,19 @@
 class Pulitzer::PostTagsController < Pulitzer::ApplicationController
-  before_filter :get_post, only: [:new, :create, :destroy]
+  before_filter :get_post_tag, only: [:destroy]
 
   def new
     @tag_model = params[:tag_model]
-    @post_tag = @post.preview_version.post_tags.new
-    render partial: 'new', locals: { post: @post, tag_model: @tag_model, post_tag: @post_tag }
+    @version = Pulitzer::Version.find params[:version_id]
+    @post_tag = @version.post_tags.new label_type: @tag_model
+    render partial: 'new', locals: { tag_model: @tag_model, post_tag: @post_tag }
   end
 
   def create
-    @post_tag = Pulitzer::CreatePostTag.new(@post, params).call
-    render partial: 'show', locals: { post: @post, tag_model: @post_tag.label_type }
+    @post_tag = Pulitzer::CreatePostTag.new(params).call
+    render partial: 'show', locals: { version: @post_tag.version, tag_model: @post_tag.label_type }
   end
 
   def destroy
-    @post_tag = @post.preview_version.post_tags.find params[:id]
     @post_tag.destroy
     render nothing: true
   end
@@ -24,8 +24,8 @@ class Pulitzer::PostTagsController < Pulitzer::ApplicationController
     params[:post_tag].permit!
   end
 
-  def get_post
-    @post = Pulitzer::Post.find(params[:post_id])
+  def get_post_tag
+    @post_tag = Pulitzer::PostTag.find(params[:id])
   end
 
 end

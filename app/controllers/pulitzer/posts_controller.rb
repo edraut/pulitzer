@@ -1,5 +1,5 @@
 class Pulitzer::PostsController < Pulitzer::ApplicationController
-  before_filter :get_post, only: [:show, :edit, :update]
+  before_filter :get_post, only: [:show, :edit, :update, :processing_preview]
 
   def index
     @post_type = Pulitzer::PostType.find params[:post_type_id]
@@ -22,7 +22,9 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def edit
-    render partial: 'form', locals: { post: @post }
+    if request.xhr?
+      render partial: 'form', locals: { post: @post }
+    end
   end
 
   def update

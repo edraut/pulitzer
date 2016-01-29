@@ -1,19 +1,12 @@
 <div class="pulitzer-row">
-  <%= form_for version, html: { class: 'pulitzer-form-left' } do |f| %>
-    <%= f.submit "Activate" %>
+  <%= form_for version, html: ajax_form_hash(dom_target(version.post, :preview_version)).merge( class: 'pulitzer-form-left' ) do |f| %>
+    <%= f.submit "Activate", data: {prevent_double_click: true} %>
     <%= hidden_field_tag :status, :active %>
   <% end %>
 
-  <%= form_for version,  html: { class: 'pulitzer-form-left' } do |f| %>
-    <%= f.submit "Abandon" %>
+  <%= form_for version,  html: ajax_form_hash(dom_target(version.post, :preview_version)).merge( class: 'pulitzer-form-left' ) do |f| %>
+    <%= f.submit "Abandon", data: {prevent_double_click: true} %>
     <%= hidden_field_tag :status, :abandoned %>
   <% end %>
 
-  <div class="preview-link">
-    <% if @preview_path %>
-      <%= link_to "Preview", @preview_path, target: '_blank' %>
-    <% else %>
-      <small>Preview not available</small>
-    <% end %>
-  </div>
 </div>

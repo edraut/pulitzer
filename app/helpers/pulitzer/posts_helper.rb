@@ -5,7 +5,7 @@ module Pulitzer
       if post_type.plural?
         link_to plural_label, posts_path(post_type_id: post_type.id)
       else
-        link_to singular_label, post_content_elements_path(post_type.singleton_post)
+        link_to singular_label, edit_post_path(post_type.singleton_post)
       end
     end
 
@@ -40,11 +40,7 @@ module Pulitzer
     end
 
     def select2_html_options(tag_model)
-      if tag_model == "Pulitzer::Tag"
-        { class: 'seletct2-pulitzer-tags', data: { select2_trigger: true } }
-      else
-        { }
-      end
+      { class: 'seletct2-pulitzer-tags', data: { select2_trigger: true } }
     end
   end
 end

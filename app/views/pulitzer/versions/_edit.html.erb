@@ -1,0 +1,41 @@
+<% if version.processing_failed? %>
+  <div class="pulitzer-row">
+    There was a problem creating the new preview version of this post for editing.
+    <ul>
+      <% version.cloning_errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% elsif version.processing? %>
+  <h2> Processing Preview for <%= version.title %> </h2>
+  <div class="pulitzer-row">
+    <progress value="0" max="<%= version.post.active_version.content_elements.count + version.post.active_version.post_tags.count + 2 %>" <%= listener_attrs version, :processed_element_count if defined? ForeignOffice %>></progress>
+  </div>
+  <a <%= listener_attrs version.post, :new_preview_version, trigger: true if defined? ForeignOffice %>
+     <%= ajax_link_attrs(dom_target(version.post, :preview_version)) %> > </a>
+  If the preview does not appear within a few minutes, click here to see if it's available.
+  <%= ajax_link "refresh preview", edit_version_path(version), {}, dom_target(version.post, :preview_version) %>
+<% elsif version.preview? %>
+  <div class="pulitzer-row margin-bottom list-item">
+    <h2>Tags</h2>
+    <% Pulitzer::Post::TAG_MODELS.each do |tag_model| %>
+      <%= render partial: 'pulitzer/post_tags/show_wrapper', locals: { version: version, tag_model: tag_model } %>
+    <% end %>
+  </div>
+
+  <div class="pulitzer-row margin-bottom list-item">
+    <%= render partial: '/pulitzer/content_elements/index', locals: {version: version} %>
+  </div>
+
+  <div class="pulitzer-row">
+    <%= render partial: 'pulitzer/versions/form', locals: { version: version } %>
+  </div>
+  <div class="preview-link">
+    <% if @preview_path %>
+      <%= link_to "Preview", @preview_path, target: '_blank' %>
+    <% else %>
+      <small>Preview not available</small>
+    <% end %>
+  </div>
+<% end %>
