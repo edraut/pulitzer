@@ -22,4 +22,15 @@ describe Pulitzer::Version do
     it { should define_enum_for(:status).
       with([:preview, :active, :archived, :abandoned, :processing, :processing_failed]) }
   end
+
+  describe 'post tag filters' do
+    it "has post tag filter methods" do
+      label = create :tag
+      version.save
+      version.post_tags.create label: label
+      expect(version.has_label_type(label.class.name)).to be true
+      expect(version.has_label(label)).to be true
+      expect(version.post_tags_for(label.class.name).map(&:label)).to include label
+    end
+  end
 end

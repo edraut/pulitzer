@@ -5,7 +5,7 @@ module Pulitzer
     has_many :versions
     belongs_to :post_type
     delegate :post_type_content_element_types, :allow_free_form?, to: :post_type
-    delegate :content_elements, :post_tags, to: :active_version, allow_nil: true
+    delegate :content_elements, :post_tags, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_preview_version
 
@@ -16,7 +16,9 @@ module Pulitzer
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
 
     def content_element(label)
-      self.content_elements.find_by(label: label)
+      if content_elements
+        self.content_elements.find_by(label: label)
+      end
     end
 
     def should_generate_new_friendly_id?
