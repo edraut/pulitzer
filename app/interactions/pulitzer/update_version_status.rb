@@ -23,9 +23,12 @@ class Pulitzer::UpdateVersionStatus
   def make_version_abandoned
     @active_version = @transitional_version.post.active_version
     @transitional_version.update(status: :abandoned)
-    @processing_version = @post.create_processing_version
-    Pulitzer::CloneVersionJob.perform_later(@active_version)
-    @processing_version
+    if @active_version == @transitional_version
+      @transitional_version.post.preview_version
+    else
+      @processing_version = @post.create_processing_version
+      Pulitzer::CloneVersionJob.perform_later(@active_version)
+      @processing_version
+    end
   end
-
 end
