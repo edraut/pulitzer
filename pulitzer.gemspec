@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency 'rails', '= 4.2.0', '< 5.0'
+  s.add_dependency 'rails', '< 5.0'
   s.add_dependency 'hooch', '>= 0.7.0', '< 1.0'
   s.add_dependency 'sass-rails', '~> 4.0', '< 5.0'
   s.add_dependency 'thin_man', '>= 0.12.2', '< 1.0'
