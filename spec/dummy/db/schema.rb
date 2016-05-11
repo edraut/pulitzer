@@ -100,9 +100,13 @@ ActiveRecord::Schema.define(version: 20160517182500) do
 
   create_table "pulitzer_tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "parent_id"
+    t.boolean  "hierarchical", default: false, null: false
   end
+
+  add_index "pulitzer_tags", ["hierarchical"], name: "index_pulitzer_tags_on_hierarchical"
 
 # Could not dump table "pulitzer_versions" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
