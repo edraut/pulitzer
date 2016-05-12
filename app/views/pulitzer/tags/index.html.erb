@@ -1,0 +1,11 @@
+<h1>Tags</h1>
+<% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+  <%= ajax_link 'Add a new root tag', new_tag_path("tag[hierarchical]" => true), {}, '#new_tag' %>
+  <div id="new_tag"></div>
+<% end %>
+
+<div id="tags_container">
+  <% @tags.each do |tag| %>
+    <%= render partial: 'show_wrapper', locals: {tag: tag} %>
+  <% end %>
+</div>
