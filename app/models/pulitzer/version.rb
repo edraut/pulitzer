@@ -3,6 +3,7 @@ module Pulitzer
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     enum status: [ :preview, :active, :archived, :abandoned, :processing, :processing_failed ]
     has_many :content_elements, dependent: :destroy
+    has_many :partials, dependent: :destroy
     has_many :post_tags, dependent: :destroy
     belongs_to :post
     scope :tagged_with_type, ->(label_type){includes(:post_tags).where(pulitzer_post_tags: {label_type: label_type}).references(:pulitzer_post_tags)}

@@ -1,7 +1,9 @@
 <div class="pulitzer-row">
   <ul class="inline-list">
     <li><%= post_type.name %></li>
-    <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
+    <% unless post_type.partial? %>
+      <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
+    <% end %>
     <% if post_type.allow_template? %>
       <li <%= expander("post_type_content_element_types_#{dom_id(post_type)}") %>>
         <%= link_to "Template", '#', class: 'toggle-post-type-content-elements', data: { post_types: post_type.id } %>
@@ -18,6 +20,9 @@
       <li>
         <%= ajax_delete 'Delete', post_type_path(post_type), {}, dom_target(post_type) %>
       </li>
+    <% end %>
+    <% if post_type.partial? %>
+      <%= post_type.template_path %>
     <% end %>
   </ul>
 
