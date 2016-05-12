@@ -1,6 +1,6 @@
 <div class="pulitzer-row margin-bottom list-item" id="<%= dom_id(tag) %>">
   <%= render partial: 'show', locals: {tag: tag} %>
-  <% tag.childs.each do |t| %>
+  <% tag.children.each do |t| %>
     <div class="pulitzer-row margin-bottom list-item" id="<%= dom_id(t) %>">
       <%= render partial: 'show', locals: {tag: t} %>
     </div>
