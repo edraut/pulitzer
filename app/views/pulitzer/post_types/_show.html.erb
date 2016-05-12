@@ -21,9 +21,6 @@
         <%= ajax_delete 'Delete', post_type_path(post_type), {}, dom_target(post_type) %>
       </li>
     <% end %>
-    <% if post_type.partial? %>
-      <%= post_type.template_path %>
-    <% end %>
   </ul>
 
   <div <%= collapsed("post_type_content_element_types_#{dom_id(post_type)}") %> style='display:none'>

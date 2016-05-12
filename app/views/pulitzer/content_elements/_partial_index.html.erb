@@ -1,5 +1,3 @@
-<h2>Template content elements</h2>
-
-<% version.template_content_elements.each do |content_element| %>
+<% partial.content_elements.each do |content_element| %>
   <%= render partial: '/pulitzer/content_elements/show_wrapper', locals: { content_element: content_element } %>
 <% end %>

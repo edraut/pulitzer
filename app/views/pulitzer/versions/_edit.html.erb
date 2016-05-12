@@ -10,7 +10,7 @@
 <% elsif version.processing? %>
   <h2> Processing Preview for <%= version.title %> </h2>
   <div class="pulitzer-row">
-    <progress value="0" max="<%= version.post.active_version.content_elements.count + version.post.active_version.post_tags.count + 2 %>" <%= listener_attrs version, :processed_element_count if defined? ForeignOffice %>></progress>
+    <progress value="0" max="<%= version.total_processing_elements %>" <%= listener_attrs version, :processed_element_count if defined? ForeignOffice %>></progress>
   </div>
   <a <%= listener_attrs version.post, :new_preview_version, trigger: true if defined? ForeignOffice %>
      <%= ajax_link_attrs(dom_target(version.post, :preview_version)) %> > </a>
@@ -24,9 +24,17 @@
     <% end %>
   </div>
 
-  <div class="pulitzer-row margin-bottom list-item">
-    <%= render partial: '/pulitzer/content_elements/index', locals: {version: version} %>
-  </div>
+  <% if version.allow_template? %>
+    <div class="pulitzer-row margin-bottom list-item">
+      <%= render partial: '/pulitzer/content_elements/index', locals: {version: version} %>
+    </div>
+  <% end %>
+
+  <% if version.allow_free_form? %>
+    <div class="pulitzer-row margin-bottom list-item">
+      <%= render partial: '/pulitzer/partials/index', locals: {version: version} %>
+    </div>
+  <% end %>
 
   <div class="pulitzer-row">
     <%= render partial: 'pulitzer/versions/form', locals: { version: version } %>

@@ -1,0 +1,13 @@
+<h2>Template partials</h2>
+
+<div id="<%= dom_id version, :partial_container %>">
+  <% version.partials.each do |partial| %>
+    <%= render partial: '/pulitzer/partials/show_wrapper', locals: { partial: partial } %>
+  <% end %>
+</div>
+<div id="<%= dom_id version, :partials %>">
+  <div class="pulitzer-row margin-bottom list-item">
+    <%= ajax_link "add a new partial for #{version.title}", new_partial_path(partial: {version_id: version}), {}, dom_target(version, :new_partial) %>
+    <div id="<%= dom_id(version, :new_partial) %>"></div>
+  </div>
+</div>
