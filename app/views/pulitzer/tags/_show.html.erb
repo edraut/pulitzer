@@ -1,5 +1,20 @@
 <div class="pulitzer-row">
   <ul class="inline-list">
     <li><%= tag.name %></li>
+    <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+      <li>
+        <%= ajax_link "Edit", edit_tag_path(tag), {}, dom_target(tag) %>
+      </li>
+    <% end %>
+    <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+      <li>
+        <%= ajax_delete 'Delete', tag_path(tag), {}, dom_target(tag) %>
+      </li>
+    <% end %>
+    <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+      <li>
+        <%= ajax_link 'Add tag child', new_tag_path("tag[parent_id]" => tag.id), {}, dom_target(tag) %>
+      </li>
+    <% end %>
   </ul>
 </div>
