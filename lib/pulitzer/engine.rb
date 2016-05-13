@@ -8,6 +8,10 @@ module Pulitzer
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
 
+    config.to_prepare do
+      ApplicationController.helper(ApplicationHelper)
+    end
+
     initializer 'pulitzer.action_controller' do |app|
       ActionView::Base.send :include, ContentElementHelper
     end

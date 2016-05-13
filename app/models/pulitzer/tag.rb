@@ -8,6 +8,7 @@ module Pulitzer
     validates :name, presence: true, uniqueness: true
 
     scope :hierarchical, -> { where hierarchical: true  }
-    scope :flat,         -> { where hierarchical: false }
+    scope :flat, -> { where hierarchical: false }
+    scope :root, -> { hierarchical.where(parent_id: nil) } 
   end
 end

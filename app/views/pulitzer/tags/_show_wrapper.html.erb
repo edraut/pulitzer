@@ -1,8 +1,12 @@
 <div class="pulitzer-row margin-bottom list-item" id="<%= dom_id(tag) %>">
   <%= render partial: 'show', locals: {tag: tag} %>
-  <% tag.children.each do |t| %>
-    <div class="pulitzer-row margin-bottom list-item" id="<%= dom_id(t) %>">
-      <%= render partial: 'show', locals: {tag: t} %>
-    </div>
+  <% if tag.hierarchical? && tag.children.any? %>
+    <ul>
+      <% tag.children.each do |t| %>
+        <li class="pulitzer-row margin-bottom list-item" id="<%= dom_id(t) %>">
+          <%= render partial: 'show', locals: {tag: t} %>
+        </li>
+      <% end %>
+    </ul>
   <% end %>
 </div>
