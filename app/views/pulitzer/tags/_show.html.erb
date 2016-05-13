@@ -10,9 +10,10 @@
       </li>
       <% if tag.hierarchical? %>
         <li>
-          <%= ajax_link 'Add children', new_tag_path("tag[parent_id]" => tag.id), {}, dom_target(tag) %>
+          <%= ajax_link 'Add children', new_tag_path("tag[parent_id]" => tag.id), {}, "#new_tag_#{tag.id}" %>
         </li>
       <% end %>
     <% end %>
   </ul>
 </div>
+<div id="new_tag_<%= tag.id %>"></div>
