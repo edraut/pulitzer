@@ -4,7 +4,7 @@ module Pulitzer
     extend ::FriendlyId
     has_many :versions
     belongs_to :post_type
-    delegate :post_type_content_element_types, :allow_free_form?, to: :post_type
+    delegate :post_type_content_element_types, :free_form_section_types, :has_free_form_sections?, :has_templated_content_elements?, to: :post_type
     delegate :content_elements, :post_tags, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_preview_version

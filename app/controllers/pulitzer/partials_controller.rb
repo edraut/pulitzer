@@ -2,15 +2,20 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
   before_filter :set_partial, only: [:show, :edit, :update]
 
   def new
-    @version           = Pulitzer::Version.find params[:version_id]
-    @partial   = @version.partials.build
-    render partial: 'new', locals: { partial: @partial, version: @version }
+    @partial = Pulitzer::Partial.new(partial_params)
+    @version = @partial.version
+    render partial: 'new', locals: { partial: @partial }
   end
 
   def create
-    @version         = Pulitzer::Version.find partial_params[:version_id]
-    @partial = @version.partials.create partial_params.merge(ensure_unique: true)
-    render partial: 'show_wrapper', locals: { partial: @partial }
+    @version = Pulitzer::Version.find partial_params[:version_id]
+    @partial = @version.partials.create partial_params
+    if @partial && @partial.errors.empty?
+      Pulitzer::CreatePartialContentElements.new(@partial).call 
+      render partial: 'show_wrapper', locals: { partial: @partial }
+    else
+      render partial: 'new', locals: {partial: @partial}
+    end
   end
 
   def show

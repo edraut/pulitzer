@@ -1,13 +1,13 @@
-class Pulitzer::CreatePostContentElements
-  attr_accessor :post
+class Pulitzer::CreatePartialContentElements
+  attr_accessor :partial
 
-  def initialize(post)
-    self.post = post
+  def initialize(partial)
+    self.partial = partial
   end
 
   def call
-    post.post_type_content_element_types.each do |cet|
-      post.preview_version.content_elements.create do |ce|
+    partial.post_type_content_element_types.each do |cet|
+      partial.content_elements.create do |ce|
         ce.label                          = cet.label
         ce.height                         = cet.height
         ce.width                          = cet.width
@@ -15,9 +15,6 @@ class Pulitzer::CreatePostContentElements
         ce.content_element_type           = cet.content_element_type
         ce.post_type_content_element_type = cet
       end
-    end
-    post.free_form_section_types.each do |ffst|
-      post.preview_version.free_form_sections.create name: ffst.name
     end
   end
 end

@@ -12,6 +12,11 @@ Pulitzer::Engine.routes.draw do
       patch :update_all
     end
   end
+  resources :partials do
+    collection do
+      patch :update_all
+    end
+  end
   resources :post_types
   resources :versions
   resources :content_element_types

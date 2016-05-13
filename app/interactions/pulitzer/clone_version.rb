@@ -22,6 +22,16 @@ class Pulitzer::CloneVersion
       new_version.processed_element_count += 1
       new_version.broadcast_change if defined? ForeignOffice
     end
+    @version.free_form_sections.each do |ffs|
+      begin
+        cloned_ffs = ffs.clone_me
+        new_version.free_form_sections << cloned_ffs
+      rescue ActiveRecord::RecordInvalid => invalid
+        cloning_errors.push "Free Form Section #{ffs.id} could not be cloned: #{invalid.record.errors.full_messages.join(', ')}"
+      end
+      new_version.processed_element_count += 1
+      new_version.broadcast_change if defined? ForeignOffice
+    end
     @version.post_tags.each do |pt|
       new_version.post_tags << pt.clone_me
       new_version.processed_element_count += 1

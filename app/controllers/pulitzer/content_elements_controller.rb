@@ -1,18 +1,6 @@
 class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   before_filter :set_content_element, only: [:show, :edit, :update]
 
-  def new
-    @version           = Pulitzer::Version.find params[:version_id]
-    @content_element   = @version.content_elements.build
-    render partial: 'new', locals: { content_element: @content_element, version: @version }
-  end
-
-  def create
-    @version         = Pulitzer::Version.find content_element_params[:version_id]
-    @content_element = @version.content_elements.create content_element_params.merge(ensure_unique: true)
-    render partial: 'show_wrapper', locals: { content_element: @content_element }
-  end
-
   def show
     render partial: 'show', locals: { content_element: @content_element }
   end

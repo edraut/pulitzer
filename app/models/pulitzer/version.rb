@@ -1,16 +1,16 @@
-module Pulitzer
+\module Pulitzer
   class Version < ActiveRecord::Base
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     enum status: [ :preview, :active, :archived, :abandoned, :processing, :processing_failed ]
     has_many :content_elements, dependent: :destroy
-    has_many :partials, dependent: :destroy
+    has_many :free_form_sections, dependent: :destroy
     has_many :post_tags, dependent: :destroy
     belongs_to :post
     scope :tagged_with_type, ->(label_type){includes(:post_tags).where(pulitzer_post_tags: {label_type: label_type}).references(:pulitzer_post_tags)}
     scope :tagged_with_label, ->(label){includes(:post_tags).where(pulitzer_post_tags:{label_type: label.class.name, label_id: label.id}).references(:pulitzer_post_tags)}
     attr_accessor :processed_element_count
 
-    delegate :allow_free_form?, :title, :slug, to: :post
+    delegate :has_free_form_sections?, :has_templated_content_elements?, :title, :slug, :active_version, to: :post
 
     validates :post_id, :status, presence: true
 
@@ -36,6 +36,10 @@ module Pulitzer
 
     def free_form_content_elements
       content_elements.free_form
+    end
+
+    def total_processing_elements
+      active_version.content_elements.count + active_version.post_tags.count + active_version.free_form_sections.count + 2
     end
 
     def serialize
