@@ -1,15 +1,17 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Pulitzer::FreeFormSectionTypesController do
-  # render_views
-  let(:post_type) { Pulitzer::PostType.create(name: 'free as a bird') }
+  routes { Pulitzer::Engine.routes }
+  render_views
+
+  let(:post_type) { Pulitzer::PostType.create(name: 'free as a bird', plural: true, kind: Pulitzer::PostType.kinds[:template]) }
   let(:free_form_section_type) { post_type.free_form_section_types.create(name: 'main content') }
 
   describe "#amenities" do
     it "creates a new free form section type" do
       post :create, free_form_section_type: {post_type_id: post_type.id, name: 'test sidebar'}
       expect(response.status).to eq 200
-      ffst = FreeFormSectionType.order(id: :desc).first
+      ffst = Pulitzer::FreeFormSectionType.order(id: :desc).first
       expect(ffst.name).to eq "test sidebar"
     end
 
@@ -29,7 +31,7 @@ describe Pulitzer::FreeFormSectionTypesController do
     it "deletes an free_form_section_type" do
       delete :destroy, id: free_form_section_type.id
       expect(response.status).to eq 200
-      expect(FreeFormSectionType.find_by(id: free_form_section_type.id)).to be nil
+      expect(Pulitzer::FreeFormSectionType.find_by(id: free_form_section_type.id)).to be nil
     end
 
   end # /search

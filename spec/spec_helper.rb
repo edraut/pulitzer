@@ -1,4 +1,3 @@
-require 'rspec/rails'
 require 'byebug'
 require 'pry'
 

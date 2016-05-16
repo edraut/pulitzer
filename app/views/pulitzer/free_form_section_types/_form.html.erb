@@ -1,0 +1,8 @@
+<%= render 'pulitzer/shared/error_messages', object: ffst %>
+<%= form_for ffst, html: ajax_form_hash(dom_target(ffst)) do |f| %>
+  <%= render partial: 'form_fields', locals: { f: f, ffst: ffst } %>
+  <%= f.submit "Update" %>
+  <%= link_to('Cancel', free_form_section_type_path(ffst), :class => 'button',
+    data: { ajax_link: true, ajax_target: dom_target(ffst) } ) %>
+<% end %>
+
