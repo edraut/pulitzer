@@ -50,4 +50,22 @@ describe Pulitzer::Tag do
     end
   end
 
+  describe "#root?" do
+    let!(:tag1) { create :tag, hierarchical: true  }
+    let!(:tag2) { create :tag, hierarchical: false }
+    let!(:tag3) { create :tag, hierarchical: true, parent: tag1 }
+
+    it "returns true for root hierarchical tags" do
+      expect(tag1.root?).to eq true
+    end
+
+    it "returns false for flat tags" do
+      expect(tag2.root?).to eq false
+    end
+
+    it "returns false for children tags" do
+      expect(tag3.root?).to eq false
+    end
+  end
+
 end
