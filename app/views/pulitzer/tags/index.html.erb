@@ -6,7 +6,9 @@
   <%= ajax_link 'Add a new root tag', new_tag_path("tag[hierarchical]" => true), {}, '#new_tag' %>
   <div id="new_tag"></div>
 <% end %>
-<%= render partial: 'show_wrapper', collection: @root_tags, as: :tag %>
+<div id="tags_container">
+  <%= render partial: 'show_wrapper', collection: @root_tags, as: :tag %>
+</div>
 <hr/>
 
 <h2>Flat Tags</h2>
