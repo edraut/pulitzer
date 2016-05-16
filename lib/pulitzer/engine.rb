@@ -9,7 +9,7 @@ module Pulitzer
     end
 
     config.to_prepare do
-      ApplicationController.helper(ApplicationHelper)
+      ApplicationController.helper(MainHelper)
     end
 
     initializer 'pulitzer.action_controller' do |app|
