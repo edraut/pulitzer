@@ -27,7 +27,8 @@ module Pulitzer
       if @tag.save
         render partial: 'show_wrapper', locals: {tag: @tag}
       else
-        render partial: 'new', locals: { tag: @tag }, status: 409
+        @template = @tag.hierarchical? ? 'new_hierarchical' : 'new_flat'
+        render partial: @template, locals: { tag: @tag }, status: 409
       end
     end
 
