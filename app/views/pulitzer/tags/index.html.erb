@@ -1,7 +1,7 @@
 <h1>Tags</h1>
 <p>Tags can be categorized in a tree-like structure something something explanation here</p>
 
-<h2>hierarchical Tags</h2>
+<h2>Hierarchical Tags</h2>
 <% if authorized? %>
   <%= ajax_link 'Add a new root tag', new_tag_path("tag[hierarchical]" => true), {}, '#new_tag' %>
   <div id="new_tag"></div>
@@ -12,4 +12,5 @@
 <hr/>
 
 <h2>Flat Tags</h2>
-<%= render partial: 'show_wrapper', collection: @flat_tags, as: :tag %>
+<p>SOON</p>
+<%# = render partial: 'show_wrapper', collection: @flat_tags, as: :tag %>

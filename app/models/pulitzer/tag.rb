@@ -9,6 +9,10 @@ module Pulitzer
 
     scope :hierarchical, -> { where hierarchical: true  }
     scope :flat, -> { where hierarchical: false }
-    scope :root, -> { hierarchical.where(parent_id: nil) } 
+    scope :root, -> { hierarchical.where(parent_id: nil) }
+
+    def root?
+      hierarchical? && parent_id.nil?
+    end
   end
 end

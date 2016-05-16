@@ -9,7 +9,8 @@ module Pulitzer
 
     def new
       @tag = Tag.new(tag_params)
-      render partial: 'new', locals: {tag: @tag}
+      @template = @tag.hierarchical? ? 'new_hierarchical' : 'new_flat'
+      render partial: @template, locals: {tag: @tag}
     end
 
     def edit
