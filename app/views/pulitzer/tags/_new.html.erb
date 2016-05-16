@@ -1,6 +1,6 @@
 <% new_div_container = tag.parent_id? ? "#new_tag_#{tag.parent_id}" : '#new_tag' %>
-<% new_target = tag.parent_id? ? "#{dom_id(tag.parent)}_children" : "#tags_container" %>
-<%= form_for tag, html: ajax_form_hash(new_target, insert_method: 'append', sub_class: "AddALineForm", container: new_div_container) do |f| %>
+<% new_target = tag.parent_id? ? "##{dom_id(tag.parent)}_children" : "#tags_container" %>
+<%= form_for tag, html: ajax_form_hash(new_target, insert_method: 'append', empty_on_success: new_div_container) do |f| %>
   <%= render partial: 'form_fields', locals: { f: f } %>
   <%= f.submit "Create" %>
   <%= link_to('Cancel', '#', :class => 'button',
