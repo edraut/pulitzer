@@ -12,5 +12,11 @@
 <hr/>
 
 <h2>Flat Tags</h2>
-<p>SOON</p>
-<%# = render partial: 'show_wrapper', collection: @flat_tags, as: :tag %>
+<% if authorized? %>
+  <%= ajax_link 'Add a new tag', new_tag_path("tag[hierarchical]" => false), {}, '#new_flat_tag' %>
+  <div id="new_flat_tag"></div>
+<% end %>
+
+<div id="flat_tags">
+  <%= render partial: 'show_wrapper', collection: @flat_tags, as: :tag %>
+</div>

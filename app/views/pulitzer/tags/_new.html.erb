@@ -1,0 +1,7 @@
+<%= form_for @tag, html: ajax_form_hash(target, insert_method: 'append', empty_on_success: container) do |f| %>
+  <%= render partial: 'form_fields', locals: { f: f } %>
+  <%= f.submit "Create" %>
+  <%= link_to('Cancel', '#', :class => 'button',
+    data: { emptier: true, target: container } ) %>
+<% end %>
+<%= render 'pulitzer/shared/error_messages', object: @tag %>
