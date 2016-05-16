@@ -3,13 +3,13 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
 
   def new
     @partial = Pulitzer::Partial.new(partial_params)
-    @version = @partial.version
+    @free_form_section = @partial.free_form_section
     render partial: 'new', locals: { partial: @partial }
   end
 
   def create
-    @version = Pulitzer::Version.find partial_params[:version_id]
-    @partial = @version.partials.create partial_params
+    @free_form_section = Pulitzer::FreeFormSection.find partial_params[:free_form_section_id]
+    @partial = @free_form_section.partials.create partial_params
     if @partial && @partial.errors.empty?
       Pulitzer::CreatePartialContentElements.new(@partial).call 
       render partial: 'show_wrapper', locals: { partial: @partial }

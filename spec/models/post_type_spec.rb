@@ -20,6 +20,6 @@ describe Pulitzer::PostType do
 
   describe 'ActiveRecord enums' do
     it { should define_enum_for(:kind).
-      with([:template, :free_form, :hybrid]) }
+      with([:template, :partial]) }
   end
 end

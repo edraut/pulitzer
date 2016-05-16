@@ -1,3 +1,5 @@
+require File.expand_path("../../spec/dummy/config/environment", __FILE__)
+require 'rspec/rails'
 require 'byebug'
 require 'pry'
 

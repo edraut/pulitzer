@@ -1,14 +1,12 @@
-<h2>Template partials</h2>
-
-<div id="<%= dom_id version, :partial_container %>">
-  <% version.partials.each do |partial| %>
+<div id="<%= dom_id free_form_section, :partial_container %>">
+  <% free_form_section.partials.each do |partial| %>
     <%= render partial: '/pulitzer/partials/show_wrapper', locals: { partial: partial } %>
   <% end %>
 </div>
 
-<div id="<%= dom_id version, :partials %>">
+<div id="<%= dom_id free_form_section, :partials %>">
   <div class="pulitzer-row margin-bottom list-item">
-    <%= ajax_link "add a new partial for #{version.title}", new_partial_path(partial: {version_id: version}), {}, dom_target(version, :new_partial) %>
-    <div id="<%= dom_id(version, :new_partial) %>"></div>
+    <%= ajax_link "add a new partial for #{free_form_section.name}", new_partial_path(partial: {free_form_section_id: free_form_section}), {}, dom_target(free_form_section, :new_partial) %>
+    <div id="<%= dom_id(free_form_section, :new_partial) %>"></div>
   </div>
 </div>

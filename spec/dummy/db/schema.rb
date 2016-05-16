@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122204201) do
+ActiveRecord::Schema.define(version: 20160516150237) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 20160122204201) do
     t.integer  "width",                             default: 100
     t.integer  "sort_order"
     t.integer  "kind",                              default: 0
+    t.integer  "partial_id"
+  end
+
+  create_table "pulitzer_free_form_section_types", force: :cascade do |t|
+    t.integer "post_type_id"
+    t.string  "name"
+  end
+
+  create_table "pulitzer_free_form_sections", force: :cascade do |t|
+    t.integer "version_id"
+    t.integer "free_form_section_type_id"
+    t.string  "name"
+  end
+
+  create_table "pulitzer_partials", force: :cascade do |t|
+    t.integer "post_type_id"
+    t.integer "free_form_section_id"
+    t.integer "sort_order"
   end
 
   create_table "pulitzer_post_tags", force: :cascade do |t|

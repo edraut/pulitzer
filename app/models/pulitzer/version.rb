@@ -1,4 +1,4 @@
-\module Pulitzer
+module Pulitzer
   class Version < ActiveRecord::Base
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     enum status: [ :preview, :active, :archived, :abandoned, :processing, :processing_failed ]
@@ -28,6 +28,10 @@
 
     def content_element(label)
       self.content_elements.find_by(label: label)
+    end
+
+    def section(name)
+      self.free_form_sections.find_by(name: name)
     end
 
     def template_content_elements

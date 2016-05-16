@@ -1,6 +1,7 @@
 module Pulitzer
   class FreeFormSection < ActiveRecord::Base
     belongs_to :version
+    belongs_to :free_form_section_type
     has_many :partials
 
     def clone_me

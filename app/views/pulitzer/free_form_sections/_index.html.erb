@@ -1,1 +1,3 @@
-<h3>Free Form Sections</h3>
+<% version.free_form_sections.each do |ffs| %>
+  <%= render partial: '/pulitzer/free_form_sections/show_wrapper', locals: {ffs: ffs} %>
+<% end %>

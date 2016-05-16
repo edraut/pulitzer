@@ -8,6 +8,10 @@ module Pulitzer
 
     before_save :handle_sort_order
 
+    def content_element(label)
+      self.content_elements.find_by(label: label)
+    end
+
     def handle_sort_order
       if new_record? && sort_order.nil?
         self.sort_order = free_form_section.partials.maximum(:sort_order).to_i + 1
