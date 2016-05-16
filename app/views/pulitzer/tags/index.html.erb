@@ -2,7 +2,7 @@
 <p>Tags can be categorized in a tree-like structure something something explanation here</p>
 
 <h2>hierarchical Tags</h2>
-<% if authenticated %>
+<% if authorized? %>
   <%= ajax_link 'Add a new root tag', new_tag_path("tag[hierarchical]" => true), {}, '#new_tag' %>
   <div id="new_tag"></div>
 <% end %>
