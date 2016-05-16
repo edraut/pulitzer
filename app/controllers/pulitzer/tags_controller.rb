@@ -17,8 +17,12 @@ module Pulitzer
     end
 
     def create
-      @tag = Tag.create(tag_params)
-      render partial: 'show_wrapper', locals: {tag: @tag}
+      @tag = Tag.new(tag_params)
+      if @tag.save
+        render partial: 'show_wrapper', locals: {tag: @tag}
+      else
+        render partial: 'new', locals: { tag: @tag }, status: 409
+      end
     end
 
     def update

@@ -1,12 +1,12 @@
 <h1>Tags</h1>
-<% if authenticated %>
+<% if authorized? %>
   <%= link_to 'Manage tags', tags_path %>
 <% end %>
 
 <h1> Post Types </h1>
 
 <div class="pulitzer-row margin-bottom list-item">
-  <% if authenticated %>
+  <% if authorized? %>
     <%= ajax_link 'Add a new post type', new_post_type_path, {}, '#new_post_type' %>
   <% end %>
   <div id="new_post_type"></div>

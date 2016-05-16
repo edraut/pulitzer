@@ -18,8 +18,6 @@
 </div>
 <div id="new_tag_<%= tag.id %>"></div>
 
-<% tag.children.each do |t| %>
-  <div class="pulitzer-row margin-left" id="<%= dom_id(t) %>">
-    <%= render partial: 'show', locals: {tag: t} %>
-  </div>
-<% end %>
+<div id="<%= dom_id(tag) %>_children" class="pulitzer-row margin-left">
+  <%= render partial: 'show_wrapper', collection: tag.children, as: :tag %>
+</div>
