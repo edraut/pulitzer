@@ -16,6 +16,11 @@ module Pulitzer
       render partial: 'form', locals: {tag: @tag}
     end
 
+    def show
+      @tag = Tag.find(params[:id])
+      render partial: 'show', locals: { tag: @tag }
+    end
+
     def create
       @tag = Tag.new(tag_params)
       if @tag.save
