@@ -73,7 +73,35 @@ describe Pulitzer::TagsController do
   end
 
   describe "#create" do
-    pending
+    let(:attributes) { attributes_for :tag }
+    context "with good arguments" do
+
+      it "creates the tag" do
+        expect { post :create, tag: attributes }.to change { Pulitzer::Tag.count }.by(1)
+      end
+
+      it "renders the right template" do
+        post :create, tag: attributes
+        expect(response).to render_template('_show_wrapper')
+      end
+    end
+
+    context "with bad arguments" do
+      let!(:tag1) { create :tag, name: "awesomesauce" }
+
+      before do
+        attributes.merge! name: "awesomesauce"
+      end
+
+      it "doesn't save the tag" do
+        expect { post :create, tag: attributes }.not_to change { Pulitzer::Tag.count }
+      end
+
+      it "renders the right template" do
+        post :create, tag: attributes
+        expect(response).to render_template("_new_flat")
+      end
+    end
   end
 
   describe "#edit" do
