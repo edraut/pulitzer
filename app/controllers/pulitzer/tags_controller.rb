@@ -2,6 +2,8 @@ module Pulitzer
   class TagsController < ApplicationController
     before_filter :get_tag, only: [:edit, :update, :destroy]
 
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
     def index
       @root_tags = Tag.root
       @flat_tags = Tag.flat
@@ -43,6 +45,11 @@ module Pulitzer
     end
 
     protected
+
+    def render_not_found(e)
+      Rails.logger.warn("Rendering 404 because #{e.inspect}")
+      render nothing: true, status: :not_found
+    end
 
     def tag_params
       params[:tag].permit!
