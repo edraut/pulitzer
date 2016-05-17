@@ -11,7 +11,7 @@ module Pulitzer
     scope :hierarchical, -> { where hierarchical: true  }
     scope :flat,  -> { where hierarchical: false }
     scope :root,  -> { hierarchical.where(parent_id: nil) }
-    scope :named, -> { |name| where(name: name) }
+    scope :named, ->(name) { where(name: name) }
 
     def active_posts
       @active_posts ||= posts.map(&:active_version).compact
