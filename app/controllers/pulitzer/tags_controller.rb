@@ -11,12 +11,11 @@ module Pulitzer
 
     def new
       @tag = Tag.new(tag_params)
-      @template = @tag.hierarchical? ? 'new_hierarchical' : 'new_flat'
-      render partial: @template
+      render partial: new_template(@tag)
     end
 
     def edit
-      render partial: 'form', locals: {tag: @tag}
+      render partial: 'form', locals: { tag: @tag }
     end
 
     def show
@@ -27,16 +26,18 @@ module Pulitzer
     def create
       @tag = Tag.new(tag_params)
       if @tag.save
-        render partial: 'show_wrapper', locals: {tag: @tag}
+        render partial: 'show_wrapper', locals: { tag: @tag }
       else
-        @template = @tag.hierarchical? ? 'new_hierarchical' : 'new_flat'
-        render partial: @template, locals: { tag: @tag }, status: 409
+        render partial: new_template(@tag), locals: { tag: @tag }, status: 409
       end
     end
 
     def update
-      @tag.update_attributes(tag_params)
-      render partial: 'show', locals: {tag: @tag}
+      if @tag.update_attributes(tag_params)
+        render partial: 'show', locals: { tag: @tag }
+      else
+        render partial: 'form', locals: { tag: @tag }, status: 409
+      end
     end
 
     def destroy
@@ -45,6 +46,10 @@ module Pulitzer
     end
 
     protected
+
+    def new_template(tag)
+      tag.hierarchical? ? 'new_hierarchical' : 'new_flat'
+    end
 
     def render_not_found(e)
       Rails.logger.warn("Rendering 404 because #{e.inspect}")

@@ -35,17 +35,6 @@ describe Pulitzer::TagsController do
       get :show, id: tag.id
       expect(response).to render_template(partial: "show", locals: { tag: tag })
     end
-
-    context "with a non existing id" do
-      before do
-        allow(tag).to receive(:id) { 2_000 }
-      end
-
-      it "breaks nicely" do
-        get :show, id: tag.id
-        expect(response.status).to eq 404
-      end
-    end
   end
 
   describe "#new" do
@@ -105,10 +94,72 @@ describe Pulitzer::TagsController do
   end
 
   describe "#edit" do
-    pending
+    let(:tag) { create :tag }
+
+    it "finds the right tag" do
+      get :edit, id: tag.id
+      expect(assigns[:tag]).to eq tag
+    end
+
+    it "renders the right template" do
+      get :edit, id: tag.id
+      expect(response).to render_template("_form")
+    end
+  end
+
+  describe "#update" do
+    let(:tag) { create :tag }
+    let(:attributes) { attributes_for :tag }
+
+    context "with good arguments" do
+
+      before do
+        allow(Pulitzer::Tag).to receive(:find) { tag }
+      end
+
+      it "updates the record" do
+        expect(tag).to receive(:update_attributes).with(attributes)
+        patch :update, id: tag.id, tag: attributes
+      end
+
+      it "renders the right response" do
+        patch :update, id: tag.id, tag: attributes
+        expect(response).to render_template("_show")
+      end
+    end
+
+    context "with bad arguments" do
+      before do
+        create :tag, name: "sadpanda"
+        attributes.merge! name: "sadpanda"
+        allow(Pulitzer::Tag).to receive(:find) { tag }
+        patch :update, id: tag.id, tag: attributes
+      end
+
+      it "doesn't update the record" do
+        expect(assigns[:tag].errors).not_to be_empty
+      end
+
+      it "renders the right template" do
+        expect(response).to render_template("_form")
+      end
+    end
   end
 
   describe "#destroy" do
-    pending
+    let(:tag) { create :tag }
+    render_views
+
+    before { allow(Pulitzer::Tag).to receive(:find) { tag} }
+
+    it "destroys the record" do
+      expect(tag).to receive(:destroy)
+      delete :destroy, id: tag.id
+    end
+
+    it "renders nothing" do
+      delete :destroy, id: tag.id
+      expect(response.body).to eq ""
+    end
   end
 end
