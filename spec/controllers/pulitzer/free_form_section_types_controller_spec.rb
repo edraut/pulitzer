@@ -8,6 +8,13 @@ describe Pulitzer::FreeFormSectionTypesController do
   let(:free_form_section_type) { post_type.free_form_section_types.create(name: 'main content') }
 
   describe "#amenities" do
+    it "renders the new form" do
+      post_type
+      get :new, post_type_id: post_type.id
+      expect(response.status).to eq 200
+      expect(response.body).to match /free_form_section_type\[name\]/
+    end
+
     it "creates a new free form section type" do
       post :create, free_form_section_type: {post_type_id: post_type.id, name: 'test sidebar'}
       expect(response.status).to eq 200
