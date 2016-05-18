@@ -10,7 +10,6 @@ module Pulitzer
     delegate :content_elements, :section, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
 
     has_many :post_tags, through: :active_version
-    has_many :tags, through: :post_tags
 
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_preview_version
@@ -20,6 +19,10 @@ module Pulitzer
     validates :title, presence: true
 
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
+
+    def tags
+      post_tags.map(&:label)
+    end
 
     def content_element(label)
       if content_elements
