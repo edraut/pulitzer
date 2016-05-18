@@ -1,6 +1,3 @@
-<% if post_type.partial? %>
-  <div class="pulitzer-row">template path: <%= post_type.template_path %></div>
-<% end %>
 <%= render 'pulitzer/shared/error_messages', object: post_type %>
 <%= form_for post_type, html: ajax_form_hash(dom_target(post_type)) do |f| %>
   <%= render partial: 'form_fields', locals: { f: f } %>

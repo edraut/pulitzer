@@ -2,8 +2,10 @@
 <%= render 'pulitzer/shared/error_messages', object: partial %>
 <%= form_for partial, html: ajax_form_hash(dom_target(partial)), multipart: true,
   data: { server_endpoint: partial_path(partial) } do |f| %>
-  <%= render partial: "/pulitzer/partials/fields", locals: { f: f, partial: partial } %>
+  <%= f.collection_select :layout_id, partial.available_layouts, :id, :name, {}, {} %>
   <%= submit_tag "Update" %>
   <%= link_to('Cancel', partial_path(partial), :class => 'button',
     data: { ajax_link: true, ajax_target: dom_target(partial) } ) %>
+    or
+  <%= ajax_delete 'delete', partial_path(partial), {class: 'button'}, dom_target(partial) %>
 <% end %>

@@ -1,1 +1,2 @@
 <%= f.collection_select :post_type_id, Pulitzer::PostType.partials, :id, :name, {}, {} %>
+<%= f.collection_select :layout_id, f.object.available_layouts, :id, :name, {}, {} %>

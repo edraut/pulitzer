@@ -2,9 +2,12 @@ module Pulitzer
   class Partial < ActiveRecord::Base
     belongs_to :free_form_section
     belongs_to :post_type
+    belongs_to :layout
+    
     has_many :content_elements, dependent: :destroy
 
-    delegate :template_path, :name, :post_type_content_element_types, to: :post_type
+    delegate :name, :post_type_content_element_types, to: :post_type
+    delegate :template_path, to: :layout, allow_nil: true
 
     before_save :handle_sort_order
 
@@ -16,6 +19,18 @@ module Pulitzer
       if new_record? && sort_order.nil?
         self.sort_order = free_form_section.partials.maximum(:sort_order).to_i + 1
       end
+    end
+
+    def available_layouts
+      post_type.layouts
+    end
+
+    def folder_path
+      name.downcase.gsub(/ /,'_').gsub(/\W/,'')      
+    end
+
+    def full_view_path
+      Pulitzer.partial_folder + folder_path + '/' + template_path
     end
 
     def clone_me

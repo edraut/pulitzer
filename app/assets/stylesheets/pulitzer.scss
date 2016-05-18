@@ -138,6 +138,13 @@ body {
     display: inline-block;
     width: 5px;
   }
+  &.match-h5{
+    line-height: 20px;
+    margin: 10px 0;
+  }
+  &.margin {
+    margin-right: 1em;
+  }
 }
 .pulitzer-hidden{
   display: none;
