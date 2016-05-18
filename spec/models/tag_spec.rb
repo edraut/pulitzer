@@ -28,6 +28,20 @@ describe Pulitzer::Tag do
     end
   end
 
+  describe "#posts" do
+    subject { create :tag }
+    let(:version) { create :version, status: :active }
+    let(:post)    { version.post }
+
+    before do
+      create :post_tag, version: version, label: subject
+    end
+
+    it "returns the posts tagged with the given tag" do
+      expect(subject.posts).to include(post)
+    end
+  end
+
   describe ".flat" do
     subject { described_class }
     let!(:t1) { create :tag, hierarchical: true }

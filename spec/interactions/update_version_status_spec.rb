@@ -6,6 +6,7 @@ describe Pulitzer::UpdateVersionStatus do
   it 'activates a version' do
     expect(version.status).to eq 'preview'
     Pulitzer::UpdateVersionStatus.new(version, :active).call
+    post.reload
     expect(post.active_version.id).to eq version.id
     expect(post.preview_version).to be_instance_of Pulitzer::Version
     expect(post.preview_version.id).not_to eq version.id
