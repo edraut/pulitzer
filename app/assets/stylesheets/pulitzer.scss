@@ -150,6 +150,10 @@ body {
     display: inline-block;
     width: 5px;
   }
+  &.match-h2{
+    line-height: 40px;
+    margin: 10px 0;
+  }
   &.match-h5{
     line-height: 20px;
     margin: 10px 0;

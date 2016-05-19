@@ -1,4 +1,4 @@
-<div id="<%= dom_id free_form_section, :partial_container %>">
+<div id="<%= dom_id free_form_section, :partial_container %>" data-sorter href="<%= update_all_partials_path %>">
   <% free_form_section.partials.each do |partial| %>
     <%= render partial: '/pulitzer/partials/show_wrapper', locals: { partial: partial } %>
   <% end %>

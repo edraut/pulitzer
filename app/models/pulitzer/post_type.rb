@@ -1,6 +1,7 @@
 class Pulitzer::PostType < ActiveRecord::Base
   enum kind: [ :template, :partial ]
   has_many :posts, dependent: :destroy
+  has_many :partials, dependent: :destroy
   has_many :post_type_content_element_types, dependent: :destroy
   has_many :content_element_types, through: :post_type_content_element_types
   has_many :free_form_section_types, dependent: :destroy

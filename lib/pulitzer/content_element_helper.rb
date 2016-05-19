@@ -27,6 +27,10 @@ module Pulitzer
       content_tag(:img, nil, options.merge(srcset: element.image_url(:cms)))
     end
 
+    def render_cms_image_path(element,options = {})
+      element.image_url(:cms)
+    end
+
     def render_video(element, options = {})
       content_tag(:iframe, nil, options.merge(src: element.video_link)) if element.video_link
     end

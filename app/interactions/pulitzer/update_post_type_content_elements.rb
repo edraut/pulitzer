@@ -18,5 +18,15 @@ class Pulitzer::UpdatePostTypeContentElements
           post_type_content_element_type: ptcet)
       end
     end
+    post_type.partials.each do |partial|
+      partial.content_elements.where(label: old_label).each do |content_element|
+        content_element.update(label: ptcet.label,
+          height: ptcet.height,
+          width: ptcet.width,
+          text_editor: ptcet.text_editor,
+          content_element_type: ptcet.content_element_type,
+          post_type_content_element_type: ptcet)
+      end
+    end
   end
 end
