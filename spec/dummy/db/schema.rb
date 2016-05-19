@@ -111,10 +111,4 @@ ActiveRecord::Schema.define(version: 20160517182500) do
 # Could not dump table "pulitzer_versions" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
 
-  create_table "search_locations", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end
