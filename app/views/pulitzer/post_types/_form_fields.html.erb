@@ -1,5 +1,6 @@
 <%= f.label :name %>
 <%= f.text_field :name %>
+<%= f.select :kind, Pulitzer::PostType.kinds.keys.map { |m| [m.humanize, m] }, {}, revealer(dom_id(f.object, :kind), highlander: true) %>
 <div <%= revealer_target_attrs(dom_id(f.object, :kind)) %>>
   <div <%= revealer_option_attrs(dom_id(f.object, :kind), trigger: 'template') %>>
     <%= f.label :plural %>
@@ -9,4 +10,3 @@
     <%= f.hidden_field :plural, value: true %>
   </div>
 </div>
-<%= f.select :kind, Pulitzer::PostType.kinds.keys.map { |m| [m.humanize, m] }, {}, revealer(dom_id(f.object, :kind), highlander: true) %>

@@ -30,7 +30,7 @@ module Pulitzer
     end
 
     def full_view_path
-      Pulitzer.partial_folder + folder_path + '/' + template_path
+      Pulitzer.partial_folder + '/' + folder_path + '/' + template_path
     end
 
     def clone_me

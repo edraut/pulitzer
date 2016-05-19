@@ -38,10 +38,6 @@ module Pulitzer
       content_elements.template
     end
 
-    def free_form_content_elements
-      content_elements.free_form
-    end
-
     def total_processing_elements
       active_version.content_elements.count + active_version.post_tags.count + active_version.free_form_sections.count + 2
     end

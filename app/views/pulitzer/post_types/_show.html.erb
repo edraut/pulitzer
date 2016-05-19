@@ -5,7 +5,7 @@
       <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
     <% end %>
     <li <%= expander("post_type_content_element_types_#{dom_id(post_type)}") %>>
-      <%= link_to "Template", '#', class: 'toggle-post-type-content-elements', data: { post_types: post_type.id } %>
+      <span class='toggle-post-type-content-elements pulitzer-fake-link' data-post-types="<%= post_type.id %>">Template</span>
     </li>
     <li>
       <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
@@ -31,14 +31,16 @@
     <%= ajax_link 'add a new content element for ' + post_type.name, new_post_type_content_element_type_path(post_type_id: post_type.id), {}, "#new_post_type_content_element_type_#{dom_id(post_type)}" %>
     <div id="new_post_type_content_element_type_<%= dom_id(post_type) %>"></div>
 
-    <h5>Free Form Sections</h5>
-    <div id="<%= dom_id(post_type, :free_form_section_types_container) %>">
-      <% post_type.free_form_section_types.each do |ffst| %>
-        <%= render partial: '/pulitzer/free_form_section_types/show_wrapper', locals: {ffst: ffst} %>
-      <% end %>
-    </div>
-    <%= ajax_link 'add a new section for ' + post_type.name, new_free_form_section_type_path(post_type_id: post_type.id), {}, dom_target(post_type, :new_free_form_section_type) %>
-    <div id="<%= dom_id(post_type, :new_free_form_section_type) %>"></div>
+    <% unless post_type.partial? %>
+      <h5>Free Form Sections</h5>
+      <div id="<%= dom_id(post_type, :free_form_section_types_container) %>">
+        <% post_type.free_form_section_types.each do |ffst| %>
+          <%= render partial: '/pulitzer/free_form_section_types/show_wrapper', locals: {ffst: ffst} %>
+        <% end %>
+      </div>
+      <%= ajax_link 'add a new section for ' + post_type.name, new_free_form_section_type_path(post_type_id: post_type.id), {}, dom_target(post_type, :new_free_form_section_type) %>
+      <div id="<%= dom_id(post_type, :new_free_form_section_type) %>"></div>
+    <% end %>
 
     <% if post_type.partial? %>
       <h5>Layouts</h5>

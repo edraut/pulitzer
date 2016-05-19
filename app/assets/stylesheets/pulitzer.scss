@@ -34,7 +34,19 @@ body {
     text-decoration: none;
   }
 }
+.pulitzer-fake-link{
+  cursor: pointer;
+  color: #32638a;
+  &:hover{
+    text-decoration: underline;
+    color: black;
+    cursor: pointer;
+  }
+  &.active{
+    color: black;
+  }
 
+}
 .pulitzer-row {
   position: relative;
   float: left;
