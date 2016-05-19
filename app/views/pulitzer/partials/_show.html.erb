@@ -1,0 +1,7 @@
+<div class="pulitzer-row">
+  <div class="pulitzer-span"><h5><%= partial.folder_path %>/</h5></div>
+  <div class="pulitzer-span margin match-h5"><%= partial.template_path %></div>
+  <div class="pulitzer-span match-h5"><%= ajax_link 'edit', edit_partial_path(partial), {}, dom_target(partial) %></div>
+</div>
+
+<%= render partial: '/pulitzer/content_elements/partial_index', locals: {partial: partial} %>

@@ -1,0 +1,9 @@
+<ul class="inline-list">
+  <li><%= layout.name %></li>
+  <li>
+    <%= ajax_link "Edit", edit_layout_path(layout), {}, dom_target(layout) %>
+  </li>
+  <li>
+    <%= ajax_delete 'Delete', layout_path(layout), {}, dom_target(layout) %>
+  </li>
+</ul>

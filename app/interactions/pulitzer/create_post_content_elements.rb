@@ -16,5 +16,8 @@ class Pulitzer::CreatePostContentElements
         ce.post_type_content_element_type = cet
       end
     end
+    post.free_form_section_types.each do |ffst|
+      post.preview_version.free_form_sections.create name: ffst.name
+    end
   end
 end

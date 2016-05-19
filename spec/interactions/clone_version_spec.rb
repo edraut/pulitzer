@@ -10,6 +10,14 @@ describe Pulitzer::CloneVersion do
     expect(new_version.content_elements.size).to eq 3
   end
 
+  it 'Clones version free form sections' do
+    ff_version = create(:version, :with_free_form_sections)
+    expect(ff_version.free_form_sections.size).to eq 3
+    ff_version.post.create_processing_version
+    new_version = Pulitzer::CloneVersion.new(ff_version).call
+    expect(new_version.free_form_sections.size).to eq 3
+  end
+
   it 'Clones a valid content element' do
     version.post.create_processing_version
     new_version = Pulitzer::CloneVersion.new(version).call
