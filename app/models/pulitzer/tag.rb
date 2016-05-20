@@ -8,7 +8,7 @@ module Pulitzer
     has_many :active_posts, through: :active_versions, source: :post
 
     has_many :children, class_name: 'Pulitzer::Tag', dependent: :destroy, foreign_key: :parent_id
-    belongs_to :parent, class_name: 'Pulitzer::Tag'
+    belongs_to :parent, class_name: 'Pulitzer::Tag', touch: true
 
     validates :name, presence: true, uniqueness: true
 
