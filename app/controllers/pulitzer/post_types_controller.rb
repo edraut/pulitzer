@@ -5,7 +5,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
     if params[:post_type_kind]
       @post_type_kind = params[:post_type_kind]
     else
-      @post_type_kind = 'templates'
+      @post_type_kind = 'template'
     end
     if request.xhr?
       @post_types = Pulitzer::PostType.send @post_type_kind
