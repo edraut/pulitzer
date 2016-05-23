@@ -1,0 +1,13 @@
+<h1> <%= @post_type_kind.humanize %> </h1>
+<div class="pulitzer-row margin-bottom list-item">
+  <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+    <%= ajax_link "add a new #{@post_type_kind}", new_post_type_path(post_type: {kind: @post_type_kind}), {}, "#new_#{@post_type_kind}" %>
+  <% end %>
+  <div id="new_<%= @post_type_kind %>"></div>
+</div>
+
+<div id="post_types_container">
+  <% @post_types.each do |post_type| %>
+    <%= render partial: 'show_wrapper', locals: {post_type: post_type} %>
+  <% end %>
+</div>

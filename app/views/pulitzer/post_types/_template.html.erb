@@ -1,0 +1,32 @@
+<div class="pulitzer-indent" >
+  <h5>Content Elements</h5>
+  <div id="post_type_content_element_types_container_<%= dom_id(post_type) %>">
+    <% post_type.post_type_content_element_types.each do |ptcet| %>
+      <%= render partial: '/pulitzer/post_type_content_element_types/show_wrapper', locals: {ptcet: ptcet} %>
+    <% end %>
+  </div>
+  <%= ajax_link 'add a new content element for ' + post_type.name, new_post_type_content_element_type_path(post_type_id: post_type.id), {}, "#new_post_type_content_element_type_#{dom_id(post_type)}" %>
+  <div id="new_post_type_content_element_type_<%= dom_id(post_type) %>"></div>
+
+  <% unless post_type.partial? %>
+    <h5>Free Form Sections</h5>
+    <div id="<%= dom_id(post_type, :free_form_section_types_container) %>">
+      <% post_type.free_form_section_types.each do |ffst| %>
+        <%= render partial: '/pulitzer/free_form_section_types/show_wrapper', locals: {ffst: ffst} %>
+      <% end %>
+    </div>
+    <%= ajax_link 'add a new section for ' + post_type.name, new_free_form_section_type_path(post_type_id: post_type.id), {}, dom_target(post_type, :new_free_form_section_type) %>
+    <div id="<%= dom_id(post_type, :new_free_form_section_type) %>"></div>
+  <% end %>
+
+  <% if post_type.partial? %>
+    <h5>Layouts</h5>
+    <div id="<%= dom_id(post_type, :layouts_container) %>">
+      <% post_type.layouts.each do |layout| %>
+        <%= render partial: '/pulitzer/layouts/show_wrapper', locals: {layout: layout} %>
+      <% end %>
+    </div>
+    <%= ajax_link 'add a new layout for ' + post_type.name, new_layout_path(layout: {post_type_id: post_type.id}), {}, dom_target(post_type, :new_layout) %>
+    <div id="<%= dom_id(post_type, :new_layout) %>"></div>
+  <% end %>
+</div>

@@ -2,6 +2,6 @@
   <%= render partial: 'form_fields', locals: { f: f } %>
   <%= f.submit "Create" %>
   <%= link_to('Cancel', '#', :class => 'button',
-    data: { emptier: true, target: '#new_post_type' } ) %>
+    data: { emptier: true, target: "#new_#{post_type.kind}" } ) %>
 <% end %>
 <%= render 'pulitzer/shared/error_messages', object: post_type %>

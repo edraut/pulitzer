@@ -1,14 +1,14 @@
-<h1> Post Types </h1>
-
-<div class="pulitzer-row margin-bottom list-item">
-  <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
-    <%= ajax_link 'add a new post type', new_post_type_path, {}, '#new_post_type' %>
-  <% end %>
-  <div id="new_post_type"></div>
+<div <%= tab_set("post_type_kind_tab", type: :ajax, default_tab: params[:post_type_kind_tab] || 'templates') %>>
+  <div class="pulitzer-pill"
+    href="<%= post_types_path(post_type_kind: 'template') %>"
+    <%= tab_trigger('templates')%>>
+    Full Page Templates
+  </div>
+  <div class="pulitzer-pill"
+    href="<%= post_types_path(post_type_kind: 'partial') %>"
+    <%= tab_trigger('partials')%>>
+    Partials
+  </div>
 </div>
-
-<div id="post_types_container">
-  <% @post_types.each do |post_type| %>
-    <%= render partial: 'show_wrapper', locals: {post_type: post_type} %>
-  <% end %>
-</div>
+<div class="pulitzer-row" <%= tab_content('templates') %>></div>
+<div class="pulitzer-row" <%= tab_content('partials') %>></div>

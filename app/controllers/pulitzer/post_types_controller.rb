@@ -1,12 +1,20 @@
 class Pulitzer::PostTypesController < Pulitzer::ApplicationController
-  before_filter :get_post_type, only: [:show, :edit, :update, :destroy]
+  before_filter :get_post_type, except: [:index, :new, :create]
 
   def index
-    @post_types = Pulitzer::PostType.all
+    if params[:post_type_kind]
+      @post_type_kind = params[:post_type_kind]
+    else
+      @post_type_kind = 'templates'
+    end
+    if request.xhr?
+      @post_types = Pulitzer::PostType.send @post_type_kind
+      render_ajax
+    end
   end
 
   def new
-    @post_type = Pulitzer::PostType.new
+    @post_type = Pulitzer::PostType.new(post_type_params)
     render partial: 'new', locals: {post_type: @post_type}
   end
 
@@ -18,6 +26,10 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def show
     render partial: 'show', locals: {post_type: @post_type}
+  end
+
+  def template
+    render_ajax locals: {post_type: @post_type}
   end
 
   def edit

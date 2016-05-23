@@ -7,6 +7,7 @@ class Pulitzer::PostType < ActiveRecord::Base
   has_many :free_form_section_types, dependent: :destroy
   has_many :layouts, dependent: :destroy
   
+  scope :templates, -> { where(kind: Pulitzer::PostType.kinds[:template])}
   scope :partials, -> { where(kind: Pulitzer::PostType.kinds[:partial])}
   validates :name, :kind, presence: true
   validates :plural, :inclusion => { :in => [true, false] }
