@@ -1,4 +1,5 @@
-<div class="pulitzer-indent" >
+<%= render partial: 'show', locals: {post_type: post_type} %>
+<div class="pulitzer-indent" id="<%= dom_id(post_type, :template) %>">
   <h5>Content Elements</h5>
   <div id="post_type_content_element_types_container_<%= dom_id(post_type) %>">
     <% post_type.post_type_content_element_types.each do |ptcet| %>

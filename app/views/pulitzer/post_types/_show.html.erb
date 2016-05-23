@@ -5,7 +5,11 @@
       <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
     <% end %>
     <li>
-    <%= ajax_link 'Template', template_post_type_path(post_type), {}, dom_target(post_type) %>
+      <% if 'template' == action_name %>
+        <%= ajax_link 'Template', post_type_path(post_type), {}, dom_target(post_type) %>
+      <% else %>
+        <%= ajax_link 'Template', template_post_type_path(post_type), {}, dom_target(post_type) %>
+      <% end %>
     </li>
     <li>
       <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
