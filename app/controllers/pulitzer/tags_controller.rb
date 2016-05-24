@@ -7,6 +7,7 @@ module Pulitzer
     def index
       @root_tags = Tag.root
       @flat_tags = Tag.flat
+      render partial: 'index'
     end
 
     def new

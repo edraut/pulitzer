@@ -1,10 +1,4 @@
-<div class="pulitzer-row margin-bottom list-item">
-  <%= link_to "Back to post types", post_types_path %>
-</div>
-<h1>Tags</h1>
-<p>Tags can be categorized in a tree-like structure or as flat keywords</p>
-
-<h2>Hierarchical Tags</h2>
+<h3>Hierarchical Tags</h3>
 <% if authorized? %>
   <%= ajax_link 'Add a new root tag', new_tag_path("tag[hierarchical]" => true), {}, '#new_tag' %>
   <div id="new_tag"></div>
@@ -14,7 +8,7 @@
 </div>
 <hr/>
 
-<h2>Flat Tags</h2>
+<h3>Flat Tags</h3>
 <% if authorized? %>
   <%= ajax_link 'Add a new tag', new_tag_path("tag[hierarchical]" => false), {}, '#new_flat_tag' %>
   <div id="new_flat_tag"></div>
