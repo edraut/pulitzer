@@ -14,6 +14,7 @@ class Pulitzer::UpdateVersionStatus
     @new_active_version = @transitional_version
     @old_active_version = @new_active_version.post.active_version
     @new_active_version.update(status: :active)
+    @new_active_version.tags.each &:touch
     @old_active_version.update(status: :archived) if @old_active_version
     @processing_version = @post.create_processing_version
     Pulitzer::CloneVersionJob.perform_later(@new_active_version)
@@ -31,4 +32,5 @@ class Pulitzer::UpdateVersionStatus
       @processing_version
     end
   end
+
 end

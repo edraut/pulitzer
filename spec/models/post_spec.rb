@@ -19,9 +19,7 @@ describe Pulitzer::Post do
     let(:post) { create :post }
     let!(:preview) { create :version, post: post, status: :preview }
     let!(:active)  { create :version, post: post, status: :active  }
-    before do
 
-    end
     it "should return the version with status = active" do
       expect(post.active_version).to eq active
     end

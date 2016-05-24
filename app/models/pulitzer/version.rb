@@ -5,6 +5,7 @@ module Pulitzer
     has_many :content_elements, dependent: :destroy
     has_many :free_form_sections, dependent: :destroy
     has_many :post_tags, dependent: :destroy
+    has_many :tags, through: :post_tags, source: :label, source_type: "Pulitzer::Tag"
     belongs_to :post
     scope :tagged_with_type, ->(label_type){includes(:post_tags).where(pulitzer_post_tags: {label_type: label_type}).references(:pulitzer_post_tags)}
     scope :tagged_with_label, ->(label){includes(:post_tags).where(pulitzer_post_tags:{label_type: label.class.name, label_id: label.id}).references(:pulitzer_post_tags)}
