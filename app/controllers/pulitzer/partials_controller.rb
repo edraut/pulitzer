@@ -1,5 +1,5 @@
 class Pulitzer::PartialsController < Pulitzer::ApplicationController
-  before_filter :set_partial, only: [:show, :edit, :update]
+  before_filter :set_partial, except: [:new, :create, :update_all]
 
   def new
     @partial = Pulitzer::Partial.new(partial_params)
@@ -33,10 +33,15 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
 
   def update_all
     partials = Pulitzer::Partial.find params[:partial]
-    partials.each do |ce|
-      new_sort_order = params[:partial].index(ce.id.to_s)
-      ce.update_attribute(:sort_order, new_sort_order)
+    partials.each do |partial|
+      new_sort_order = params[:partial].index(partial.id.to_s)
+      partial.update_attribute(:sort_order, new_sort_order)
     end
+    render nothing: true
+  end
+
+  def destroy
+    @partial.destroy
     render nothing: true
   end
 

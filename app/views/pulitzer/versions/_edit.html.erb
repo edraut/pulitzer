@@ -18,10 +18,16 @@
   <%= ajax_link "refresh preview", edit_version_path(version), {}, dom_target(version.post, :preview_version) %>
 <% elsif version.preview? %>
   <div class="pulitzer-row margin-bottom list-item">
-    <h2>Tags</h2>
-    <% Pulitzer::Post::TAG_MODELS.each do |tag_model| %>
-      <%= render partial: 'pulitzer/post_tags/show_wrapper', locals: { version: version, tag_model: tag_model } %>
-    <% end %>
+    <div class="pulitzer-row">
+      <div class="pulitzer-span margin match-h2" <%= expander(dom_id(version, :tags)) %>>&rtrif;</div>
+      <div class="pulitzer-span margin match-h2" <%= collapser(dom_id(version, :tags)) %>>&dtrif;</div>
+      <div class="pulitzer-span"><h2>Tags</h2></div>
+    </div>
+    <div <%= collapsed(dom_id(version, :tags)) %>>
+      <% Pulitzer::Post::TAG_MODELS.each do |tag_model| %>
+        <%= render partial: 'pulitzer/post_tags/show_wrapper', locals: { version: version, tag_model: tag_model } %>
+      <% end %>
+    </div>
   </div>
   <% if version.has_templated_content_elements? %>
     <div class="pulitzer-row margin-bottom list-item">

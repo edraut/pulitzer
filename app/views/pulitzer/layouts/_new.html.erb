@@ -1,4 +1,4 @@
-<%= form_for layout, html: ajax_form_hash(dom_target(layout.post_type, :layouts_container), insert_method: 'append', empty_on_success: dom_target(layout.post_type, :new_layout)) do |f| %>
+<%= form_for layout, html: ajax_form_hash(dom_target(layout.post_type, :layouts_container), insert_method: 'append') do |f| %>
   <%= f.hidden_field :post_type_id %>
   <%= render partial: 'form_fields', locals: { f: f, layout: layout } %>
   <%= f.submit "Create" %>

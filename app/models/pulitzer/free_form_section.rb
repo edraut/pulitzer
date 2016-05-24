@@ -2,7 +2,7 @@ module Pulitzer
   class FreeFormSection < ActiveRecord::Base
     belongs_to :version
     belongs_to :free_form_section_type
-    has_many :partials
+    has_many :partials, -> { order :sort_order}
 
     def clone_me
       clone_attrs = self.attributes.dup

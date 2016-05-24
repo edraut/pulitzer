@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.4.1)
+    pulitzer (0.4.4)
       carrierwave (~> 0.10.0)
       carrierwave-aws (~> 0.4.1)
       foreign_office (>= 0.9.1, < 1.0)
@@ -107,7 +107,7 @@ GEM
     mini_magick (4.5.1)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
-    multi_json (1.12.0)
+    multi_json (1.12.1)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
     pry (0.10.1)

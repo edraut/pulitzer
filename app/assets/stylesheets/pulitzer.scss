@@ -150,6 +150,10 @@ body {
     display: inline-block;
     width: 5px;
   }
+  &.match-h2{
+    line-height: 40px;
+    margin: 10px 0;
+  }
   &.match-h5{
     line-height: 20px;
     margin: 10px 0;
@@ -190,6 +194,36 @@ body {
 		border-top: 1px solid #636564;
 		border-left: 1px solid #636564;
 	}
+}
+.pulitzer-pill{
+  position: relative;
+  float: left;
+  padding: .5em 1em;
+  border: 1px solid #d4d4d4;
+  border-radius: 7px;
+  margin-right: 2em;
+  margin-bottom: 1em;
+  cursor: pointer;
+  background-color: white;
+  &.active, &:hover{
+    background-color: #FFFBF8;
+    border-color: #e0ddda;
+  }
+  &:hover{
+    color: #5b91c8;
+  }
+  &.active{
+    color: #000;
+    &:hover, &:focus, &:active {
+      color: #000;
+      text-decoration: none;
+      cursor: default;
+    }
+  }
+  &.match-h2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 
 // wysihtml5
