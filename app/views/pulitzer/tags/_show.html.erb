@@ -1,7 +1,7 @@
 <div class="pulitzer-row">
   <ul class="inline-list">
     <li><%= tag.name %></li>
-    <% if authorized? %>
+    <% if pulitzer_authorized? %>
       <li>
         <%= ajax_link "Edit", edit_tag_path(tag), {}, dom_target(tag) %>
       </li>
