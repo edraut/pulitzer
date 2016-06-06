@@ -12,11 +12,7 @@ module Pulitzer
     end
 
     def render_image(element,options = {})
-      pulitzer_options = {'data-pulitzer-element' => element.id}
-      if options.is_a? Hash
-        pulitzer_options.merge!(options)
-      end
-      image_tag element.image_url(:cms), pulitzer_options
+      image_tag element.image_url(:cms), pulitzer_options(element,options)
     end
 
     def render_picture_source(element,options = {})
@@ -36,7 +32,7 @@ module Pulitzer
     end
 
     def render_body(element, options = {})
-      content_tag(:span, element.body.html_safe, options) if element.body
+      content_tag(:span, element.body.html_safe, pulitzer_options(element,options)) if element.body
     end
 
     def render_cms_title(element, options = {})
@@ -44,7 +40,7 @@ module Pulitzer
     end
 
     def render_cms_html(element, options = {})
-      content_tag(:span, element.html, options) if element.html
+      content_tag(:span, element.html, pulitzer_options(element,options)) if element.html
     end
 
     def render_cms_url(element, options ={})
@@ -55,6 +51,14 @@ module Pulitzer
       post_type.section(section_name).partials.collect do |partial|
         render partial: partial.full_view_path, locals: {partial: partial}
       end.join.html_safe
+    end
+
+    def pulitzer_options(element,options)
+      pulitzer_options = {'data-context-editor' => main_app.pulitzer_path + pulitzer.edit_content_element_path(element, edit_mode: 'context')}
+      if options.is_a? Hash
+        pulitzer_options.merge!(options)
+      end
+      pulitzer_options
     end
   end
 end

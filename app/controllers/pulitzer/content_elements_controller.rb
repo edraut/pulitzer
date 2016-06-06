@@ -6,7 +6,11 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   end
 
   def edit
-    render partial: 'form', locals: { content_element: @content_element }
+    if 'context' == params[:edit_mode]
+      render partial: 'form', locals: { content_element: @content_element }, layout: 'pulitzer/content_elements/context_form'
+    else
+      render partial: 'form', locals: { content_element: @content_element }
+    end
   end
 
   def update
