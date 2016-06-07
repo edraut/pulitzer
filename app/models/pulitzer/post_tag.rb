@@ -9,5 +9,6 @@ module Pulitzer
       my_clone.version_id = nil
       my_clone
     end
+
   end
 end

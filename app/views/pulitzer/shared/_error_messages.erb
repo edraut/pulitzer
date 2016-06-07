@@ -1,6 +1,6 @@
-<% if object.errors[:base].any? %>
+<% if object.errors.any? %>
   <ul class="error">
-    <% object.errors[:base].each do |error_msg| %>
+    <% object.errors.full_messages.each do |error_msg| %>
       <li><%= error_msg %></li>
     <% end %>
   </ul>

@@ -15,6 +15,16 @@ describe Pulitzer::Post do
     it { should belong_to(:post_type) }
   end
 
+  describe "#active_version" do
+    let(:post) { create :post }
+    let!(:preview) { create :version, post: post, status: :preview }
+    let!(:active)  { create :version, post: post, status: :active  }
+
+    it "should return the version with status = active" do
+      expect(post.active_version).to eq active
+    end
+  end
+
   describe "Generate a slug" do
     let(:post) { create :post }
 

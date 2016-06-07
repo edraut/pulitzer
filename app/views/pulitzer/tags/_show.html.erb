@@ -1,0 +1,23 @@
+<div class="pulitzer-row">
+  <ul class="inline-list">
+    <li><%= tag.name %></li>
+    <% if pulitzer_authorized? %>
+      <li>
+        <%= ajax_link "Edit", edit_tag_path(tag), {}, dom_target(tag) %>
+      </li>
+      <li>
+        <%= ajax_delete 'Delete', tag_path(tag), {}, dom_target(tag) %>
+      </li>
+      <% if tag.hierarchical? %>
+        <li>
+          <%= ajax_link 'Add children', new_tag_path("tag[hierarchical]" => true, "tag[parent_id]" => tag.id), {}, "#new_tag_#{tag.id}" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+<div id="new_tag_<%= tag.id %>"></div>
+
+<div id="<%= dom_id(tag) %>_children" class="pulitzer-row margin-left">
+  <%= render partial: 'show_wrapper', collection: tag.children, as: :tag %>
+</div>
