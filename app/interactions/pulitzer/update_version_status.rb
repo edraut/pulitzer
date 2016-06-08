@@ -18,7 +18,8 @@ class Pulitzer::UpdateVersionStatus
     @old_active_version.update(status: :archived) if @old_active_version
     @processing_version = @post.create_processing_version
     Pulitzer::CloneVersionJob.perform_later(@new_active_version)
-    @processing_version
+    @post.reload
+    @processing_version.reload
   end
 
   def make_version_abandoned
