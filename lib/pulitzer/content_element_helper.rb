@@ -39,10 +39,6 @@ module Pulitzer
       content_tag(:span, element.body.html_safe, options) if element.body
     end
 
-    def render_cms_title(element, options = {})
-      content_tag(:span, element.title, options) if element.title
-    end
-
     def render_cms_html(element, options = {})
       content_tag(:span, element.html, options) if element.html
     end
