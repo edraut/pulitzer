@@ -10,6 +10,7 @@ module Pulitzer
 
     config.to_prepare do
       ApplicationController.helper(ContentElementHelper)
+      ApplicationController.helper(MainHelper)
     end
 
   end

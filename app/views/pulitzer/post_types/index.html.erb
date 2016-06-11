@@ -1,4 +1,9 @@
-<div <%= tab_set("post_type_kind_tab", type: :ajax, default_tab: params[:post_type_kind_tab] || 'templates') %>>
+<div <%= tab_set("tab", type: :ajax, default_tab: params[:tab] || 'templates') %>>
+  <div class="pulitzer-pill"
+    href="<%= tags_path %>"
+    <%= tab_trigger('tags')%>>
+    Tags
+  </div>
   <div class="pulitzer-pill"
     href="<%= post_types_path(post_type_kind: 'template') %>"
     <%= tab_trigger('templates')%>>
@@ -10,5 +15,6 @@
     Partials
   </div>
 </div>
+<div class="pulitzer-row" <%= tab_content('tags') %>></div>
 <div class="pulitzer-row" <%= tab_content('templates') %>></div>
 <div class="pulitzer-row" <%= tab_content('partials') %>></div>

@@ -3,9 +3,14 @@ module Pulitzer
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     extend ::FriendlyId
     has_many :versions
+    has_one :active_version, -> { active }, class_name: "Pulitzer::Version"
+
     belongs_to :post_type
     delegate :post_type_content_element_types, :free_form_section_types, :has_free_form_sections?, :has_templated_content_elements?, to: :post_type
-    delegate :content_elements, :section, :post_tags, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
+    delegate :content_elements, :section, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
+
+    has_many :post_tags, through: :active_version
+
     friendly_id :title, use: [:slugged, :finders]
     after_create :create_preview_version
 
@@ -15,6 +20,10 @@ module Pulitzer
 
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
 
+    def tags
+      post_tags.map(&:label)
+    end
+
     def content_element(label)
       if content_elements
         self.content_elements.find_by(label: label)
@@ -23,10 +32,6 @@ module Pulitzer
 
     def should_generate_new_friendly_id?
       new_record? || title_changed?
-    end
-
-    def active_version
-    	versions.active.last
     end
 
     def preview_version
