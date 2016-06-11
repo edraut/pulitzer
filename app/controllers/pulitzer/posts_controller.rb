@@ -24,6 +24,12 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   def edit
     if request.xhr?
       render partial: 'form', locals: { post: @post }
+    else
+      if 'context' == params[:edit_mode]
+        route                       = "pulitzer_preview_#{@post.post_type.name.parameterize('_')}_path"
+        @preview_path               = main_app.public_send(route, @post.slug) if main_app.respond_to?(route)        
+        redirect_to @preview_path if @preview_path
+      end
     end
   end
 

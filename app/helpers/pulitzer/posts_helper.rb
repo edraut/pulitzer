@@ -5,7 +5,7 @@ module Pulitzer
       if post_type.plural?
         link_to plural_label, posts_path(post_type_id: post_type.id)
       else
-        link_to singular_label, edit_post_path(post_type.singleton_post)
+        link_to singular_label, edit_post_path(post_type.singleton_post, edit_mode: Pulitzer.edit_mode)
       end
     end
 

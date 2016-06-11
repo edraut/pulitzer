@@ -1,4 +1,4 @@
-require 'pulitzer/content_element_helper'
+# require 'pulitzer/content_element_helper'
 module Pulitzer
   class Engine < ::Rails::Engine
     isolate_namespace Pulitzer
@@ -9,11 +9,8 @@ module Pulitzer
     end
 
     config.to_prepare do
+      ApplicationController.helper(ContentElementHelper)
       ApplicationController.helper(MainHelper)
-    end
-
-    initializer 'pulitzer.action_controller' do |app|
-      ActionView::Base.send :include, ContentElementHelper
     end
 
   end

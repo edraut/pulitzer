@@ -39,14 +39,17 @@ var RichTextEditor = Class.extend({
   }
 })
 
-var ContentElementEditor = Class.extend({
+var ContextEditor = Class.extend({
   init: function($content_element){
     if(typeof(window.thin_man) != 'undefined'){
       this.$content_element = $content_element
-      var content_element_editor = this
-      $content_element.on('hover', function(){
-        content_element_editor.reveal_edit_link()
-      })
+      this.editor_url = $content_element.data('context-editor')
+      $editor_link = $('<a>')
+        .attr('href',this.editor_url)
+        .text('✎')
+        .attr('data-ajax-link',true)
+        .attr('data-ajax-target','[data-context-editor="' + this.editor_url + '"]')
+      $content_element.append($editor_link)
     }
   },
   reveal_edit_link: function(){
@@ -66,9 +69,6 @@ $(document).ajaxComplete(function(){
 })
 
 $(document).ready(function(){
-  // window.any_time_manager.registerListWithClasses(
-  //   { 'pulitzer-element' : 'ContentElementEditor'}
-  // )
-  window.any_time_manager.registerList([ 'select2-trigger', 'rich-text-editor' ]);
+  window.any_time_manager.registerList([ 'select2-trigger', 'rich-text-editor', 'context-editor' ]);
   window.any_time_manager.load();
 });
