@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519181030) do
+ActiveRecord::Schema.define(version: 20160609214139) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20160519181030) do
 
   create_table "pulitzer_content_elements", force: :cascade do |t|
     t.string   "label"
-    t.string   "title"
     t.text     "body"
     t.string   "image"
     t.integer  "version_id"
