@@ -54,7 +54,9 @@ module Pulitzer
       if options.is_a? Hash
         pulitzer_options.merge!(options)
       end
-      pulitzer_options
+      pulitzer_options.map{|k,v|
+        ' ' + k.to_s + '="' + v.to_s + '" '
+      }
     end
   end
 end

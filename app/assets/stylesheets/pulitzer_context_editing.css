@@ -1,0 +1,19 @@
+.pulitzer-context-editor{
+  font-family: "Arial, Helvetica, sans-serif";
+  h5 {
+    display: none;
+  }
+  textarea {
+    width: 100%;
+    height: 8em;
+    line-height: 1.25em;
+    color: black;
+  }
+}
+h1, h2, h3, h4, h5 {
+  .pulitzer-context-editor {
+    textarea {
+      height: 2em;
+    }    
+  }
+}

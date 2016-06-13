@@ -1,0 +1,11 @@
+<% if element.image_type? %>
+<span <%= pulitzer_options(options) %>>
+      render_image(element,options)
+    elsif element.video_type?
+      content_tag(:iframe, nil, options.merge(src: element.video_link)) if element.video_link
+    else
+      element.body.html_safe
+    end
+  %>
+  <%= element.body.html_safe if element.body %>
+</span>
