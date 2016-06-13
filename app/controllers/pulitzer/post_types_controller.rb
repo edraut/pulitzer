@@ -8,7 +8,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
       @post_type_kind = 'template'
     end
     if request.xhr?
-      @post_types = Pulitzer::PostType.send @post_type_kind
+      @post_types = Pulitzer::PostType.send(@post_type_kind).order(name: :asc)
       render_ajax
     end
   end
