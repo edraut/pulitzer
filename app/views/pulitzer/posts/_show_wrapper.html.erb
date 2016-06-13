@@ -1,3 +1,4 @@
 <div class="pulitzer-row margin-bottom list-item" id="<%= dom_id(post) %>">
-  <%= render partial: 'show', locals: { post: post } %>
+  <% partial_name = local_assigns.has_key?(:slug) ? "show_slug" : 'show' %>
+  <%= render partial: "pulitzer/posts/#{partial_name}", locals: { post: post } %>
 </div>

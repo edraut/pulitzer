@@ -1,5 +1,6 @@
 class Pulitzer::PostsController < Pulitzer::ApplicationController
-  before_filter :get_post, only: [:show, :edit, :update, :processing_preview]
+  before_filter :get_post, only: [:show, :edit, :edit_slug, :update,
+    :update_slug, :processing_preview]
 
   def index
     @post_type = Pulitzer::PostType.find params[:post_type_id]
@@ -35,6 +36,21 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   def destroy
     @post.destroy
     render head :ok
+  end
+
+  def edit_slug
+    if request.xhr?
+      render partial: 'form_slug', locals: { post: @post }
+    end
+  end
+
+  def show_slug
+    render partial: 'show_slug', locals: { post: @post }
+  end
+
+  def update_slug
+    @post.update_attributes(post_params)
+    render partial: 'show_slug', locals: { post: @post }
   end
 
   protected
