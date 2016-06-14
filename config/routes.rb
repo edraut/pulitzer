@@ -2,6 +2,9 @@ Pulitzer::Engine.routes.draw do
   resources :posts do
     member do
       get :processing_preview
+      get :edit_slug
+      get :show_slug
+      patch :update_slug
     end
   end
   resources :content_elements

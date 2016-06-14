@@ -22,7 +22,6 @@ describe Pulitzer::CloneVersion do
     version.post.create_processing_version
     new_version = Pulitzer::CloneVersion.new(version).call
     content_element = new_version.content_elements.first
-    expect(content_element.title).to eq "Night's Watch"
     expect(content_element.label).to match "Slide 1 content element"
     expect(content_element.body).to match "I pledge my life"
     expect(content_element.type.to_s).to match "text"

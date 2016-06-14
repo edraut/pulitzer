@@ -3,7 +3,6 @@
 <% end %>
 <%= form_for content_element, html: ajax_form_hash(dom_target(content_element)), multipart: true,
   data: { server_endpoint: content_element_path(content_element) } do |f| %>
-  <%= f.text_field :title, placeholder: 'Title' %>
   <%= render partial: "/pulitzer/content_elements/#{content_element.type}_fields", locals: { f: f, content_element: content_element } %>
   <%= submit_tag "Update" %>
   <%= link_to('Cancel', content_element_path(content_element), :class => 'button',
