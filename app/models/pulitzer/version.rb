@@ -27,12 +27,20 @@ module Pulitzer
       post_tags.where(label_type: label_type)
     end
 
+    def cached_content_elements
+      @cached_content_elements ||= content_elements.to_a
+    end
+
     def content_element(label)
-      self.content_elements.find_by(label: label)
+      cached_content_elements.detect{|ce| ce.label == label}
+    end
+
+    def cached_free_form_sections
+      @cached_free_form_sections ||= free_form_sections.to_a
     end
 
     def section(name)
-      self.free_form_sections.find_by(name: name)
+      cached_free_form_sections.detect{|ffs| ffs.name == name}
     end
 
     def template_content_elements
