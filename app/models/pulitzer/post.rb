@@ -7,7 +7,7 @@ module Pulitzer
 
     belongs_to :post_type
     delegate :post_type_content_element_types, :free_form_section_types, :has_free_form_sections?, :has_templated_content_elements?, to: :post_type
-    delegate :content_elements, :section, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
+    delegate :content_elements, :content_element, :section, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
 
     has_many :post_tags, through: :active_version
 
@@ -22,12 +22,6 @@ module Pulitzer
 
     def tags
       post_tags.map(&:label)
-    end
-
-    def content_element(label)
-      if content_elements
-        self.content_elements.find_by(label: label)
-      end
     end
 
     def should_generate_new_friendly_id?
