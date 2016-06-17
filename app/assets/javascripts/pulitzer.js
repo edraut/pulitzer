@@ -43,18 +43,55 @@ var ContextEditor = Class.extend({
   init: function($content_element){
     if(typeof(window.thin_man) != 'undefined'){
       this.$content_element = $content_element
+      this.getContentElementType()
       this.editor_url = $content_element.data('context-editor')
       $editor_link = $('<a>')
         .attr('href',this.editor_url)
         .text('✎')
         .attr('data-ajax-link',true)
-        .attr('data-ajax-target','[data-context-editor="' + this.editor_url + '"]')
-      $content_element.append($editor_link)
+        .attr('data-ajax-target','#' + $content_element.attr('id'))
+      this.content_element.display($editor_link)
     }
   },
   reveal_edit_link: function(){
     var edit_link =
     this.$content_element.append(edit_link)
+  },
+  getContentElementType: function(){
+    switch(this.$content_element.get(0).nodeName.toLowerCase()){
+      case 'img':
+        this.content_element = new ImageContentElement(this.$content_element)
+      break;
+
+      default:
+        this.content_element = new GenericContentElement(this.$content_element)
+      break;
+    }
+
+  }
+})
+
+var GenericContentElement = Class.extend({
+  init: function($content_element){
+    this.$content_element = $content_element
+  },
+  display: function($editor_link){
+    this.$content_element.append($editor_link)
+  }
+})
+
+var ImageContentElement = Class.extend({
+  init: function($content_element){
+    this.$content_element = $content_element
+  },
+  display: function($editor_link){
+    var offset = this.$content_element.offset()
+    var top = offset.top
+    var left = offset.left
+    $editor_link.css({position: 'absolute', top: top, left: left})
+    $editor_link.attr('data-insert-method','replaceWith')
+
+    $('body').append($editor_link)
   }
 })
 

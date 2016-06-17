@@ -12,7 +12,11 @@ module Pulitzer
     end
 
     def render_image(element,options = {})
-      image_tag element.image_url(:cms), pulitzer_options(element,options)
+      if is_preview?
+        render(partial: '/pulitzer/content_elements/image_context', locals: {element: element, options: options})
+      else
+        image_tag element.image_url(:cms), options
+      end
     end
 
     def render_picture_source(element,options = {})
@@ -28,11 +32,19 @@ module Pulitzer
     end
 
     def render_video(element, options = {})
-      content_tag(:iframe, nil, options.merge(src: element.video_link)) if element.video_link
+      if is_preview?
+        render(partial: '/pulitzer/content_elements/video_context', locals: {element: element, options: options})
+      else
+        content_tag(:iframe, nil, options.merge(src: element.video_link)) if element.video_link
+      end
     end
 
     def render_body(element, options = {})
-      content_tag(:span, element.body.html_safe, pulitzer_options(element,options)) if element.body
+      if is_preview?
+        render(partial: '/pulitzer/content_elements/body_context', locals: {element: element, options: options}) if element.body
+      else
+        element.body.html_safe if element.body
+      end
     end
 
     def render_cms_html(element, options = {})
@@ -54,9 +66,18 @@ module Pulitzer
       if options.is_a? Hash
         pulitzer_options.merge!(options)
       end
-      pulitzer_options.map{|k,v|
-        ' ' + k.to_s + '="' + v.to_s + '" '
-      }
+      pulitzer_options
+    end
+
+    def pulitzer_options_string(element,options)
+      pulitzer_options(element,options).map{|k,v|
+        ' ' + k.to_s + '="' + v + '" '
+      }.join.html_safe
+    end
+
+    def is_preview?
+      (request.path.split('/')[1] == 'pulitzer_preview') ||
+      'context' == params[:edit_mode]
     end
   end
 end

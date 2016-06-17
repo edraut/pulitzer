@@ -1,0 +1,7 @@
+<% if element.video_link %>
+  <%= content_tag(:iframe, nil, pulitzer_options.merge(src: element.video_link, id: dom_id(element))) %>
+<% else %>
+  <span id="<%= dom_id(element) %>" <%= pulitzer_options_string(element,options) %>>
+    choose video
+  </span>
+<% end %>

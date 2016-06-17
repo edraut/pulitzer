@@ -1,0 +1,9 @@
+<%= form_for content_element, html: ajax_form_hash(dom_target(content_element), insert_method: 'replaceWith').merge(id: dom_id(content_element)), multipart: true,
+  data: { server_endpoint: content_element_path(content_element) } do |f| %>
+  <%= hidden_field_tag :edit_mode, :context %>
+  <%= render 'pulitzer/shared/error_messages', object: content_element %>
+  <%= render partial: "/pulitzer/content_elements/#{content_element.type}_context_fields", locals: { f: f, content_element: content_element } %>
+  <%= submit_tag "Update" %>
+  <%= ajax_link('Cancel', content_element_path(content_element), {:class => 'button'},
+    dom_target(content_element), insert_method: 'replaceWith' ) %>
+<% end %>

@@ -2,12 +2,16 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   before_filter :set_content_element, only: [:show, :edit, :update]
 
   def show
-    render partial: 'show', locals: { content_element: @content_element }
+    if 'context' == params[:edit_mode]
+      render partial: 'context_show', locals: { content_element: @content_element }
+    else
+      render partial: 'show', locals: { content_element: @content_element }
+    end
   end
 
   def edit
     if 'context' == params[:edit_mode]
-      render partial: 'form', locals: { content_element: @content_element }, layout: 'pulitzer/content_elements/context_form'
+      render partial: 'context_form', locals: { content_element: @content_element }, layout: 'pulitzer/content_elements/context_form'
     else
       render partial: 'form', locals: { content_element: @content_element }
     end
@@ -15,7 +19,11 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
 
   def update
     @content_element.update content_element_params
-    render partial: 'show', locals: { content_element: @content_element }
+    if 'context' == params[:edit_mode]
+      render partial: 'context_show', locals: { content_element: @content_element }
+    else
+      render partial: 'show', locals: { content_element: @content_element }
+    end
   end
 
   def update_all
