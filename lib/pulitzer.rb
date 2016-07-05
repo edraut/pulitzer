@@ -19,7 +19,7 @@ module Pulitzer
     @@tagging_models          = options[:tagging_models] || []
     @@layout                  = options[:layout] || 'application'
     @@partial_folder          = options[:partial_folder] || 'pulitzer_partials'
-    default_text_editor       = [{ name: 'None', template: 'pulitzer/text_editors/none'}]
+    default_text_editor       = [{ name: 'None', template: 'pulitzer/text_editors/none', kind: 'TinyMCE'}]
     user_text_editors         = options[:text_editor_toolbars].flatten || nil
     @@text_editor_toolbars    = default_text_editor.push(*user_text_editors).compact
     if options.has_key?( :active_job_queues)
