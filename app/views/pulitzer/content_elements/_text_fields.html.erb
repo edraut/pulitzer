@@ -1,5 +1,15 @@
 <% text_editor = Pulitzer.text_editor_toolbars.detect { |toolbar| toolbar[:name] == content_element.text_editor } %>
-<% data_rich_text = { "rich-text-editor" => true } unless text_editor[:name] == "None" %>
 
-<%= render partial: text_editor[:template] %>
-<%= f.text_area(:body, placeholder: 'Body', data: (data_rich_text)) %>
+<% input_params = {placeholder: 'Body', id: dom_id(content_element, :textarea)} %>
+<% unless 'None' == text_editor[:name] %>
+  <% if 'WysiHtml' == text_editor[:kind] %>
+    <%= render partial: text_editor[:template] %>
+    <% input_params[:data] = { rich_text_editor: text_editor[:kind], editor_selector: dom_target(content_element, :textarea) } %>
+  <% end %>
+  <% if 'TinyMCE' == text_editor[:kind] %>
+    <% input_params[:data] = { rich_text_editor: text_editor[:kind], editor_selector: dom_target(content_element, :textarea), mce_params: text_editor[:params].to_json } %>
+  <% end %>
+<% end %>
+
+<% input_params[:value] = Kramdown::Document.new(f.object.body, input: 'html').to_kramdown if 'Kramdown' == text_editor[:kind] %>
+<%= f.text_area(:body, input_params) %>
