@@ -13,7 +13,11 @@ class Pulitzer::UpdateVersionStatus
   def make_version_active
     @new_active_version = @transitional_version
     @old_active_version = @new_active_version.post.active_version
-    @new_active_version.update(status: :active)
+    begin
+      @new_active_version.update!(status: :active)
+    rescue ActiveRecord::RecordInvalid => invalid
+      Rails.logger.error(invalid.record.errors.messages.to_s)
+    end
     @new_active_version.tags.each &:touch
     @old_active_version.update(status: :archived) if @old_active_version
     @processing_version = @post.create_processing_version
