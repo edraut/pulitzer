@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.4.11)
+    pulitzer (0.4.13)
       carrierwave (~> 0.10.0)
       carrierwave-aws (~> 0.4.1)
       foreign_office (>= 0.9.1, < 1.0)
@@ -85,7 +85,7 @@ GEM
       request_store (< 2.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    globalid (0.3.6)
+    globalid (0.3.7)
       activesupport (>= 4.1.0)
     hike (1.2.3)
     hooch (0.8.5)
