@@ -6,7 +6,7 @@ class Pulitzer::PostType < ActiveRecord::Base
   has_many :content_element_types, through: :post_type_content_element_types
   has_many :free_form_section_types, dependent: :destroy
   has_many :layouts, dependent: :destroy
-  
+
   scope :templates, -> { where(kind: Pulitzer::PostType.kinds[:template])}
   scope :partials, -> { where(kind: Pulitzer::PostType.kinds[:partial])}
   validates :name, :kind, presence: true
@@ -25,7 +25,7 @@ class Pulitzer::PostType < ActiveRecord::Base
   end
 
   def singleton_post?
-    !!singleton_post
+    !plural
   end
 
   def has_templated_content_elements?
