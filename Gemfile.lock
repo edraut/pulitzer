@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.4.14)
+    pulitzer (0.4.15)
       carrierwave (~> 0.11.0)
-      carrierwave-aws (~> 0.4.1)
+      carrierwave-aws (~> 1.0.1)
       foreign_office (>= 0.9.1, < 1.0)
       friendly_id (~> 5.1, >= 5.1.0)
       hooch (>= 0.7.0, < 1.0)
@@ -69,9 +69,9 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
-    carrierwave-aws (0.4.1)
-      aws-sdk (>= 1.29)
-      carrierwave (>= 0.7)
+    carrierwave-aws (1.0.1)
+      aws-sdk (~> 2.0)
+      carrierwave (~> 0.7)
     coderay (1.1.0)
     database_cleaner (1.5.1)
     diff-lcs (1.2.5)

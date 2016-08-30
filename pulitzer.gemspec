@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form', '~> 3.2', '>= 3.2.0'
   s.add_dependency 'kaminari', '~> 0.16.0'
   s.add_dependency 'carrierwave', '~> 0.11.0'
-  s.add_dependency 'carrierwave-aws', '~> 0.4.1'
+  s.add_dependency 'carrierwave-aws', '~> 1.0.1'
   s.add_dependency 'mini_magick', '~> 4.3', '>= 4.3.0'
   s.add_dependency 'friendly_id', '~> 5.1', '>= 5.1.0'
   s.add_dependency 'select2-rails', '~> 4.0', '>= 4.0.0'
