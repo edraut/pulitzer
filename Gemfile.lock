@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.4.15)
+    pulitzer (0.4.16)
       carrierwave (< 1.0)
       carrierwave-aws (< 2.0)
       foreign_office (>= 0.9.1, < 1.0)
