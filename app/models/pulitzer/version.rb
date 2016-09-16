@@ -16,23 +16,23 @@ module Pulitzer
     validates :post_id, :status, presence: true
 
     def has_label_type(label_type)
-      post_tags.where(label_type: label_type).any?
+      post_tags.to_a.select{|pt| pt.label_type == label_type}.any?
     end
 
     def has_label(label)
-      post_tags.where(label_type: label.class.name, label_id: label.id).any?
+      post_tags.to_a.select{|pt| pt.label_type == label.class.name && pt.label_id == label.id}.any?
     end
 
     def post_tags_for(label_type)
-      post_tags.where(label_type: label_type)
+      post_tags.to_a.select{|pt| pt.label_type == label_type}
     end
 
     def content_element(label)
-      self.content_elements.find_by(label: label)
+      self.content_elements.to_a.detect{|ce| ce.label == label}
     end
 
     def section(name)
-      self.free_form_sections.find_by(name: name)
+      self.free_form_sections.to_a.detect{|ffs| ffs.name == name}
     end
 
     def template_content_elements

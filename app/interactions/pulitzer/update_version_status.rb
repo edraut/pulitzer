@@ -22,6 +22,7 @@ class Pulitzer::UpdateVersionStatus
     @old_active_version.update(status: :archived) if @old_active_version
     @processing_version = @post.create_processing_version
     Pulitzer::CloneVersionJob.perform_later(@new_active_version)
+    instance_eval(&Pulitzer.publish_callback) unless Pulitzer.skip_publish_callback?
     @post.reload
     @processing_version.reload
   end
@@ -31,6 +32,7 @@ class Pulitzer::UpdateVersionStatus
     @transitional_version.update(status: :abandoned)
     if @active_version == @transitional_version
       @transitional_version.post.preview_version
+      instance_eval(&Pulitzer.publish_callback) unless Pulitzer.skip_publish_callback?
     else
       @processing_version = @post.create_processing_version
       Pulitzer::CloneVersionJob.perform_later(@active_version)
