@@ -8,6 +8,7 @@ module Pulitzer
     belongs_to :content_element_type
     belongs_to :post_type_content_element_type
     delegate :type, :text_type?, :image_type?, :video_type?, to: :content_element_type
+    delegate :required?, to: :post_type_content_element_type
     delegate :post, to: :version
 
     attr_accessor :version_unavailable, :ensure_unique
@@ -21,6 +22,7 @@ module Pulitzer
     # Scopes
     default_scope { order(id: :asc) }
     scope :free_form, -> { where(kind: kinds[:free_form]).reorder(sort_order: :asc) }
+    scope :required, -> { joins(:post_type_content_element_type).where(pulitzer_post_type_content_element_types: { required: true}) }
 
     # def reprocess_versions
     #   ReprocessContentImageJob.perform_later(self)

@@ -8,7 +8,14 @@
 <div class="pulitzer-row">
   <ul class="list">
     <% if content_element.template? %>
-      <li><h5><%= content_element.label %></h5></li>
+      <li>
+        <h5>
+          <%= content_element.label %>
+          <% if content_element.required? %>
+            - *required
+          <% end %>
+        </h5>
+      </li>
     <% end %>
     <li><%= render_element(content_element) %></li>
     <li><%= ajax_link "Edit", edit_content_element_path(content_element), {}, dom_target(content_element) %></li>

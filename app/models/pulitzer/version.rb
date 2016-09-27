@@ -47,5 +47,9 @@ module Pulitzer
       self.attributes.merge \
         processed_element_count: self.processed_element_count
     end
+
+    def empty_required_content_elements?
+      content_elements.required.map{|ce| ce.empty_body?}.include?(true)
+    end
   end
 end

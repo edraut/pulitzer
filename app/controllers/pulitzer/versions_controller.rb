@@ -10,10 +10,15 @@ class Pulitzer::VersionsController < Pulitzer::ApplicationController
   end
 
   def update
-    processing_version = Pulitzer::UpdateVersionStatus.new(@version,@status).call
-
+    if @status == "active" && @version.empty_required_content_elements?
+      processing_version = @version
+      flash_message      = "It's not possible to activate a version without filling required content elements"
+    else
+      processing_version = Pulitzer::UpdateVersionStatus.new(@version,@status).call
+      flash_message      = "The new version of #{@post.title} has been activated."
+    end
     render json: {html: render_to_string(partial: '/pulitzer/versions/edit', locals: {version: processing_version}),
-                  flash_message: "The new version of #{@post.title} has been activated."}
+                  flash_message: flash_message}
   end
 
 private
