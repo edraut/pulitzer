@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609214139) do
+ActiveRecord::Schema.define(version: 20160927160910) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -74,9 +74,10 @@ ActiveRecord::Schema.define(version: 20160609214139) do
     t.string   "label"
     t.integer  "height",                  default: 100
     t.integer  "width",                   default: 100
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "text_editor"
+    t.boolean  "required",                default: false
   end
 
   create_table "pulitzer_post_types", force: :cascade do |t|

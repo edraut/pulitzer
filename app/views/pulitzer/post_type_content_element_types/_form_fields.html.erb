@@ -18,3 +18,8 @@ revealer(dom_id(ptcet, :revealer), highlander: true) %>
   <%= f.label :text_editor, "Text editor" %>
   <%= f.select :text_editor, Pulitzer.text_editor_toolbars.map { |t| t[:name] } %>
 </div>
+
+<div>
+  <%= f.label :required %>
+  <%= f.check_box :required %>
+</div>
