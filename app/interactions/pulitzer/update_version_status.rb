@@ -1,13 +1,23 @@
 class Pulitzer::UpdateVersionStatus
+  attr_accessor :errors
+
   def initialize(version, status)
+    @errors = []
     @transitional_version = version
     @status = status
     @status_change_method = 'make_version_' + @status.to_s
+    if @status == "active" && version.empty_required_content_elements?
+      @processing_version = version
+      @errors = ["It's not possible to activate a version without filling required content elements"]
+    end
     @post = version.post
   end
 
   def call
-    send @status_change_method
+    unless @errors.any?
+      send @status_change_method
+    end
+    @processing_version
   end
 
   def make_version_active
