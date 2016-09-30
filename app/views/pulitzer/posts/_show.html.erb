@@ -1,7 +1,10 @@
 <div class="pulitzer-row">
   <ul class="inline-list">
     <li>
-      <%= ajax_link "Edit post name - #{post.title}", edit_post_path(post), {}, dom_target(post) %>
+      <%= post.title %>
+    </li>
+    <li>
+      <%= ajax_link "Edit post name", edit_post_path(post), {}, dom_target(post) %>
     </li>
     <li>
       <%= link_to 'Edit content', edit_post_path(post) %>
