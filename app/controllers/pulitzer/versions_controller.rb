@@ -10,10 +10,16 @@ class Pulitzer::VersionsController < Pulitzer::ApplicationController
   end
 
   def update
-    processing_version = Pulitzer::UpdateVersionStatus.new(@version,@status).call
-
+    status_updater = Pulitzer::UpdateVersionStatus.new(@version, @status)
+    if status_updater.errors.any?
+      processing_version  = @version
+      flash_message       = processing_version.errors.first
+    else
+      processing_version  = status_updater.call
+      flash_message       = "The new version of #{@post.title} has been activated."
+    end
     render json: {html: render_to_string(partial: '/pulitzer/versions/edit', locals: {version: processing_version}),
-                  flash_message: "The new version of #{@post.title} has been activated."}
+                  flash_message: flash_message}
   end
 
 private
