@@ -18,6 +18,10 @@ module Pulitzer
 
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
 
+    def active_version!
+      versions.find_by!(status: Pulitzer::Version.statuses[:active])
+    end
+
     def tags
       post_tags.map(&:label)
     end
