@@ -52,7 +52,8 @@ class Pulitzer::UpdateVersionStatus
         @processing_version
       end
     else # There is no active version, we never published this one
-      @processing_version = @transitional_version
+      @processing_version = nil
+      @transitional_version.post.destroy
     end
     @transitional_version
   end

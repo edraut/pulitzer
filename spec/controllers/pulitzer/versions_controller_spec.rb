@@ -8,9 +8,12 @@ describe Pulitzer::VersionsController do
 
   describe "updating versions" do
     it "abandons a post that was never published" do
+      old_post_id = version.post.id
       patch :update, id: version.id, status: 'abandoned'
       expect(response.status).to eq 200
-      expect(version.reload.status).to eq 'abandoned'
+      expect(Pulitzer::Version.find_by(id: version.id)).to eq nil
+      expect(Pulitzer::Post.find_by(id: old_post_id)).to eq nil
+      expect(response.body).to match "hooch.ReloadPage"
     end
 
     it "abandons a post that was published" do
