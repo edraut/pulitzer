@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry-remote', '0.1.8', '< 1.0'
   s.add_development_dependency 'cancancan', '~> 1.10'
   s.add_development_dependency 'rspec-rails', '~> 3.4', '< 4.0'
+  s.add_development_dependency 'fuubar', '>= 2', '< 3'
   s.add_development_dependency 'factory_girl_rails', '~> 4.5.0', '< 5.0'
   s.add_development_dependency 'shoulda-matchers', '~> 3.0.0', '< 4.0'
   s.add_development_dependency 'database_cleaner', '~> 1.5.1', '< 2.0'

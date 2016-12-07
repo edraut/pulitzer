@@ -4,7 +4,7 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
 
   def index
     @post_type = Pulitzer::PostType.find params[:post_type_id]
-    @posts = Pulitzer::Post.where post_type: @post_type
+    @posts = Pulitzer::Post.where(post_type: @post_type).order(id: :desc)
   end
 
   def new

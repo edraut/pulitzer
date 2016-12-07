@@ -2,7 +2,7 @@ module Pulitzer
   class Post < ActiveRecord::Base
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     extend ::FriendlyId
-    has_many :versions
+    has_many :versions, dependent: :destroy
     has_one :active_version, -> { active }, class_name: "Pulitzer::Version"
 
     belongs_to :post_type
