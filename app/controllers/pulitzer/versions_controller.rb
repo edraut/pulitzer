@@ -14,12 +14,18 @@ class Pulitzer::VersionsController < Pulitzer::ApplicationController
     if status_updater.errors.any?
       processing_version  = @version
       flash_message       = processing_version.errors.first
+      status = :conflict
     else
       processing_version  = status_updater.call
-      flash_message       = "The new version of #{@post.title} has been activated."
+      if processing_version.errors.empty?
+        status = :ok
+        flash_message     = "The new version of #{@post.title} has been activated."
+      else
+        status = :conflict
+      end
     end
     render json: {html: render_to_string(partial: '/pulitzer/versions/edit', locals: {version: processing_version}),
-                  flash_message: flash_message}
+                  flash_message: flash_message}, status: status
   end
 
 private
