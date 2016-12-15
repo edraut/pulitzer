@@ -13,7 +13,7 @@ class Pulitzer::VersionsController < Pulitzer::ApplicationController
     status_updater = Pulitzer::UpdateVersionStatus.new(@version, @status)
     if status_updater.errors.any?
       processing_version  = @version
-      flash_message       = processing_version.errors.first
+      flash_message       = status_updater.errors.join("<br>").html_safe
       status = :conflict
     else
       processing_version  = status_updater.call
@@ -23,6 +23,7 @@ class Pulitzer::VersionsController < Pulitzer::ApplicationController
           flash_message     = "The new version of #{@post.title} has been activated."
         else
           status = :conflict
+          flash_message = processing_version.errors.full_messages.join("<br>").html_safe
         end
       else
         flash[:notice] = "The post was successfully removed."

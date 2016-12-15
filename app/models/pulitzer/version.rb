@@ -49,7 +49,7 @@ module Pulitzer
     end
 
     def empty_required_content_elements?
-      content_elements.required.map{|ce| ce.empty_body?}.include?(true)
+      content_elements.required.select{|ce| ce.empty_body?}.any? || free_form_sections.includes(partials: :content_elements).map(&:partials).flatten.map(&:content_elements).flatten.select{|ce| ce.empty_body? && ce.required?}.any?
     end
   end
 end

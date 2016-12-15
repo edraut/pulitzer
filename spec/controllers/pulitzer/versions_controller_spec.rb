@@ -38,5 +38,13 @@ describe Pulitzer::VersionsController do
       expect(active_version.post.preview_version.status).to eq 'preview'
       expect(version.post.preview_version.id).not_to eq old_preview.id
     end
+
+    it "responds with errors if the interaction has one" do
+      ptcet = Pulitzer::PostTypeContentElementType.create(label: 'test', required: true)
+      version.content_elements.first.update_columns(body: nil, post_type_content_element_type_id: ptcet.id)
+      patch :update, id: version.id, status: 'active'
+      expect(response.status).to eq 409
+      expect(response.body).to match "It's not possible to activate a version without filling required content elements"
+    end
   end
 end
