@@ -1,5 +1,5 @@
 class Pulitzer::PostsController < Pulitzer::ApplicationController
-  before_filter :get_post, only: [:show, :edit, :edit_slug, :update,
+  before_filter :get_post, only: [:show, :edit, :edit_title, :edit_slug, :update,
     :update_slug, :processing_preview]
 
   def index
@@ -24,8 +24,12 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
 
   def edit
     if request.xhr?
-      render partial: 'form', locals: { post: @post }
+      render 'edit', locals: { post: @post }
     end
+  end
+
+  def edit_title
+     render partial: 'form', locals: { post: @post }
   end
 
   def update

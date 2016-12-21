@@ -1,0 +1,9 @@
+<h1>Editing <%= @post.title %></h1>
+
+<div class="pulitzer-row margin-bottom list-item">
+  <%= link_back_to_posts(@post.post_type, "Back to #{@post.post_type.name.singularize} Posts", 'Back to post types') %>
+</div>
+
+<div id="<%= dom_id(@post, :preview_version)%>">
+</div>
+<%= ajax_link_now '', edit_version_path(@post.next_version), {}, dom_target(@post, :preview_version) %>
