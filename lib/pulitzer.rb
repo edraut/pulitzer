@@ -7,8 +7,8 @@ require 'select2-rails'
 require 'pulitzer/engine'
 
 module Pulitzer
-  mattr_accessor  :base_controller, :metadata_closure, :authentication_closure, :publish_callback,
-  :tagging_models, :layout, :text_editor_toolbars, :clone_queue, :image_queue, :aws_acl,
+  mattr_accessor  :base_controller, :metadata_closure, :authentication_closure, :unpublish_authorization,
+  :publish_callback, :tagging_models, :layout, :text_editor_toolbars, :clone_queue, :image_queue, :aws_acl,
   :partial_folder
 
   def self.config(options)
@@ -16,6 +16,7 @@ module Pulitzer
     @@base_controller         = base_controller_name.constantize
     @@metadata_closure        = options[:metadata_authorization]
     @@authentication_closure  = options[:authentication]
+    @@unpublish_authorization = options[:unpublish_authorization]
     @@publish_callback        = options[:publish_callback]
     @@tagging_models          = options[:tagging_models] || []
     @@layout                  = options[:layout] || 'application'
