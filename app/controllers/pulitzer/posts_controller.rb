@@ -24,7 +24,7 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
 
   def edit
     if request.xhr?
-      render 'edit', locals: { post: @post }
+      render partial: 'edit', locals: { post: @post }
     end
   end
 
