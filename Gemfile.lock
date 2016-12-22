@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.5.7)
+    pulitzer (0.5.8)
       carrierwave (< 1.0)
       carrierwave-aws (< 2.0)
       foreign_office (>= 0.9.1, < 1.0)
@@ -84,7 +84,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    foreign_office (0.12.1)
+    foreign_office (0.12.2)
       rails (>= 4.0.1, < 6.0)
       request_store (< 2.0)
     friendly_id (5.2.0)
