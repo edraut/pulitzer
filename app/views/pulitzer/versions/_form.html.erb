@@ -9,7 +9,7 @@
     <%= hidden_field_tag :status, :abandoned %>
   <% end %>
 
-  <% if version.post.active_version %>
+  <% if version.post.active_version && !instance_eval(&Pulitzer.unpublish_authorization) %>
     <%= form_for version.post.active_version,  html: ajax_form_hash(dom_target(version.post, :preview_version)).merge( class: 'pulitzer-form-left' ) do |f| %>
       <%= f.submit "Unpublish Post", data: {prevent_double_click: true} %>
       <%= hidden_field_tag :status, :abandoned %>

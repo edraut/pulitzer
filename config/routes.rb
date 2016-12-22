@@ -3,6 +3,7 @@ Pulitzer::Engine.routes.draw do
     member do
       get :processing_preview
       get :edit_slug
+      get :edit_title
       get :show_slug
       patch :update_slug
     end
