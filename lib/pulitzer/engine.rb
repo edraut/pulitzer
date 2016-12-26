@@ -14,6 +14,7 @@ module Pulitzer
 
     initializer 'pulitzer.action_controller' do |app|
       ActionView::Base.send :include, ContentElementHelper
+      ActionView::Base.send :include, Pulitzer::PostsHelper
     end
 
   end

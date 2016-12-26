@@ -11,9 +11,9 @@ module Pulitzer
 
     def link_back_to_posts(post_type, plural_label, singular_label)
       if post_type.plural?
-        link_to plural_label, posts_path(post_type_id: post_type.id)
+        link_to plural_label, pulitzer.posts_path(post_type_id: post_type.id)
       else
-        link_to singular_label, post_types_path
+        link_to singular_label, pulitzer.post_types_path
       end
     end
 
