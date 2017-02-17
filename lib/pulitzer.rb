@@ -9,11 +9,12 @@ require 'pulitzer/engine'
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure, :authentication_closure, :unpublish_authorization,
   :publish_callback, :tagging_models, :layout, :text_editor_toolbars, :clone_queue, :image_queue, :aws_acl,
-  :partial_folder
+  :partial_folder, :missing_image_path
 
   def self.config(options)
     base_controller_name = options[:base_controller_name]
     @@base_controller         = base_controller_name.constantize
+    @@missing_image_path      = options[:missing_image_path] || "/assets/missing.png"
     @@metadata_closure        = options[:metadata_authorization]
     @@authentication_closure  = options[:authentication]
     @@unpublish_authorization = options[:unpublish_authorization]

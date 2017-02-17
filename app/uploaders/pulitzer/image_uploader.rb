@@ -12,6 +12,10 @@ class Pulitzer::ImageUploader < Pulitzer::BaseUploader
     process resize_to_fill: [200,200]
   end
 
+  def default_url
+     Pulitzer.missing_image_path
+   end
+
   def dynamic_resize
     resize_to_fit model.width, model.height
   end
