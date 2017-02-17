@@ -26,7 +26,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   protected
 
   def content_element_params
-    params[:content_element].permit!
+    params[:content_element].nil? ? {} : params[:content_element].permit!
   end
 
   def set_content_element
