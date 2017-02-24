@@ -25,6 +25,30 @@ describe Pulitzer::Post do
     end
   end
 
+  describe "#get_active_version!" do
+    let(:post) { create :post} 
+    let!(:preview) { create :version, post: post, status: :preview }
+
+    it "should raise an error if the active version is not found" do
+      expect{post.get_active_version!}.to raise_error Pulitzer::VersionMissingError
+    end
+  end
+
+  describe "#get_preview_version!" do
+    let(:post) { create :post} 
+
+    it "should raise an error if the version is processing" do
+      processing = post.preview_version
+      processing.update_columns status: 'processing'
+      expect{post.get_preview_version!}.to raise_error Pulitzer::VersionProcessingError
+    end
+
+    it "should raise an error if the version is processing" do
+      post.preview_version.destroy
+      expect{post.get_preview_version!}.to raise_error Pulitzer::VersionMissingError
+    end
+  end
+
   describe "Generate a slug" do
     let(:post) { create :post }
 

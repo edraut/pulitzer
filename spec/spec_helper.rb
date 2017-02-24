@@ -1,5 +1,6 @@
 require 'byebug'
 require 'pry'
+require 'rails-controller-testing'
 
 RSpec.configure do |config|
   ConeyIsland.run_inline if defined? ConeyIsland
