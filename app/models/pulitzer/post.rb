@@ -30,6 +30,25 @@ module Pulitzer
       new_record? || title_changed?
     end
 
+    def get_preview_version!
+      this_version = versions.preview.last
+      if this_version.present?
+        return this_version
+      elsif versions.processing.any?
+        raise Pulitzer::VersionProcessingError.new("That version is still processing, it will be done soon." )
+      else
+        raise Pulitzer::VersionMissingError.new("We couldn't find a preview for that post, check with your system administrator to see how this happened.")
+      end
+    end
+
+    def get_active_version!
+      if active_version.present?
+        return active_version
+      else
+        raise Pulitzer::VersionMissingError.new("We couldn't find that page. It looks like we no longer offer that.")
+      end
+    end
+
     def preview_version
     	versions.preview.last
     end
