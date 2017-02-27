@@ -9,13 +9,18 @@ class Pulitzer::UpdatePostTypeContentElements
 
   def call
     post_type.posts.each do |post|
-      post.preview_version.content_elements.where(label: old_label).each do |content_element|
-        content_element.update(label: ptcet.label,
-          height: ptcet.height,
-          width: ptcet.width,
-          text_editor: ptcet.text_editor,
-          content_element_type: ptcet.content_element_type,
-          post_type_content_element_type: ptcet)
+      begin
+        preview_version = post.get_preview_version!
+        post.preview_version.content_elements.where(label: old_label).each do |content_element|
+          content_element.update(label: ptcet.label,
+            height: ptcet.height,
+            width: ptcet.width,
+            text_editor: ptcet.text_editor,
+            content_element_type: ptcet.content_element_type,
+            post_type_content_element_type: ptcet)
+        end
+      rescue Pulitzer::VersionAccessError
+        # if there is no preview version, skip this one.
       end
     end
     post_type.partials.each do |partial|
