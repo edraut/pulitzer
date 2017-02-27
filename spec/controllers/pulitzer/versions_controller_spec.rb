@@ -35,8 +35,7 @@ describe Pulitzer::VersionsController do
       expect(response.status).to eq 200
       expect(active_version.reload.status).to eq 'active'
       expect(old_preview.reload.status).to eq 'abandoned'
-      expect(active_version.post.preview_version.status).to eq 'preview'
-      expect(version.post.preview_version.id).not_to eq old_preview.id
+      expect(active_version.post.preview_version).to eq nil
     end
 
     it "responds with errors if the interaction has one" do
