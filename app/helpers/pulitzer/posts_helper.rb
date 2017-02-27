@@ -23,7 +23,7 @@ module Pulitzer
 
     def render_element(element)
       if element.image_type?
-        image_tag element.image_url(:thumb)
+        image_tag(element.image_url(:thumb)) if element.image?
       elsif element.video_type?
         render_video(element)
       else
