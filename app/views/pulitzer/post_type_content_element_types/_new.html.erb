@@ -1,6 +1,6 @@
 <%= form_for ptcet, html: ajax_form_hash("#post_type_content_element_types_container_#{dom_id(ptcet.post_type)}", insert_method: 'append') do |f| %>
   <%= render partial: 'form_fields', locals: { f: f, ptcet: ptcet } %>
-  <%= f.submit "Create" %>
+  <%= f.submit "Create", data: { disable_with: false } %>
   <%= link_to('Close', '#', :class => 'button',
     data: { emptier: true, target: "#new_post_type_content_element_type_#{dom_id(ptcet.post_type)}" } ) %>
 <% end %>
