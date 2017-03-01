@@ -8,9 +8,11 @@ class Pulitzer::CreatePostTypeFreeFormSections
 
   def call
     post_type.posts.each do |post|
-      post.preview_version.free_form_sections.create do |ffs|
-        ffs.name                   = ffst.name
-        ffs.free_form_section_type = ffst
+      if post.preview_version
+        post.preview_version.free_form_sections.create do |ffs|
+          ffs.name                   = ffst.name
+          ffs.free_form_section_type = ffst
+        end
       end
     end
   end
