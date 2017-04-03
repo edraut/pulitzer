@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Pulitzer::TagsController do
 
   routes { Pulitzer::Engine.routes }
+  render_views
 
   describe "#index" do
     let!(:flat_tag) { create :tag, hierarchical: false }
@@ -107,7 +108,8 @@ describe Pulitzer::TagsController do
     end
   end
 
-  describe "#update" do
+  describe "#update", type: :request do
+    routes { Pulitzer::Engine.routes }
     let(:tag) { create :tag }
     let(:attributes) { attributes_for :tag }
 
@@ -118,12 +120,12 @@ describe Pulitzer::TagsController do
       end
 
       it "updates the record" do
-        expect(tag).to receive(:update_attributes).with(attributes)
-        patch :update, id: tag.id, tag: attributes
+        expect(tag).to receive(:update_attributes)
+        patch tag_path(id: tag.id, tag: attributes)
       end
 
       it "renders the right response" do
-        patch :update, id: tag.id, tag: attributes
+        patch tag_path(id: tag.id, tag: attributes)
         expect(response).to render_template("_show")
       end
     end
@@ -133,11 +135,11 @@ describe Pulitzer::TagsController do
         create :tag, name: "sadpanda"
         attributes.merge! name: "sadpanda"
         allow(Pulitzer::Tag).to receive(:find) { tag }
-        patch :update, id: tag.id, tag: attributes
+        patch tag_path( id: tag.id, tag: attributes)
       end
 
       it "doesn't update the record" do
-        expect(assigns[:tag].errors).not_to be_empty
+        expect(response.body).to match("Name has already been taken")
       end
 
       it "renders the right template" do

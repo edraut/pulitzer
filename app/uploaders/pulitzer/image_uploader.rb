@@ -6,10 +6,12 @@ class Pulitzer::ImageUploader < Pulitzer::BaseUploader
 
   version :cms, if: :version_available? do
     process :dynamic_resize
+    process quality: 65
   end
 
   version :thumb, if: :version_available? do
     process resize_to_fill: [200,200]
+    process quality: 65
   end
 
   def default_url

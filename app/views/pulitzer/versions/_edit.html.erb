@@ -10,7 +10,7 @@
 <% elsif version.processing? %>
   <h2> Processing Preview for <%= version.title %> </h2>
   <div class="pulitzer-row">
-    <progress value="0" max="<%= version.total_processing_elements %>" <%= listener_attrs version, :processed_element_count if defined? ForeignOffice %>></progress>
+    <progress value="0" max="<%= version.active_version.present? ? version.total_processing_elements : 50 %>" <%= listener_attrs version, :processed_element_count if defined? ForeignOffice %>></progress>
   </div>
   <a <%= listener_attrs version.post, :new_preview_version, trigger: true if defined? ForeignOffice %>
      <%= ajax_link_attrs(dom_target(version.post, :preview_version)) %> > </a>
