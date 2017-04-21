@@ -10,7 +10,7 @@ require 'pulitzer/exceptions'
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure, :authentication_closure, :unpublish_authorization,
   :publish_callback, :tagging_models, :layout, :text_editor_toolbars, :clone_queue, :image_queue, :aws_acl,
-  :partial_folder, :missing_image_path
+  :partial_folder, :missing_image_path, :public_view_dir, :public_controller, :preview_namespace
 
   def self.config(options)
     base_controller_name = options[:base_controller_name]
@@ -23,6 +23,8 @@ module Pulitzer
     @@tagging_models          = options[:tagging_models] || []
     @@layout                  = options[:layout] || 'application'
     @@partial_folder          = options[:partial_folder] || 'pulitzer_partials'
+    @@preview_namespace       = options[:preview_namespace] || 'pulitzer_preview'
+    @@public_controller       = options[:public_controller] || 'pulitzer'
     default_text_editor       = [{ name: 'None', template: 'pulitzer/text_editors/none', kind: 'TinyMCE'}]
     user_text_editors         = options[:text_editor_toolbars].flatten || nil
     @@text_editor_toolbars    = default_text_editor.push(*user_text_editors).compact

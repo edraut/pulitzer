@@ -3,7 +3,7 @@ class Pulitzer::VersionsController < Pulitzer::ApplicationController
 
   def edit
     if @version.preview?
-      route                       = "pulitzer_preview_#{@post.post_type.name.parameterize('_')}_path"
+      route                       = "#{Pulitzer.preview_namespace}_#{@post.post_type.name.parameterize('_')}_path"
       @preview_path               = main_app.public_send(route, @post.slug) if main_app.respond_to?(route)
     end
     render_ajax locals: {version: @version}

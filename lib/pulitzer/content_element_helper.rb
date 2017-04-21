@@ -47,8 +47,8 @@ module Pulitzer
        element.body.html_safe if element.html
     end
 
-    def render_cms_section(post_type, section_name)
-      post_type.section(section_name).partials.collect do |partial|
+    def render_cms_section(version, section_name)
+      version.section(section_name).partials.collect do |partial|
         render partial: partial.full_view_path, locals: {partial: partial}
       end.join.html_safe
     end
