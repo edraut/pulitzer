@@ -12,11 +12,13 @@ module Pulitzer
     end
 
     def render_image(element,options = {})
-      pulitzer_options = {'data-pulitzer-element' => element.id}
-      if options.is_a? Hash
-        pulitzer_options.merge!(options)
+      if element.image?
+        pulitzer_options = {'data-pulitzer-element' => element.id}
+        if options.is_a? Hash
+          pulitzer_options.merge!(options)
+        end
+        image_tag element.image_url(:cms), pulitzer_options
       end
-      image_tag element.image_url(:cms), pulitzer_options
     end
 
     def render_picture_source(element,options = {})
