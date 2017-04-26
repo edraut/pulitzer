@@ -23,7 +23,7 @@
       <div class="pulitzer-span margin match-h2" <%= collapser(dom_id(version, :slug)) %>>&dtrif;</div>
       <div class="pulitzer-span"><h2>Slug</h2></div>
       <div <%= collapsed(dom_id(version, :slug)) %>>
-        <%= render partial: 'pulitzer/posts/show_wrapper', locals: { post: version.post, slug: true } %>
+        <%= render partial: 'pulitzer/posts/slug_wrapper', locals: { post: version.post, version: version } %>
       </div>
     </div>
   </div>
