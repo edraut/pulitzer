@@ -1,1 +1,3 @@
-<%= render partial: 'edit', locals: { post: @post } %>
+<div id="<%= dom_id(@post.next_version) %>">
+  <%= render partial: 'edit', locals: { post: @post } %>
+</div>
