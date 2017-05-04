@@ -17,7 +17,7 @@ class Pulitzer::CreatePostContentElements
       end
     end
     post.free_form_section_types.each do |ffst|
-      post.preview_version.free_form_sections.create name: ffst.name
+      post.preview_version.free_form_sections.create name: ffst.name, free_form_section_type_id: ffst.id
     end
   end
 end

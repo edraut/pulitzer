@@ -4,6 +4,8 @@ module Pulitzer
     belongs_to :free_form_section_type
     has_many :partials, -> { order :sort_order}
 
+    delegate :sort_order, to: :free_form_section_type
+    
     def partial(name)
       self.partials.to_a.detect{|ffs| ffs.name == name}
     end
@@ -20,5 +22,6 @@ module Pulitzer
       end
       my_clone
     end
+
   end
 end

@@ -8,7 +8,7 @@ module Pulitzer
     belongs_to :content_element_type
     belongs_to :post_type_content_element_type
     delegate :type, :text_type?, :image_type?, :video_type?, to: :content_element_type
-    delegate :required?, to: :post_type_content_element_type
+    delegate :required?, :sort_order, to: :post_type_content_element_type
     delegate :post, to: :version
 
     attr_accessor :version_unavailable, :ensure_unique
