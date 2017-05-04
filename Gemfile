@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.3.1"
 
 # Declare your gem's dependencies in pulitzer.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
