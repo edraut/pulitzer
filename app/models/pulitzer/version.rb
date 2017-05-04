@@ -35,6 +35,10 @@ module Pulitzer
       self.free_form_sections.to_a.detect{|ffs| ffs.name == name}
     end
 
+    def all_elements
+      (content_elements.to_a + free_form_sections.to_a).sort_by(&:sort_order)
+    end
+
     def template_content_elements
       content_elements.template
     end

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927160910) do
+ActiveRecord::Schema.define(version: 20170502210827) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -39,6 +38,7 @@ ActiveRecord::Schema.define(version: 20160927160910) do
   create_table "pulitzer_free_form_section_types", force: :cascade do |t|
     t.integer "post_type_id"
     t.string  "name"
+    t.integer "sort_order"
   end
 
   create_table "pulitzer_free_form_sections", force: :cascade do |t|
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160927160910) do
     t.datetime "updated_at",                              null: false
     t.string   "text_editor"
     t.boolean  "required",                default: false
+    t.integer  "sort_order"
   end
 
   create_table "pulitzer_post_types", force: :cascade do |t|
@@ -95,9 +96,8 @@ ActiveRecord::Schema.define(version: 20160927160910) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "slug"
+    t.index ["slug"], name: "index_pulitzer_posts_on_slug", unique: true
   end
-
-  add_index "pulitzer_posts", ["slug"], name: "index_pulitzer_posts_on_slug", unique: true
 
   create_table "pulitzer_tags", force: :cascade do |t|
     t.string   "name"
@@ -105,11 +105,15 @@ ActiveRecord::Schema.define(version: 20160927160910) do
     t.datetime "updated_at",                   null: false
     t.integer  "parent_id"
     t.boolean  "hierarchical", default: false, null: false
+    t.index ["hierarchical"], name: "index_pulitzer_tags_on_hierarchical"
   end
 
-  add_index "pulitzer_tags", ["hierarchical"], name: "index_pulitzer_tags_on_hierarchical"
-
-# Could not dump table "pulitzer_versions" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "pulitzer_versions", force: :cascade do |t|
+    t.integer  "status",         default: 0
+    t.integer  "post_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "cloning_errors"
+  end
 
 end

@@ -39,17 +39,10 @@
       <% end %>
     </div>
   </div>
-  <% if version.has_templated_content_elements? %>
-    <div class="pulitzer-row margin-bottom list-item">
-      <%= render partial: '/pulitzer/content_elements/index', locals: {version: version} %>
-    </div>
-  <% end %>
-  <% if version.has_free_form_sections? %>
-    <div class="pulitzer-row margin-bottom list-item">
-      <%= render partial: '/pulitzer/free_form_sections/index', locals: {version: version} %>
-    </div>
-  <% end %>
 
+  <% version.all_elements.each do |element| %>
+    <%= render partial: "/pulitzer/#{element.class.table_name.gsub(/pulitzer_/,'')}/show_wrapper", locals: { element: element } %>
+  <% end %>
   <div class="pulitzer-row">
     <%= render partial: 'pulitzer/versions/form', locals: { version: version } %>
   </div>

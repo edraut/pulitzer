@@ -4,10 +4,15 @@ describe Pulitzer::VersionsController do
   routes { Pulitzer::Engine.routes }
   render_views
 
-  let(:version) {create(:version, :with_content_elements)}
+  let(:post_type) { Pulitzer::PostType.named('Welcome') }
+  let(:content_element_type) { post_type.post_type_content_element_types.first.content_element_type }
+  let(:post) { post_type.posts.first }
+  let(:version) {post.preview_version}
 
   describe "updating versions" do
     it "abandons a post that was never published" do
+      active_version = post.active_version
+      active_version.destroy
       old_post_id = version.post.id
       patch :update, id: version.id, status: 'abandoned'
       expect(response.status).to eq 200
@@ -38,7 +43,7 @@ describe Pulitzer::VersionsController do
     end
 
     it "responds with errors if the interaction has one" do
-      ptcet = Pulitzer::PostTypeContentElementType.create(label: 'test', required: true)
+      ptcet = post_type.post_type_content_element_types.create(label: 'test', required: true, content_element_type: content_element_type)
       version.content_elements.first.update_columns(body: nil, post_type_content_element_type_id: ptcet.id)
       patch :update, id: version.id, status: 'active'
       expect(response.status).to eq 409

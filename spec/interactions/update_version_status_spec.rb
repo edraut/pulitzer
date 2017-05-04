@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe Pulitzer::UpdateVersionStatus do
-  let(:version)     { create(:version, :with_content_elements) }
-  let(:post)        { version.post }
+  let(:post)        { Pulitzer::Post.first }
+  let(:version)     { post.preview_version }
 
   describe "#call" do
     subject { described_class.new(version, :active) }
@@ -33,7 +33,7 @@ describe Pulitzer::UpdateVersionStatus do
     expect(post.active_version.id).to eq version.id
     expect(post.preview_version).to be_instance_of Pulitzer::Version
     expect(post.preview_version.id).not_to eq version.id
-    expect(post.preview_version.content_elements.count).to eq 3
+    expect(post.preview_version.content_elements.count).to eq 10
   end
 
   it 'abandons a version' do
@@ -48,7 +48,7 @@ describe Pulitzer::UpdateVersionStatus do
     expect(abandoned.status).to eq 'abandoned'
     expect(post.preview_version).to be_instance_of Pulitzer::Version
     expect(post.preview_version.id).not_to eq abandoned.id
-    expect(post.preview_version.content_elements.count).to eq 3
+    expect(post.preview_version.content_elements.count).to eq 10
   end
 
   it 'unpublish a version' do
@@ -61,6 +61,6 @@ describe Pulitzer::UpdateVersionStatus do
     expect(abandoned.status).to eq 'abandoned'
     expect(post.preview_version).to be_instance_of Pulitzer::Version
     expect(post.preview_version.id).not_to eq abandoned.id
-    expect(post.preview_version.content_elements.count).to eq 3
+    expect(post.preview_version.content_elements.count).to eq 10
   end
 end

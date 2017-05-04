@@ -1,9 +1,9 @@
 class Pulitzer::CreateSingletonPost
   attr_accessor :post_type, :title
 
-  def initialize(post_type, title)
+  def initialize(post_type)
     self.post_type = post_type
-    self.title = title
+    self.title = post_type.name
   end
 
   def call

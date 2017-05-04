@@ -36,4 +36,12 @@ class Pulitzer::PostType < ActiveRecord::Base
     free_form_section_types.any?
   end
 
+  def all_element_types
+    (post_type_content_element_types.to_a + free_form_section_types.to_a)
+  end
+
+  def highest_element_sort
+    last_element = all_element_types.max_by(&:sort_order)
+    last_element&.sort_order || 0
+  end
 end

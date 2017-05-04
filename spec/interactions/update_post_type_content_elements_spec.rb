@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 describe Pulitzer::UpdatePostTypeContentElements do
-  let(:version)     { create(:version, :with_content_elements) }
-  let(:post)        { version.post }
-  let(:post_type)   { post.post_type }
-  let(:content_element_type) {create :content_element_type, :text}
+  let(:version)     { post.preview_version }
+  let(:post)        { post_type.posts.first }
+  let(:post_type)   { Pulitzer::PostType.named('Welcome') }
+  let(:content_element_type) { Pulitzer::ContentElementType.find_by name: 'Text'}
   let(:ptcet)       { post_type.post_type_content_element_types.create(content_element_type_id: content_element_type.id, label: 'A New Field for this Post Type')}
 
   describe "#call" do
@@ -22,7 +22,6 @@ describe Pulitzer::UpdatePostTypeContentElements do
 
     it "doesn't blow up if a post has no preview version" do
       version.update_columns status: 'archived'
-      post.preview_version.destroy
       expect(post.reload.preview_version).to be_nil
       # There is no preview version for the post, but we don't blow up
       Pulitzer::UpdatePostTypeContentElements.new(ptcet).call
