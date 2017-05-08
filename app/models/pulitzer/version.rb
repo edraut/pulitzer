@@ -36,7 +36,7 @@ module Pulitzer
     end
 
     def all_elements
-      (content_elements.to_a + free_form_sections.to_a).sort_by(&:sort_order)
+      (content_elements.to_a + free_form_sections.to_a).sort_by{|e| e.sort_order || 0}
     end
 
     def template_content_elements

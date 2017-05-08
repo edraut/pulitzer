@@ -41,7 +41,7 @@ class Pulitzer::PostType < ActiveRecord::Base
   end
 
   def highest_element_sort
-    last_element = all_element_types.max_by(&:sort_order)
+    last_element = all_element_types.max_by{ |e| e.sort_order || 0}
     last_element&.sort_order || 0
   end
 end

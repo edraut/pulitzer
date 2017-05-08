@@ -4,7 +4,7 @@ module Pulitzer
     belongs_to :free_form_section_type
     has_many :partials, -> { order :sort_order}
 
-    delegate :sort_order, to: :free_form_section_type
+    delegate :sort_order, to: :free_form_section_type, allow_nil: true
     
     def partial(name)
       self.partials.to_a.detect{|ffs| ffs.name == name}
