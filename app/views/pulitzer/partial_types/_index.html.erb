@@ -1,0 +1,12 @@
+<div id="<%= dom_id ffst, :partial_container %>" data-sorter href="<%= update_all_partials_path %>">
+  <% partial_types.partial_types.each do |partial| %>
+    "asdf"
+  <% end %>
+</div>
+
+<div id="<%= dom_id ffst, :partials %>">
+  <div class="pulitzer-row margin-bottom list-item">
+    <%= ajax_link "add a new partial for #{ffst.name}", new_partial_type_path({ffst_id: ffst}), {}, dom_target(ffst, :new_partial) %>
+    <div id="<%= dom_id(ffst, :new_partial) %>"></div>
+  </div>
+</div>

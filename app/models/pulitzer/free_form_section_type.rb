@@ -4,6 +4,7 @@ module Pulitzer
 
     belongs_to :post_type
     has_many :free_form_sections
+    has_many :partial_types
 
   end
 end
