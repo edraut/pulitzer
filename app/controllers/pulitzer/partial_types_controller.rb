@@ -14,11 +14,14 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
   end
 
   def create
-    binding.pry
-    @post_type = Pulitzer::PostType.find(ffst_params[:post_type_id])
-    @ffst = @post_type.free_form_section_types.create(ffst_params)
-    Pulitzer::CreatePostTypeFreeFormSections.new(@ffst).call
-    render partial: 'show_wrapper', locals: {ffst: @ffst}
+    @free_form_section_type = Pulitzer::FreeFormSectionType.find partial_type_params[:free_form_section_type_id]
+    @partial_type = @free_form_section_type.partial_types.create partial_type_params
+    if @partial_type && @partial_type.errors.empty?
+      #Pulitzer::CreatePartialContentElements.new(@partial).call
+      render partial: 'show_wrapper', locals: { partial_type: @partial_type }
+    else
+      render partial: 'new', locals: { partial_type: @partial_type }
+    end
   end
 
   def show
@@ -40,6 +43,15 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
     @ffst.destroy
     Pulitzer::DestroyPostTypeFreeFormSections.new(@ffst).call
     render nothing: true
+  end
+
+  def update_all
+    partial_types = Pulitzer::PartialType.find params[:partial_type]
+    partial_types.each do |pt|
+      new_sort_order = params[:partial_type].index(pt.id.to_s)
+      pt.update_attribute(:sort_order, new_sort_order)
+    end
+    head :ok
   end
 
   protected

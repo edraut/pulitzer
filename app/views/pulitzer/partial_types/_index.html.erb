@@ -1,6 +1,6 @@
-<div id="<%= dom_id ffst, :partial_container %>" data-sorter href="<%= update_all_partials_path %>">
-  <% partial_types.partial_types.each do |partial| %>
-    "asdf"
+<div id="<%= dom_id ffst, :partial_container %>" data-sorter href="<%= update_all_partial_types_path %>">
+  <% @ffst.partial_types.each do |partial_type| %>
+    <%= render partial: '/pulitzer/partial_types/show_wrapper', locals: { partial_type: partial_type } %>
   <% end %>
 </div>
 
