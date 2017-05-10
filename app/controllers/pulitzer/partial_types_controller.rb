@@ -35,13 +35,13 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
   def update
     old_label = @partial_type.label
     @partial_type.update_attributes(partial_type_params)
-    #Pulitzer::UpdateFreeFormSectionPartials.new(@ffst, old_label).call
+    Pulitzer::UpdateFreeFormSectionPartials.new(@partial_type, old_label).call
     render partial: 'show', locals: { partial_type: @partial_type }
   end
 
   def destroy
+    Pulitzer::DestroyFreeFormSectionPartials.new(@partial_type).call
     @partial_type.destroy
-    #Pulitzer::DestroyPostTypeFreeFormSections.new(@ffst).call
     head :ok
   end
 
