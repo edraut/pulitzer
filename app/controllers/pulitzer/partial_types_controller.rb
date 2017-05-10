@@ -1,5 +1,5 @@
 class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
-  #before_filter :get_ffst, only: [:show, :edit, :update, :destroy]
+  before_filter :get_partial_type, only: [:show, :edit, :update, :destroy]
 
   def index
     @ffst = Pulitzer::FreeFormSectionType.find(params[:ffst_id])
@@ -17,7 +17,7 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
     @free_form_section_type = Pulitzer::FreeFormSectionType.find partial_type_params[:free_form_section_type_id]
     @partial_type = @free_form_section_type.partial_types.create partial_type_params
     if @partial_type && @partial_type.errors.empty?
-      #Pulitzer::CreatePartialContentElements.new(@partial).call
+      Pulitzer::CreateFreeFormSectionPartials.new(@partial_type).call
       render partial: 'show_wrapper', locals: { partial_type: @partial_type }
     else
       render partial: 'new', locals: { partial_type: @partial_type }
@@ -25,24 +25,24 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
   end
 
   def show
-    render partial: 'show', locals: {ffst: @ffst}
+    render partial: 'show', locals: { partial_type: @partial_type }
   end
 
   def edit
-    render partial: 'form', locals: {ffst: @ffst}
+    render partial: 'form', locals: { partial_type: @partial_type }
   end
 
   def update
-    old_label = @ffst.name
-    @ffst.update_attributes(ffst_params)
-    Pulitzer::UpdatePostTypeFreeFormSections.new(@ffst, old_label).call
-    render partial: 'show', locals: {ffst: @ffst}
+    old_label = @partial_type.label
+    @partial_type.update_attributes(partial_type_params)
+    #Pulitzer::UpdateFreeFormSectionPartials.new(@ffst, old_label).call
+    render partial: 'show', locals: { partial_type: @partial_type }
   end
 
   def destroy
-    @ffst.destroy
-    Pulitzer::DestroyPostTypeFreeFormSections.new(@ffst).call
-    render nothing: true
+    @partial_type.destroy
+    #Pulitzer::DestroyPostTypeFreeFormSections.new(@ffst).call
+    head :ok
   end
 
   def update_all
@@ -56,8 +56,8 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
 
   protected
 
-  def get_ffst
-    @ffst = Pulitzer::FreeFormSectionType.find(params[:id])
+  def get_partial_type
+    @partial_type = Pulitzer::PartialType.find(params[:id])
   end
 
   def partial_type_params

@@ -10,5 +10,9 @@ module Pulitzer
     def folder_path
       label.downcase.gsub(/ /,'_').gsub(/\W/,'')
     end
+
+    def available_layouts
+      post_type.layouts
+    end
   end
 end
