@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Pulitzer::UpdateFreeFormSectionPartials do
+describe Pulitzer::DestroyFreeFormSectionPartials do
   let!(:partial_type)           { create(:partial_type) }
   let(:post_type)               { free_form_section_type.post_type }
   let!(:post)                   { create(:post, post_type: post_type) }
@@ -9,13 +9,10 @@ describe Pulitzer::UpdateFreeFormSectionPartials do
 
   it 'Creates partial to post type posts' do
     Pulitzer::CreatePostTypeFreeFormSections.new(free_form_section_type).call
+    expect(preview_version.free_form_sections.first.partials).to eq []
     Pulitzer::CreateFreeFormSectionPartials.new(partial_type).call
-    partial = preview_version.free_form_sections.first.partials.first
-    expect(partial.label).to eq partial_type.label
-    old_label = partial_type.label
-    partial_type.update_attributes(label: 'new label')
-    Pulitzer::UpdateFreeFormSectionPartials.new(partial_type, old_label).call
-    partial = preview_version.free_form_sections.first.partials.reload.first
-    expect(partial.label).to eq 'new label'
+    expect(preview_version.free_form_sections.first.partials.count).to eq 1
+    Pulitzer::DestroyFreeFormSectionPartials.new(partial_type).call
+    expect(preview_version.free_form_sections.first.partials.count).to eq 0
   end
 end
