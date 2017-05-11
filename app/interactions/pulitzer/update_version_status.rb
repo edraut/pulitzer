@@ -7,8 +7,13 @@ class Pulitzer::UpdateVersionStatus
     @status = status
     @status_change_method = 'make_version_' + @status.to_s
     if @status == "active" && version.empty_required_content_elements?
-      @processing_version = version
       @errors = ["It's not possible to activate a version without filling required content elements"]
+    end
+    if @status == "active" && !version.required_partials?
+      @errors = ["It's not possible to activate a version without the required partials"]
+    end
+    if @errors.any?
+      @processing_version = version
     end
     @post = version.post
   end

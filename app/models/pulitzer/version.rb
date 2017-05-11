@@ -55,5 +55,18 @@ module Pulitzer
     def empty_required_content_elements?
       content_elements.required.select{|ce| ce.empty_body?}.any? || free_form_sections.includes(partials: :content_elements).map(&:partials).flatten.map(&:content_elements).flatten.select{|ce| ce.empty_body? && ce.required?}.any?
     end
+
+    def required_partials?
+      all_partials = true
+      free_form_section_types = post.post_type.free_form_section_types
+      free_form_sections      = self.free_form_sections.where(name: free_form_section_types.pluck(:name))
+      free_form_sections.each do |fs|
+        free_form_section_type = free_form_section_types.select{|ffst| ffst.name == fs.name }
+        partial_types = free_form_section_type.first.partial_types
+        partials      = fs.partials.where(label: partial_types.pluck(:label))
+        all_partials  = false unless partial_types.count == partials.count
+      end
+      all_partials
+    end
   end
 end
