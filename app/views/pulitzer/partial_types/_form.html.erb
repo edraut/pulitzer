@@ -1,5 +1,7 @@
 <div class="pulitzer-row">
   <div class="pulitzer-span margin"><h5><%= partial_type.label %></h5></div>
+  <div class="pulitzer-span match-h5"><%= partial_type.folder_path %>/</div>
+  <div class="pulitzer-span margin match-h5"><%= partial_type.template_path %></div>
   <div class="pulitzer-span right">
     <%= render partial: '/pulitzer/shared/drag_handle' %>
   </div>
