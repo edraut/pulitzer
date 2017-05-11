@@ -4,7 +4,7 @@
     <%= ajax_link "Edit", edit_free_form_section_type_path(ffst), {}, dom_target(ffst) %>
   </li>
   <li>
-    <%= ajax_link "Partials", partial_types_path(ffst_id: ffst), {}, "#partials_#{dom_id(ffst)}" %>
+    <%= ajax_link "Required partials", partial_types_path(ffst_id: ffst), {}, "#partials_#{dom_id(ffst)}" %>
   </li>
   <li>
     <%= ajax_delete 'Delete', free_form_section_type_path(ffst), {}, dom_target(ffst) %>
