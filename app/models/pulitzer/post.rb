@@ -15,6 +15,7 @@ module Pulitzer
     attr_accessor :new_preview_version
 
     validates :title, presence: true
+    validates :slug, uniqueness: true
 
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
 
