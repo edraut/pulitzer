@@ -54,12 +54,15 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def update_slug
-    @post.update_attributes(post_params)
-    if @version.preview?
-      route                       = "#{Pulitzer.preview_namespace}_#{@post.post_type.name.parameterize('_')}_path"
-      @preview_path               = main_app.public_send(route, @post.slug) if main_app.respond_to?(route)
+    if @post.update_attributes(post_params)
+      if @version.preview?
+        route                       = "#{Pulitzer.preview_namespace}_#{@post.post_type.name.parameterize('_')}_path"
+        @preview_path               = main_app.public_send(route, @post.slug) if main_app.respond_to?(route)
+      end
+      render partial: 'pulitzer/posts/edit', locals: { version: @version, post: @post }
+    else
+      render partial: 'form_slug', locals: { post: @post, version: @version }, status: :conflict
     end
-    render partial: 'pulitzer/posts/edit', locals: { version: @version, post: @post }
   end
 
   protected
