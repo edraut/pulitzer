@@ -11,7 +11,7 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
     @free_form_section = Pulitzer::FreeFormSection.find partial_params[:free_form_section_id]
     @partial = @free_form_section.partials.create partial_params
     if @partial && @partial.errors.empty?
-      Pulitzer::CreatePartialContentElements.new(@partial).call 
+      Pulitzer::CreatePartialContentElements.new(@partial).call
       render partial: 'show_wrapper', locals: { partial: @partial }
     else
       render partial: 'new', locals: {partial: @partial}
@@ -37,7 +37,7 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
       new_sort_order = params[:partial].index(partial.id.to_s)
       partial.update_attribute(:sort_order, new_sort_order)
     end
-    render nothing: true
+    head :ok
   end
 
   def destroy
