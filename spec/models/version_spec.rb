@@ -52,11 +52,11 @@ describe Pulitzer::Version do
       expect(preview_version.required_partials?).to eq true
     end
 
-    it 'With a different name or missing partial' do
+    it 'With a missing partial' do
       Pulitzer::CreatePostTypeFreeFormSections.new(free_form_section_type).call
       Pulitzer::CreateFreeFormSectionPartials.new(partial_type).call
       partial = preview_version.free_form_sections.first.partials.first
-      partial.update(label: 'Westeros news')
+      partial.destroy
       expect(preview_version.required_partials?).to eq false
     end
   end

@@ -64,7 +64,7 @@ module Pulitzer
         free_form_section_type = free_form_section_types.select{|ffst| ffst.name == fs.name }
         partial_types     = free_form_section_type.first.partial_types
         partials          = fs.partials.where(label: partial_types.pluck(:label))
-        has_all_partials  = false unless partial_types.count == partials.count
+        has_all_partials = partial_types.all?{|pt| fs.partials.where(post_type_id: pt.post_type_id).any?}
       end
       has_all_partials
     end
