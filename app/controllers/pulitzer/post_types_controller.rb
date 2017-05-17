@@ -28,10 +28,6 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
     render partial: 'show', locals: {post_type: @post_type}
   end
 
-  def template
-    render_ajax locals: {post_type: @post_type}
-  end
-
   def edit
     render partial: 'form', locals: {post_type: @post_type}
   end

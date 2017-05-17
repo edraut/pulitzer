@@ -1,23 +1,18 @@
 <div class="pulitzer-row">
   <ul class="inline-list">
     <li><%= post_type.name %></li>
-    <% unless post_type.partial? %>
-      <li><%= link_to_posts(post_type, 'Index', 'Manage') %></li>
-    <% end %>
-    <li>
-      <% if 'template' == action_name %>
-        <%= ajax_link 'Template', post_type_path(post_type), {}, dom_target(post_type) %>
-      <% else %>
-        <%= ajax_link 'Template', template_post_type_path(post_type), {}, dom_target(post_type) %>
-      <% end %>
-    </li>
     <li>
       <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
         <%= ajax_link "Details", edit_post_type_path(post_type), {}, dom_target(post_type) %>
-      <% else %>
-        <%= post_type.name %>
       <% end %>
     </li>
+    <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+      <li>
+        <%= ajax_link 'Templates', post_type_versions_path(post_type_id: post_type.id), {}, '[data-tab-id="templates"]' %>
+      </li>
+    <% else %>
+      <%= post_type_version.arity_display %>
+    <% end %>
     <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
       <li>
         <%= ajax_delete 'Delete', post_type_path(post_type), {}, dom_target(post_type) %>

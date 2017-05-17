@@ -1,12 +1,12 @@
 module Pulitzer
   class Partial < ActiveRecord::Base
     belongs_to :free_form_section
-    belongs_to :post_type
+    belongs_to :post_type_version
     belongs_to :layout
     
     has_many :content_elements, dependent: :destroy
 
-    delegate :name, :post_type_content_element_types, to: :post_type
+    delegate :name, :post_type_content_element_types, to: :post_type_version
     delegate :template_path, to: :layout, allow_nil: true
 
     before_save :handle_sort_order
@@ -22,7 +22,7 @@ module Pulitzer
     end
 
     def available_layouts
-      post_type.layouts
+      post_type_version.layouts
     end
 
     def folder_path

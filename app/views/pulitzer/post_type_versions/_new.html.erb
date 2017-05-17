@@ -1,0 +1,6 @@
+<%= form_for post_type_version, html: ajax_form_hash(:post_type_versions_container, insert_method: 'append', empty_on_success: '#new_post_type_version') do |f| %>
+  <%= render partial: 'form_fields', locals: { f: f } %>
+  <div class="pulitzer-span margin"><%= f.submit "Create" %></div>
+  <div class="button pulitzer-span" <%= emptier '#new_post_type_version' %>>Cancel</div>
+<% end %>
+<%= render 'pulitzer/shared/error_messages', object: post_type_version %>

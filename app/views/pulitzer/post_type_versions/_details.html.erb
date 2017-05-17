@@ -1,0 +1,6 @@
+<% if post_type_version.plural? %>
+  Many Posts
+<% else %>
+  Single Post
+<% end %>
+<%= ajax_link 'edit', edit_post_type_version_path(post_type_version), {}, dom_target(post_type_version, :details) %>

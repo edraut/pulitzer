@@ -1,0 +1,15 @@
+<h3>"<%= @post_type.name %>" Template Versions</h3>
+<div class="pulitzer-row margin-bottom list-item">
+  <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+    <%= ajax_link "create a new version of this template",
+          new_post_type_version_path(post_type_version: {post_type_version: {post_type_id: @post_type.id}}),
+          {}, '#new_post_type_version' %>
+  <% end %>
+  <div id="new_post_type_version"></div>
+</div>
+
+<div id="post_type_versions_container">
+  <% @post_type_versions.each do |post_type_version| %>
+    <%= render partial: 'show_wrapper', locals: {post_type_version: post_type_version} %>
+  <% end %>
+</div>

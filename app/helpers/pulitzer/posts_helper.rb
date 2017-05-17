@@ -1,17 +1,17 @@
 module Pulitzer
   module PostsHelper
 
-    def link_to_posts(post_type, plural_label, singular_label)
-      if post_type.plural?
-        link_to plural_label, posts_path(post_type_id: post_type.id)
+    def link_to_posts(post_type_version, plural_label, singular_label)
+      if post_type_version.plural?
+        link_to plural_label, posts_path(post_type_version_id: post_type_version.id)
       else
-        link_to singular_label, edit_post_path(post_type.singleton_post)
+        link_to singular_label, edit_post_path(post_type_version.singleton_post)
       end
     end
 
-    def link_back_to_posts(post_type, plural_label, singular_label)
-      if post_type.plural?
-        link_to plural_label, pulitzer.posts_path(post_type_id: post_type.id)
+    def link_back_to_posts(post_type_version, plural_label, singular_label)
+      if post_type_version.plural?
+        link_to plural_label, pulitzer.posts_path(post_type_version_id: post_type_version.id)
       else
         link_to singular_label, pulitzer.post_types_path
       end

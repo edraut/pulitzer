@@ -5,8 +5,8 @@ module Pulitzer
     has_many :versions, dependent: :destroy
     has_one :active_version, -> { active }, class_name: "Pulitzer::Version"
 
-    belongs_to :post_type
-    delegate :post_type_content_element_types, :free_form_section_types, :has_free_form_sections?, :has_templated_content_elements?, to: :post_type
+    belongs_to :post_type_version
+    delegate :post_type_content_element_types, :free_form_section_types, :has_free_form_sections?, :has_templated_content_elements?, :post_type, to: :post_type_version
     delegate :post_tags, :content_elements, :content_element, :section, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
 
     friendly_id :title, use: [:slugged, :finders]

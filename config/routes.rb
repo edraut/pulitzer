@@ -19,9 +19,11 @@ Pulitzer::Engine.routes.draw do
   end
 
   resources :tags
-  resources :post_types do
+  resources :post_types
+  resources :post_type_versions do
     member do
       get :template
+      patch :change_state
     end
   end
 
