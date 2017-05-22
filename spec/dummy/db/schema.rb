@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508145431) do
+ActiveRecord::Schema.define(version: 20170502210827) do
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -50,14 +50,6 @@ ActiveRecord::Schema.define(version: 20170508145431) do
   create_table "pulitzer_layouts", force: :cascade do |t|
     t.integer "post_type_id"
     t.string  "name"
-  end
-
-  create_table "pulitzer_partial_types", force: :cascade do |t|
-    t.integer "free_form_section_type_id"
-    t.string  "label"
-    t.integer "sort_order"
-    t.integer "layout_id"
-    t.integer "post_type_id"
   end
 
   create_table "pulitzer_partials", force: :cascade do |t|
