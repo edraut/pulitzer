@@ -1,5 +1,5 @@
 class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
-  before_filter :get_partial_type, only: [:show, :edit, :update, :destroy]
+  before_action :get_partial_type, only: [:show, :edit, :update, :destroy]
 
   def index
     @ffst = Pulitzer::FreeFormSectionType.find(params[:ffst_id])

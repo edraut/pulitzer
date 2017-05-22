@@ -1,5 +1,5 @@
 class Pulitzer::SequenceFlowStylesController < Pulitzer::ApplicationController
-  before_filter :get_sequence_flow_style, only: [:show, :edit, :update, :destroy]
+  before_action :get_sequence_flow_style, only: [:show, :edit, :update, :destroy]
 
   def new
     @sequence_flow_style = Pulitzer::SequenceFlowStyle.new(sequence_flow_style_params)

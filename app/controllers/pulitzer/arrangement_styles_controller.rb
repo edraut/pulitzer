@@ -1,5 +1,5 @@
 class Pulitzer::ArrangementStylesController < Pulitzer::ApplicationController
-  before_filter :get_arrangement_style, only: [:show, :edit, :update, :destroy]
+  before_action :get_arrangement_style, only: [:show, :edit, :update, :destroy]
 
   def new
     @arrangement_style = Pulitzer::ArrangementStyle.new(arrangement_style_params)

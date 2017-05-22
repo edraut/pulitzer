@@ -1,5 +1,5 @@
 class Pulitzer::JustificationStylesController < Pulitzer::ApplicationController
-  before_filter :get_justification_style, only: [:show, :edit, :update, :destroy]
+  before_action :get_justification_style, only: [:show, :edit, :update, :destroy]
 
   def new
     @justification_style = Pulitzer::JustificationStyle.new(justification_style_params)

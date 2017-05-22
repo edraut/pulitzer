@@ -1,5 +1,5 @@
 class Pulitzer::BackgroundStylesController < Pulitzer::ApplicationController
-  before_filter :get_background_style, only: [:show, :edit, :update, :destroy]
+  before_action :get_background_style, only: [:show, :edit, :update, :destroy]
 
   def new
     @background_style = Pulitzer::BackgroundStyle.new(background_style_params)

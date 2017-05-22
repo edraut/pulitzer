@@ -5,50 +5,49 @@ describe Pulitzer::TagsController do
   routes { Pulitzer::Engine.routes }
   render_views
 
-  describe "#index" do
+  describe "#index", type: :request do
     let!(:flat_tag) { create :tag, hierarchical: false }
     let!(:root_tag) { create :tag, hierarchical: true  }
 
-    before { get :index }
+    before { get pulitzer.tags_path }
 
     it "renders the index template" do
       expect(response).to render_template("_index")
     end
 
-    it "assigns to flat tags" do
-      expect(assigns[:flat_tags]).to eq [flat_tag]
+    it "renders flat tags" do
+      expect(response.body).to match(flat_tag.name)
     end
 
-    it "assigns to root tags" do
-      expect(assigns[:root_tags]).to eq [root_tag]
+    it "renders root tags" do
+      expect(response.body).to match(root_tag.name)
     end
   end
 
-  describe "#show" do
+  describe "#show", type: :request do
     let(:tag) { create :tag }
 
     it "finds the right tag" do
-      get :show, id: tag.id
-      expect(assigns[:tag]).to eq tag
+      get pulitzer.tag_path id: tag.id
+      expect(response.body).to match(tag.name)
     end
 
     it "renders the right template" do
-      get :show, id: tag.id
+      get pulitzer.tag_path id: tag.id
       expect(response).to render_template(partial: "show", locals: { tag: tag })
     end
   end
 
-  describe "#new" do
+  describe "#new", type: :request do
     it "builds a new tag with the right params" do
-      get :new, tag: { hierarchical: true }
-      expect(assigns[:tag]).to be_a Pulitzer::Tag
-      expect(assigns[:tag].new_record?).to eq true
-      expect(assigns[:tag].hierarchical?).to eq true
+      get pulitzer.new_tag_path tag: { hierarchical: true }
+      expect(response).to have_http_status(:success)
+      expect(response.body).to match('tag\[name\]')
     end
 
     context "with hierarchical: true" do
       it "responds with the right template" do
-        get :new, tag: { hierarchical: true }
+        get pulitzer.new_tag_path tag: { hierarchical: true }
         expect(response).to render_template('_new_hierarchical')
       end
 
@@ -56,22 +55,22 @@ describe Pulitzer::TagsController do
 
     context "with hierarchical: false" do
       it "responds with the right template" do
-        get :new, tag: { hierarchical: false }
+        get pulitzer.new_tag_path tag: { hierarchical: false }
         expect(response).to render_template('_new_flat')
       end
     end
   end
 
-  describe "#create" do
+  describe "#create", type: :request do
     let(:attributes) { attributes_for :tag }
     context "with good arguments" do
 
       it "creates the tag" do
-        expect { post :create, tag: attributes }.to change { Pulitzer::Tag.count }.by(1)
+        expect { post pulitzer.tags_path tag: attributes }.to change { Pulitzer::Tag.count }.by(1)
       end
 
       it "renders the right template" do
-        post :create, tag: attributes
+        post pulitzer.tags_path tag: attributes
         expect(response).to render_template('_show_wrapper')
       end
     end
@@ -84,26 +83,26 @@ describe Pulitzer::TagsController do
       end
 
       it "doesn't save the tag" do
-        expect { post :create, tag: attributes }.not_to change { Pulitzer::Tag.count }
+        expect { post pulitzer.tags_path tag: attributes }.not_to change { Pulitzer::Tag.count }
       end
 
       it "renders the right template" do
-        post :create, tag: attributes
+        post pulitzer.tags_path tag: attributes
         expect(response).to render_template("_new_flat")
       end
     end
   end
 
-  describe "#edit" do
+  describe "#edit", type: :request do
     let(:tag) { create :tag }
 
     it "finds the right tag" do
-      get :edit, id: tag.id
-      expect(assigns[:tag]).to eq tag
+      get pulitzer.edit_tag_path id: tag.id
+      expect(response.body).to match(tag.name)
     end
 
     it "renders the right template" do
-      get :edit, id: tag.id
+      get pulitzer.edit_tag_path id: tag.id
       expect(response).to render_template("_form")
     end
   end
@@ -148,7 +147,7 @@ describe Pulitzer::TagsController do
     end
   end
 
-  describe "#destroy" do
+  describe "#destroy", type: :request do
     let(:tag) { create :tag }
     render_views
 
@@ -156,11 +155,11 @@ describe Pulitzer::TagsController do
 
     it "destroys the record" do
       expect(tag).to receive(:destroy)
-      delete :destroy, id: tag.id
+      delete pulitzer.tag_path id: tag.id
     end
 
     it "renders nothing" do
-      delete :destroy, id: tag.id
+      delete pulitzer.tag_path id: tag.id
       expect(response.body).to eq ""
     end
   end

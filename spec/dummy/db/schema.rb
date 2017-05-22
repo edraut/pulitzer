@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170502210827) do
+ActiveRecord::Schema.define(version: 20170518145318) do
+
+  create_table "pulitzer_arrangement_styles", force: :cascade do |t|
+    t.integer "post_type_id"
+    t.string  "display_name"
+    t.string  "view_file_name"
+  end
+
+  create_table "pulitzer_background_styles", force: :cascade do |t|
+    t.integer "post_type_id"
+    t.string  "display_name"
+    t.string  "css_class_name"
+  end
 
   create_table "pulitzer_content_element_types", force: :cascade do |t|
     t.string   "name"
@@ -47,6 +59,12 @@ ActiveRecord::Schema.define(version: 20170502210827) do
     t.string  "name"
   end
 
+  create_table "pulitzer_justification_styles", force: :cascade do |t|
+    t.integer "post_type_id"
+    t.string  "display_name"
+    t.string  "css_class_name"
+  end
+
   create_table "pulitzer_layouts", force: :cascade do |t|
     t.integer "post_type_id"
     t.string  "name"
@@ -58,6 +76,10 @@ ActiveRecord::Schema.define(version: 20170502210827) do
     t.integer "sort_order"
     t.integer "layout_id"
     t.string  "label"
+    t.integer "background_style_id"
+    t.integer "justification_style_id"
+    t.integer "sequence_flow_style_id"
+    t.integer "arrangement_style_id"
   end
 
   create_table "pulitzer_post_tags", force: :cascade do |t|
@@ -99,6 +121,12 @@ ActiveRecord::Schema.define(version: 20170502210827) do
     t.index ["slug"], name: "index_pulitzer_posts_on_slug", unique: true
   end
 
+  create_table "pulitzer_sequence_flow_styles", force: :cascade do |t|
+    t.integer "post_type_id"
+    t.string  "display_name"
+    t.string  "css_class_name"
+  end
+
   create_table "pulitzer_tags", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                   null: false
@@ -113,7 +141,7 @@ ActiveRecord::Schema.define(version: 20170502210827) do
     t.integer  "post_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.text     "cloning_errors"
+    t.         "cloning_errors"
   end
 
 end
