@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20170502210827) do
     t.integer  "post_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.blob     "cloning_errors"
+    t.text     "cloning_errors"
   end
 
 end
