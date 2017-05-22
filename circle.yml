@@ -3,4 +3,4 @@ machine:
     version: 2.3.1
 database:
   override:
-    - bundle exec rake db:create db:shema:load
+    - bundle exec rake db:create db:schema:load
