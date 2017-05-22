@@ -6,6 +6,8 @@ require 'friendly_id'
 require 'select2-rails'
 require 'pulitzer/engine'
 require 'pulitzer/exceptions'
+require 'state_machine/model'
+require 'state_machine/transition'
 
 module Pulitzer
   mattr_accessor  :base_controller, :metadata_closure, :authentication_closure, :unpublish_authorization,
