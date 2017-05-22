@@ -34,7 +34,11 @@ Pulitzer::Engine.routes.draw do
       patch :update_all
     end
   end
-  resources :layouts
+  resources :background_styles
+  resources :justification_styles
+  resources :sequence_flow_styles
+  resources :arrangement_styles
+
   resources :free_form_sections
   root to: 'post_types#index'
 end

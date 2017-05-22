@@ -9,9 +9,28 @@ module Pulitzer
 
     delegate :type, :image_type?, to: :content_element_type
 
-    default_scope { order(id: :asc) }
+    default_scope { order(sort_order: :asc) }
 
     validates :label, presence: true
 
+    def type_specific_display
+      case type
+      when :image
+        "#{height}x#{width}"
+      when :text
+        text_editor_display
+      else
+        ''
+      end
+    end
+
+    def text_editor_display
+      case text_editor
+      when 'None'
+        'no editor'
+      else
+        text_editor
+      end
+    end
   end
 end

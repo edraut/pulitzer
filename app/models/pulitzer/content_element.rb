@@ -47,6 +47,10 @@ module Pulitzer
       image_type? ? !image? : body.blank?
     end
 
+    def has_content?
+      image_type? ? image? : body.present?
+    end
+
     def clone_me
       clone_attrs = self.attributes.dup
       clone_attrs.delete 'id'

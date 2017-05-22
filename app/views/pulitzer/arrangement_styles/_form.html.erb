@@ -1,0 +1,14 @@
+<div class="pulitzer-row">
+  <%= render 'pulitzer/shared/error_messages', object: arrangement_style %>
+  <%= form_for arrangement_style, html: ajax_form_hash(dom_target(arrangement_style)) do |f| %>
+    <%= render partial: 'form_fields', locals: { f: f, arrangement_style: arrangement_style } %>
+    <div class="pulitzer-span ten-percent">
+      <%= f.submit "Update" %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= link_to('Cancel', arrangement_style_path(arrangement_style), :class => 'button',
+        data: { ajax_link: true, ajax_target: dom_target(arrangement_style) } ) %>
+    </div>
+  <% end %>
+
+</div>

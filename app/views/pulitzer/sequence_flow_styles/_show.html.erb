@@ -1,0 +1,10 @@
+<div class="pulitzer-row">
+  <div class="pulitzer-span one-fifth"><%= sequence_flow_style.display_name %></div>
+  <div class="pulitzer-span one-fifth"><%= sequence_flow_style.css_class_name %></div>
+  <div class="pulitzer-span ten-percent">
+    <%= ajax_link "Edit", edit_sequence_flow_style_path(sequence_flow_style), {}, dom_target(sequence_flow_style) %>
+  </div>
+  <div class="pulitzer-span ten-percent">
+    <%= ajax_delete 'Delete', sequence_flow_style_path(sequence_flow_style), {}, dom_target(sequence_flow_style) %>
+  </div>
+</div>

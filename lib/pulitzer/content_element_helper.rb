@@ -1,6 +1,10 @@
 module Pulitzer
   module ContentElementHelper
 
+    def cms_content_present?(element)
+      element.present? && element.has_content?
+    end
+
     def render_cms_element(element,options = {})
       if element.image_type?
         render_image(element,options)

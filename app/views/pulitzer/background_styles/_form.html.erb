@@ -1,0 +1,14 @@
+<div class="pulitzer-row">
+  <%= render 'pulitzer/shared/error_messages', object: background_style %>
+  <%= form_for background_style, html: ajax_form_hash(dom_target(background_style)) do |f| %>
+    <%= render partial: 'form_fields', locals: { f: f, background_style: background_style } %>
+    <div class="pulitzer-span ten-percent">
+      <%= f.submit "Update" %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= link_to('Cancel', background_style_path(background_style), :class => 'button',
+        data: { ajax_link: true, ajax_target: dom_target(background_style) } ) %>
+    </div>
+  <% end %>
+</div>
+

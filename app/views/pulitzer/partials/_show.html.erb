@@ -1,10 +1,14 @@
 <div class="pulitzer-row">
   <div class="pulitzer-span margin match-h5" <%= expander(dom_id(partial)) %>>&rtrif;</div>
   <div class="pulitzer-span margin match-h5" <%= collapser(dom_id(partial)) %>>&dtrif;</div>
-  <div class="pulitzer-span margin"><h5><%= partial.label %></h5></div>
-  <div class="pulitzer-span match-h5"><%= partial.folder_path %>/</div>
-  <div class="pulitzer-span margin match-h5"><%= partial.template_path %></div>
-  <div class="pulitzer-span match-h5"><%= ajax_link 'edit', edit_partial_path(partial), {}, dom_target(partial) %></div>
+  <div class="pulitzer-span one-fifth margin"><h5><%= partial.label %></h5></div>
+  <div class="pulitzer-span one-fifth margin match-h5">
+    <%= partial.folder_path %>/<%= partial.template_path %>
+  </div>
+  <div class="pulitzer-span margin match-h5 ten-percent"><%= partial.background_style&.display_name %></div>
+  <div class="pulitzer-span margin match-h5 ten-percent"><%= partial.justification_style&.display_name %></div>
+  <div class="pulitzer-span margin match-h5 one-fifth"><%= partial.sequence_flow_style&.display_name %></div>
+  <div class="pulitzer-span match-h5 ten-percent"><%= ajax_link 'edit design', edit_partial_path(partial), {}, dom_target(partial) %></div>
   <div class="pulitzer-span right">
     <%= render partial: '/pulitzer/shared/drag_handle' %>
   </div>
