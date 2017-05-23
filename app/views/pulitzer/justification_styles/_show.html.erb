@@ -1,0 +1,10 @@
+<div class="pulitzer-row">
+  <div class="pulitzer-span one-fifth"><%= justification_style.display_name %></div>
+  <div class="pulitzer-span one-fifth"><%= justification_style.css_class_name %></div>
+  <div class="pulitzer-span ten-percent">
+    <%= ajax_link "Edit", edit_justification_style_path(justification_style), {}, dom_target(justification_style) %>
+  </div>
+  <div class="pulitzer-span ten-percent">
+    <%= ajax_delete 'Delete', justification_style_path(justification_style), {}, dom_target(justification_style) %>
+  </div>
+</div>

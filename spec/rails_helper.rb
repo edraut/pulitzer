@@ -5,7 +5,7 @@ require 'rspec/rails'
 require 'shoulda-matchers'
 require 'factory_girl_rails'
 
-ActiveRecord::Migration.maintain_test_schema!
+# ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

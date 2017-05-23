@@ -1,5 +1,5 @@
 class Pulitzer::PostTypesController < Pulitzer::ApplicationController
-  before_filter :get_post_type, except: [:index, :new, :create]
+  before_action :get_post_type, except: [:index, :new, :create]
 
   def index
     if params[:post_type_kind]
@@ -44,7 +44,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def destroy
     @post_type.destroy
-    render nothing: true
+    head :ok
   end
 
   protected

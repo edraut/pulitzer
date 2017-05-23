@@ -136,15 +136,29 @@ body {
   .mce-panel, .mce-btn {
     background-color: inherit;
   }
+  &.highlight-blue{
+    padding: 20px;
+    background-color: #F1F8FB;
+  }
+  &.highlight-off-white{
+    padding: 20px;
+    background-color: #FFFBF8;
+  }
+  .pulitzer-span {
+    margin-left: 0;
+    position: relative;
+    float: left;
+  }
 }
 .pulitzer-span {
-  margin-left: 0;
-  position: relative;
-  float: left;
   &.right {
     float: right;
     text-align: right;
    }
+  .right {
+    float: right;
+    text-align: right;
+  }
   &.left {
     text-align: left;
     float: left;
@@ -162,8 +176,97 @@ body {
     margin: 10px 0;
   }
   &.margin {
-    margin-right: 1em;
+    margin-right: 15px;
+    margin-left: none;
   }
+  &.heading {
+    color: #aaa;
+  }
+  &.empty {
+    background-color: #eee;
+  }
+  &.ten-percent {
+    width: 10%;
+    &.margin {
+      width: 8%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
+  &.one-fifth {
+    width: 20%;
+    &.margin{
+      width: 18%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
+  &.two-fifths {
+    width: 40%;
+    &.margin{
+      width: 38%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
+  &.one-quarter {
+    width: 25%;
+    &.margin{
+      width: 23%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
+  &.one-third {
+    width: 33.3%;
+    &.margin{
+      width: 31.3%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
+  &.one-half {
+    width: 50%;
+    &.margin{
+      width: 48%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
+  input[type="submit"] {
+    margin: 0 15% 0 0;
+    width: 85%;
+  }
+
+  input[type="text"], select {
+    margin: 0 15% 0 0;
+    width: 85%;
+  }
+
 }
 .pulitzer-hidden{
   display: none;

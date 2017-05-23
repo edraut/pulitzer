@@ -1,5 +1,5 @@
 class Pulitzer::PartialsController < Pulitzer::ApplicationController
-  before_filter :set_partial, except: [:new, :create, :update_all]
+  before_action :set_partial, except: [:new, :create, :update_all]
 
   def new
     @partial = Pulitzer::Partial.new(partial_params)
@@ -42,7 +42,7 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
 
   def destroy
     @partial.destroy
-    render nothing: true
+    head :ok
   end
 
   protected

@@ -6,4 +6,11 @@ class PagesController < ApplicationController
   def news_posts
     @pulitzer_posts = Pulitzer::PostType.named('News articles').posts
   end
+
+#Pulitzer Generated Actions
+
+  def welcome
+    @post = Pulitzer::PostType.named('Welcome').posts.find_by!(slug: params[:slug]).get_active_version!
+  end
+
 end

@@ -1,5 +1,5 @@
 class Pulitzer::PostsController < Pulitzer::ApplicationController
-  before_filter :get_post, only: [:show, :edit, :edit_title, :edit_slug, :show_slug, :update,
+  before_action :get_post, only: [:show, :edit, :edit_title, :edit_slug, :show_slug, :update,
     :update_slug, :processing_preview]
   before_action :get_version, only: [:edit_slug, :show_slug, :update_slug]
 

@@ -1,5 +1,5 @@
 class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
-  before_filter :set_content_element, only: [:show, :edit, :update]
+  before_action :set_content_element, only: [:show, :edit, :update]
 
   def show
     render partial: 'show', locals: { content_element: @content_element }
@@ -20,7 +20,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
       new_sort_order = params[:content_element].index(ce.id.to_s)
       ce.update_attribute(:sort_order, new_sort_order)
     end
-    render nothing: true
+    head :ok
   end
 
   protected

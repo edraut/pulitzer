@@ -1,20 +1,9 @@
 <%= render 'pulitzer/shared/error_messages', object: partial_type %>
 <%= form_for partial_type, html: ajax_form_hash(dom_target(partial_type.free_form_section_type, :partial_container), insert_method: 'append', empty_on_success: dom_target(partial_type.free_form_section_type, :new_partial)) do |f| %>
   <%= f.hidden_field :free_form_section_type_id %>
-  <%= f.label :label %>
-  <%= f.text_field :label %>
   <%= f.label :post_type_id, 'Partial Type' %>
   <%= f.collection_select :post_type_id, Pulitzer::PostType.partials, :id, :name, {}, revealer(dom_id(partial_type.free_form_section_type, :new_partial_type), highlander: true) %>
-  <div <%= revealer_target_attrs(dom_id(partial_type.free_form_section_type, :new_partial_type)) %>>
-    <% Pulitzer::PostType.partials.each do |post_type| %>
-      <div <%= revealer_option_attrs(dom_id(partial_type.free_form_section_type, :new_partial_type), trigger: post_type.id) %>>
-        <%= f.label :layout_id, 'Layout' %>
-        <%= f.collection_select :layout_id, post_type.layouts, :id, :name, {}, {} %>
-      </div>
-    <% end %>
-  </div>
 
   <%= submit_tag "Create" %>
-  <%= link_to('Cancel', '#', :class => 'button',
-    data: { emptier: true, target: dom_target(partial_type.free_form_section_type, :new_partial) } ) %>
+  <a class="button" data-emptier="true" data-target="<%= dom_target(partial_type.free_form_section_type, :new_partial) %>">Close</a>
 <% end %>

@@ -1,5 +1,5 @@
 class Pulitzer::PostTypeContentElementTypesController < Pulitzer::ApplicationController
-  before_filter :get_ptcet, only: [:show, :edit, :update, :destroy]
+  before_action :get_ptcet, only: [:show, :edit, :update, :destroy]
 
   def new
     @post_type = Pulitzer::PostType.find(params[:post_type_id])
@@ -32,7 +32,7 @@ class Pulitzer::PostTypeContentElementTypesController < Pulitzer::ApplicationCon
   def destroy
     @ptcet.destroy
     Pulitzer::DestroyPostTypeContentElements.new(@ptcet).call
-    render nothing: true
+    head :ok
   end
 
   protected

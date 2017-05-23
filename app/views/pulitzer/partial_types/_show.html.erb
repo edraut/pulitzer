@@ -1,6 +1,16 @@
-<div class="pulitzer-row">
-  <div class="pulitzer-span margin"><h5><%= partial_type.label %></h5></div>
-  <div class="pulitzer-span match-h5"><%= partial_type.folder_path %>/</div>
-  <div class="pulitzer-span margin match-h5"><%= partial_type.template_path %></div>
-  <div class="pulitzer-span match-h5"><%= ajax_link 'edit', edit_partial_type_path(partial_type), {}, dom_target(partial_type) %></div>
+<div class="pulitzer-span one-fifth empty padding">&nbsp;</div>
+<div class="pulitzer-span one-fifth empty margin">
+  <% if partial_type.first? %>
+    <a data-emptier="true" data-target="<%= dom_target(partial_type.free_form_section_type, :associations_container) %>">close required partials</a>
+  <% else %>
+    &nbsp;
+  <% end %>
 </div>
+<div class="pulitzer-span one-fifth margin">
+  <div class="pulitzer-row">
+    <div class="pulitzer-span"><%= partial_type.post_type.name %></div>
+    <div class="pulitzer-span right"><%= ajax_delete 'ⓧ', partial_type_path(partial_type), {}, dom_target(partial_type) %></div>
+  </div>
+</div>
+<div class="pulitzer-span one-fifth empty">&nbsp;</div>
+<div class="pulitzer-span one-fifth empty padding">&nbsp;</div>

@@ -4,6 +4,5 @@ FactoryGirl.define do
     sequence(:sort_order)
     association :free_form_section_type
     association :post_type
-    association :layout
   end
 end

@@ -23,7 +23,7 @@ class Pulitzer::UpdatePostTypeContentElements
         # if there is no preview version, skip this one.
       end
     end
-    post_type.partials.each do |partial|
+    post_type.partials.joins(free_form_section: :version).where(pulitzer_versions: {status: 0}).each do |partial|
       partial.content_elements.where(label: old_label).each do |content_element|
         content_element.update(label: ptcet.label,
           height: ptcet.height,

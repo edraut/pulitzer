@@ -1,0 +1,12 @@
+<div class="pulitzer-row">
+  <%= form_for sequence_flow_style, html: ajax_form_hash(dom_target(sequence_flow_style.post_type, :sequence_flow_styles_container), insert_method: 'append', reset_on_success: true) do |f| %>
+    <%= f.hidden_field :post_type_id %>
+    <%= render partial: 'form_fields', locals: { f: f, sequence_flow_style: sequence_flow_style } %>
+    <div class="pulitzer-span ten-percent">
+      <%= f.submit "Create", data: {disable_with: false} %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <a class="button" data-emptier="true" data-target="<%= dom_target(sequence_flow_style.post_type, :new_sequence_flow_style) %>">Close</a>
+    </div>
+  <% end %>
+</div>

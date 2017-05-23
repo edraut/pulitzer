@@ -1,0 +1,14 @@
+<div class="pulitzer-row">
+  <%= render 'pulitzer/shared/error_messages', object: sequence_flow_style %>
+  <%= form_for sequence_flow_style, html: ajax_form_hash(dom_target(sequence_flow_style)) do |f| %>
+    <%= render partial: 'form_fields', locals: { f: f, sequence_flow_style: sequence_flow_style } %>
+    <div class="pulitzer-span ten-percent">
+      <%= f.submit "Update" %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= link_to('Cancel', sequence_flow_style_path(sequence_flow_style), :class => 'button',
+        data: { ajax_link: true, ajax_target: dom_target(sequence_flow_style) } ) %>
+    </div>
+  <% end %>
+
+</div>

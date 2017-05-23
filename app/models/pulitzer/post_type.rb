@@ -5,7 +5,10 @@ class Pulitzer::PostType < ActiveRecord::Base
   has_many :post_type_content_element_types, dependent: :destroy
   has_many :content_element_types, through: :post_type_content_element_types
   has_many :free_form_section_types, dependent: :destroy
-  has_many :layouts, dependent: :destroy
+  has_many :background_styles, dependent: :destroy
+  has_many :justification_styles, dependent: :destroy
+  has_many :sequence_flow_styles, dependent: :destroy
+  has_many :arrangement_styles, dependent: :destroy
 
   scope :templates, -> { where(kind: Pulitzer::PostType.kinds[:template])}
   scope :partials, -> { where(kind: Pulitzer::PostType.kinds[:partial])}
@@ -29,7 +32,7 @@ class Pulitzer::PostType < ActiveRecord::Base
   end
 
   def has_display?
-    layouts.any?
+    background_styles.any? || justification_styles.any? || sequence_flow_styles.any? || arrangement_styles.any?
   end
 
   def has_templated_content_elements?
