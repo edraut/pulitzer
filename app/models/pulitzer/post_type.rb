@@ -31,6 +31,10 @@ class Pulitzer::PostType < ActiveRecord::Base
     !plural
   end
 
+  def has_display?
+    background_styles.any? || justification_styles.any? || sequence_flow_styles.any? || arrangement_styles.any?
+  end
+
   def has_templated_content_elements?
     content_element_types.any?
   end

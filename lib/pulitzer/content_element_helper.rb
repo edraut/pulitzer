@@ -55,7 +55,9 @@ module Pulitzer
 
     def render_cms_section(version, section_name)
       version.section(section_name).partials.collect do |partial|
-        render partial: partial.full_view_path, locals: {partial: partial}
+        if partial.has_display?
+          render partial: partial.full_view_path, locals: {partial: partial}
+        end
       end.join.html_safe
     end
   end

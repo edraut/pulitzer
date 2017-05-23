@@ -9,7 +9,8 @@ module Pulitzer
     
     has_many :content_elements, dependent: :destroy
 
-    delegate :name, :post_type_content_element_types, to: :post_type
+    delegate :name, :post_type_content_element_types, :has_display?, to: :post_type
+    delegate :template_path, to: :layout, allow_nil: true
 
     before_save :handle_sort_order
 
