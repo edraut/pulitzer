@@ -28,6 +28,10 @@ class Pulitzer::PostType < ActiveRecord::Base
     !plural
   end
 
+  def has_display?
+    layouts.any?
+  end
+
   def has_templated_content_elements?
     content_element_types.any?
   end
