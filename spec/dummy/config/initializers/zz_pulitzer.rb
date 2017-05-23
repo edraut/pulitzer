@@ -1,5 +1,6 @@
 Pulitzer.config({
   base_controller_name: '::ApplicationController',
+  public_controller: 'pages',
   authentication: Proc.new { true },
   metadata_authorization: Proc.new { true },
   unpublish_authorization: Proc.new { false },

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.13.0)
+    pulitzer (0.13.1)
       carrierwave (< 1.0)
       carrierwave-aws (< 2.0)
       foreign_office (>= 0.9.1, < 1.0)
@@ -56,13 +56,13 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
-    aws-sdk (2.9.21)
-      aws-sdk-resources (= 2.9.21)
-    aws-sdk-core (2.9.21)
+    aws-sdk (2.9.22)
+      aws-sdk-resources (= 2.9.22)
+    aws-sdk-core (2.9.22)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.9.21)
-      aws-sdk-core (= 2.9.21)
+    aws-sdk-resources (2.9.22)
+      aws-sdk-core (= 2.9.22)
     aws-sigv4 (1.0.0)
     builder (3.2.3)
     byebug (8.2.1)
