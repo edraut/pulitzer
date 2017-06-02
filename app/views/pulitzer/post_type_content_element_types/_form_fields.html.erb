@@ -23,6 +23,10 @@ revealer(dom_id(ptcet, :revealer), highlander: true) %>
   &nbsp;
 </div>
 
+<div <%= revealer_option_attrs(dom_id(ptcet, :revealer), trigger: Pulitzer::ContentElementType.find_by(name: 'Clickable').id) %> class="pulitzer-span one-fifth">
+  <%= f.select :clickable_kind, options_from_collection_for_select(Pulitzer::PostTypeContentElementType.clickable_kinds, :gid, :name, f.object.clickable_kind) %>  
+</div>
+
 <div class="pulitzer-span ten-percent">
   <%= f.check_box :required %>
 </div>

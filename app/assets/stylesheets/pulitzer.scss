@@ -65,6 +65,9 @@ body {
   &.margin-bottom {
     margin-bottom: 1.4em;
   }
+  &.margin-top {
+    margin-top: 1.4em;
+  }
   &.margin-left {
     margin-left: 1.4em;
   }
@@ -185,6 +188,18 @@ body {
   &.empty {
     background-color: #eee;
   }
+  &.five-percent {
+    width: 5%;
+    &.margin {
+      width: 3%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
   &.ten-percent {
     width: 10%;
     &.margin {
@@ -257,9 +272,20 @@ body {
       margin-left: none;
     }
   }
+  &.ninety-percent {
+    width: 90%;
+    &.margin{
+      width: 88%;
+      margin-right: 2%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 100%;
+      margin-right: none;
+      margin-left: none;
+    }
+  }
   input[type="submit"] {
-    margin: 0 15% 0 0;
-    width: 85%;
+    margin: 0;
   }
 
   input[type="text"], select {

@@ -19,6 +19,9 @@ Pulitzer::Engine.routes.draw do
   end
 
   resources :tags
+  resources :custom_option_lists
+  resources :custom_options
+  
   resources :post_types do
     member do
       get :template
@@ -28,6 +31,7 @@ Pulitzer::Engine.routes.draw do
   resources :versions
   resources :content_element_types
   resources :post_type_content_element_types
+  resources :styles
   resources :free_form_section_types
   resources :partial_types do
     collection do

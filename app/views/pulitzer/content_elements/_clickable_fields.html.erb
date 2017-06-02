@@ -1,0 +1,31 @@
+<div class="pulitzer-row"><span class="pulitzer-span heading">clickable text</span></div>
+<div class="pulitzer-row margin-bottom">
+  <span class="pulitzer-span one-half"> <%= f.text_field :title %></span>
+</div>
+<% if f.object.any_clickable_kind? %>
+  <div class="pulitzer-span one-fifth">
+    <span class="pulitzer-span heading">action type</span>
+    <%= select_tag 'content_element[clickable_kind]',
+      options_from_collection_for_select(f.object.clickable_kinds, :gid, :name, f.object.clickable_kind.gid), revealer(dom_id(f.object, :clickable_kind), highlander: true) %>
+  </div>
+  <div <%= revealer_target_attrs(dom_id(f.object, :clickable_kind)) %> ></div>
+  <div class="pulitzer-span one-half" <%= revealer_option_attrs(dom_id(f.object, :clickable_kind), trigger: 'url') %>>
+    <div class="pulitzer-row"><span class="pulitzer-span heading">URL</span></div>
+    <%= f.text_field :body %>
+  </div>
+  <% f.object.custom_clickable_kinds.each do |custom_option_list| %>
+    <div class="pulitzer-span one-quarter" <%= revealer_option_attrs(dom_id(f.object, :clickable_kind), trigger: custom_option_list.gid) %>>
+      <span class="pulitzer-span heading"><%= custom_option_list.name %></span>
+      <%= f.select :custom_option_id, options_from_collection_for_select(custom_option_list.custom_options, :id, :display, f.object.custom_option_id) %>
+    </div>
+  <% end %>
+<% elsif f.object.url_clickable_kind? %>
+  <div class="pulitzer-row"><span class="pulitzer-span heading">URL</span></div>
+  <%= f.text_field :body %>
+<% else %>
+  <%= hidden_field_tag 'content_element[clickable_kind]', f.object.custom_option_list.gid %>
+  <span class="pulitzer-span heading"><%= f.object.custom_option_list.name %></span>
+  <%= f.select :custom_option_id, options_from_collection_for_select(f.object.custom_options, :id, :display) %>
+<% end %>
+<div class="pulitzer-row"><span class="pulitzer-span heading">Style</span></div>
+<%= f.select :style_id, options_from_collection_for_select(f.object.style_options, :id, :display_name, f.object.style_id) %>

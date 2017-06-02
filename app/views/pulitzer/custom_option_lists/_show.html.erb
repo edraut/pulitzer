@@ -1,0 +1,11 @@
+<div class="pulitzer-row">
+  <div class="pulitzer-span margin one-half">
+    <div class="pulitzer-span margin ten-percent" <%= expander(dom_id(custom_option_list, :options_container)) %>><strong>+</strong></div>
+    <div class="pulitzer-span margin ten-percent" <%= collapser(dom_id(custom_option_list, :options_container)) %>><strong>-</strong></div>    
+    <%= custom_option_list.name %>
+  </div>
+  <div class="pulitzer-span margin one-half"><%= ajax_link 'edit', edit_custom_option_list_path(custom_option_list), {}, dom_target(custom_option_list) %></div>
+</div>
+<div class="pulitzer-row pulitzer-indent" <%= collapsed(dom_id(custom_option_list, :options_container)) %>>
+  <%= render partial: '/pulitzer/custom_options/index', locals: {custom_option_list: custom_option_list} %>
+</div>

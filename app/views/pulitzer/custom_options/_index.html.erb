@@ -1,0 +1,20 @@
+<div class="pulitzer-row margin-top margin-bottom highlight-off-white">
+  <div class="pulitzer-row margin-bottom">
+    <%= ajax_link "add a new custom option to #{custom_option_list.name}", new_custom_option_path(custom_option: {custom_option_list_id: custom_option_list.id}), {}, dom_target(custom_option_list, :new_option) %>
+  </div>
+  <div class="pulitzer-row">
+    <div class="pulitzer-span one-third heading">
+      Editor Display
+    </div>
+    <div class="pulitzer-span one-third heading">
+      Value
+    </div>
+  </div>
+  <div id="<%= dom_id(custom_option_list, :new_option) %>"></div>
+  <div id="<%= dom_id(custom_option_list, :options_container) %>">
+    <% custom_option_list.custom_options.each do |co| %>
+      <%= render partial: '/pulitzer/custom_options/show_wrapper', locals: {custom_option: co} %>
+    <% end %>
+  </div>
+</div>
+

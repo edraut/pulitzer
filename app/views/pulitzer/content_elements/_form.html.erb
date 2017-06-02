@@ -1,6 +1,4 @@
-<% if content_element.template? %>
-  <h5><%= content_element.label %></h5>
-<% end %>
+<h5><%= content_element.label %></h5>
 <%= form_for content_element, html: ajax_form_hash(dom_target(content_element)), multipart: true,
   data: { server_endpoint: content_element_path(content_element) } do |f| %>
   <%= render partial: "/pulitzer/content_elements/#{content_element.type}_fields", locals: { f: f, content_element: content_element } %>

@@ -1,0 +1,10 @@
+<div class="pulitzer-row">
+  <%= form_for custom_option, html: ajax_form_hash(dom_target(custom_option.custom_option_list, :options_container), insert_method: 'prepend', error_target: dom_target(custom_option.custom_option_list, :new_option), reset_on_success: true) do |f| %>
+    <%= f.hidden_field :custom_option_list_id %>
+    <%= render partial: '/pulitzer/custom_options/fields', locals: {f: f} %>
+    <div class="pulitzer-span margin one-third">
+      <%= f.submit data: {disable_with: false}, class: 'input-medium' %> or
+      <a class="link-button-small" <%= emptier dom_target(custom_option.custom_option_list, :new_option) %>>close</a>
+    </div>
+  <% end %>
+</div>
