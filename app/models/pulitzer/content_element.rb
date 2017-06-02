@@ -103,7 +103,7 @@ module Pulitzer
     end
 
     def style_display
-      style.display_name
+      style&.display_name
     end
 
     def clone_me
