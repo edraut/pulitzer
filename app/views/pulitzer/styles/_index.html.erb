@@ -3,8 +3,8 @@
     <%= render partial: '/pulitzer/styles/show_wrapper', locals: { style: style } %>
   <% end %>
 </div>
+<div id="<%= dom_id(@ptcet, :new_style) %>"></div>
 
 <div class="pulitzer-row margin-bottom">
   <%= ajax_link "add a new style for #{ptcet.label}", new_style_path(style: {post_type_content_element_type_id: @ptcet.id}), {}, dom_target(ptcet, :new_style) %>
-  <div id="<%= dom_id(@ptcet, :new_style) %>"></div>
 </div>
