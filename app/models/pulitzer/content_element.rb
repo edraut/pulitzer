@@ -92,7 +92,7 @@ module Pulitzer
       if custom_type?
         custom_option.custom_option_list
       elsif body.present?
-        Pulitzer::PostTypeContentElementType::Url_clickable
+        Pulitzer::PostTypeContentElementType::URL_clickable
       else
         Pulitzer::PostTypeContentElementType::Any_clickable
       end
