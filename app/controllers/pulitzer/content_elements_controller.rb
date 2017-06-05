@@ -10,8 +10,12 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   end
 
   def update
-    @content_element.update content_element_params
-    render partial: 'show', locals: { content_element: @content_element }
+    Update.new(@content_element, content_element_params).call
+    if @content_element.errors.empty?
+      render partial: 'show', locals: { content_element: @content_element }
+    else
+      render partial: 'form', locals: { content_element: @content_element }, status: :conflict
+    end
   end
 
   def update_all

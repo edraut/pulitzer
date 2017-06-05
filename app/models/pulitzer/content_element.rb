@@ -1,14 +1,18 @@
 module Pulitzer
   class ContentElement < ActiveRecord::Base
     mount_uploader :image, Pulitzer::ImageUploader
-    enum kind: [ :template, :free_form ]
 
     # Associations
     belongs_to :version
     belongs_to :content_element_type
     belongs_to :post_type_content_element_type
-    delegate :type, :text_type?, :image_type?, :video_type?, to: :content_element_type
-    delegate :required?, :sort_order, to: :post_type_content_element_type, allow_nil: true
+    belongs_to :style
+    belongs_to :custom_option
+
+    delegate :type, :text_type?, :image_type?, :video_type?, :clickable_type?, to: :content_element_type
+    delegate :required?, :sort_order, :custom_option_list, :custom_options, :any_clickable_kind?,
+      :url_clickable_kind?, :clickable_kinds, :custom_clickable_kinds,
+      to: :post_type_content_element_type, allow_nil: true
     delegate :post, to: :version
 
     attr_accessor :version_unavailable, :ensure_unique
@@ -21,7 +25,6 @@ module Pulitzer
 
     # Scopes
     default_scope { order(id: :asc) }
-    scope :free_form, -> { where(kind: kinds[:free_form]).reorder(sort_order: :asc) }
     scope :required, -> { joins(:post_type_content_element_type).where(pulitzer_post_type_content_element_types: { required: true}) }
 
     # def reprocess_versions
@@ -44,11 +47,63 @@ module Pulitzer
     end
 
     def empty_body?
-      image_type? ? !image? : body.blank?
+      !has_content?
     end
 
     def has_content?
-      image_type? ? image? : body.present?
+      if image_type?
+        image?
+      elsif custom_type?
+        custom_content.present?
+      else
+        body.present?
+      end
+    end
+
+    def custom_content
+      custom_option.value
+    end
+
+    def custom_display
+      "#{custom_option.display} #{custom_option.custom_option_list.name.singularize}"
+    end
+
+    def content
+      if custom_type?
+        custom_content
+      else
+        body
+      end
+    end
+
+    def content_display
+      if custom_type?
+        custom_display
+      else
+        body
+      end
+    end
+
+    def custom_type?
+      custom_option.present?
+    end
+
+    def clickable_kind
+      if custom_type?
+        custom_option.custom_option_list
+      elsif body.present?
+        Pulitzer::PostTypeContentElementType::Url_clickable
+      else
+        Pulitzer::PostTypeContentElementType::Any_clickable
+      end
+    end
+
+    def style_options
+      post_type_content_element_type.styles
+    end
+
+    def style_display
+      style&.display_name
     end
 
     def clone_me
@@ -97,8 +152,8 @@ private
     end
 
     def handle_sort_order
-      if new_record? && sort_order.nil? && free_form?
-        self.sort_order = version.free_form_content_elements.maximum(:sort_order).to_i + 1
+      if new_record? && sort_order.nil? && version.present?
+        self.sort_order = version.content_elements.maximum(:sort_order).to_i + 1
       end
     end
 

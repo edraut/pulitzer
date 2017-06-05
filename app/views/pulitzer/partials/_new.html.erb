@@ -5,7 +5,7 @@
     <%= f.text_field :label %>
   </div>
   <div class="pulitzer-span ten-percent">
-    <%= f.collection_select :post_type_id, Pulitzer::PostType.partials, :id, :name, {}, revealer(dom_id(partial.free_form_section, :new_partial_type), highlander: true) %>
+    <%= f.collection_select :post_type_id, Pulitzer::PostType.partials.order(:name), :id, :name, {}, revealer(dom_id(partial.free_form_section, :new_partial_type), highlander: true) %>
   </div>
   <div class="pulitzer-span one-half" <%= revealer_target_attrs(dom_id(partial.free_form_section, :new_partial_type)) %>>
     <% Pulitzer::PostType.partials.each do |post_type| %>

@@ -1,0 +1,29 @@
+
+<%= render 'pulitzer/shared/error_messages', object: style %>&nbsp;
+<%= form_for style, html: ajax_form_hash(dom_target(style.post_type_content_element_type, :styles_list), insert_method: 'append', empty_on_success: dom_target(style.post_type_content_element_type, :new_style)) do |f| %>
+  <%= f.hidden_field :post_type_content_element_type_id %>
+  <div class="pulitzer-span one-fifth">
+    <div class="pulitzer-row">
+      <span class="pulitzer-span heading">
+        display &nbsp;
+      </span>
+      <span class="pulitzer-span one-half">
+        <%= f.text_field :display_name %>
+      </span>
+    </div>
+  </div>
+  <div class="pulitzer-span">
+    <div class="pulitzer-row">
+      <span class="pulitzer-span heading">
+        css class &nbsp;
+      </span>
+      <span class="pulitzer-span one-half">
+        <%= f.text_field :css_class_name %>
+      </span>
+    </div>
+  </div>
+  <div class="pulitzer-span one-fifth">
+    <%= submit_tag "Create" %>
+  </div>
+<% end %>
+  <a class="button" data-emptier="true" data-target="<%= dom_target(style.post_type_content_element_type, :new_style) %>">Close</a>

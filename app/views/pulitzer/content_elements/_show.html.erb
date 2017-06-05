@@ -1,23 +1,14 @@
-<% if content_element.free_form? %>
-  <div class="pulitzer-row">
-    <div class="pulitzer-span right">
-      <%= render partial: '/pulitzer/shared/drag_handle' %>
-    </div>
-  </div>
-<% end %>
 <div class="pulitzer-row">
-  <ul class="list">
-    <% if content_element.template? %>
-      <li>
-        <h5>
-          <%= content_element.label %>
-          <% if content_element.required? %>
-            - *required
-          <% end %>
-        </h5>
-      </li>
-    <% end %>
-    <li><%= render_element(content_element) %></li>
-    <li><%= ajax_link "Edit", edit_content_element_path(content_element), {}, dom_target(content_element) %></li>
-  </ul>
+  <div class="pulitzer-row">
+    <h5>
+      <%= content_element.label %>
+      <% if content_element.required? %>
+        - *required
+      <% end %>
+    </h5>
+  </div>
+  <div class="pulitzer-row">
+    <div class="pulitzer-span ninety-percent"><%= render_element(content_element) %></div>
+    <div class="pulitzer-span ten-percent"><%= ajax_link "Edit", edit_content_element_path(content_element), {}, dom_target(content_element) %></div>
+  </div>
 </div>

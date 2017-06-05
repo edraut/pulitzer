@@ -1,0 +1,10 @@
+<div class="pulitzer-row">
+  <%= form_for custom_option, ajax_form_hash(dom_target(custom_option)) do |f| %>
+    <%= render partial: '/pulitzer/custom_options/fields', locals: {f: f} %>
+    <div class="pulitzer-span margin one-third">
+      <%= f.submit data: {disable_with: false}, class: 'input-medium' %>
+      <%= ajax_link 'cancel', custom_option_path(custom_option), {class: 'button'}, dom_target(custom_option) %>
+      <%= ajax_delete 'delete', custom_option_path(custom_option), {class: 'button'}, dom_target(custom_option) %>
+    </div>
+  <% end %>
+</div>
