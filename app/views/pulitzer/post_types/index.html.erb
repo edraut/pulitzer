@@ -1,20 +1,34 @@
 <div <%= tab_set("tab", type: :ajax, default_tab: params[:tab] || 'templates') %>>
-  <div class="pulitzer-pill"
-    href="<%= tags_path %>"
-    <%= tab_trigger('tags')%>>
-    Tags
-  </div>
+  <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+    <div class="pulitzer-pill"
+      href="<%= tags_path %>"
+      <%= tab_trigger('tags')%>>
+      Tags
+    </div>
+  <% end %>
   <div class="pulitzer-pill"
     href="<%= post_types_path(post_type_kind: 'template') %>"
     <%= tab_trigger('templates')%>>
     Full Page Templates
   </div>
-  <div class="pulitzer-pill"
-    href="<%= post_types_path(post_type_kind: 'partial') %>"
-    <%= tab_trigger('partials')%>>
-    Partials
-  </div>
+  <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+    <div class="pulitzer-pill"
+      href="<%= post_types_path(post_type_kind: 'partial') %>"
+      <%= tab_trigger('partials')%>>
+      Partials
+    </div>
+    <div class="pulitzer-pill"
+      href="<%= custom_option_lists_path %>"
+      <%= tab_trigger('options')%>>
+      Clickable Options
+    </div>
+  <% end %>
 </div>
-<div class="pulitzer-row" <%= tab_content('tags') %>></div>
+<% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+  <div class="pulitzer-row" <%= tab_content('tags') %>></div>
+<% end %>
 <div class="pulitzer-row" <%= tab_content('templates') %>></div>
-<div class="pulitzer-row" <%= tab_content('partials') %>></div>
+<% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+  <div class="pulitzer-row" <%= tab_content('partials') %>></div>
+  <div class="pulitzer-row" <%= tab_content('options') %>></div>
+<% end %>

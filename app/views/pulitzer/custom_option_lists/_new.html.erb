@@ -1,0 +1,9 @@
+<div class="pulitzer-row">
+  <%= form_for custom_option_list, html: ajax_form_hash('#custom_option_lists_container', insert_method: 'prepend', error_target: '#new_custom_option_list', reset_on_success: true) do |f| %>
+    <div class="pulitzer-span margin one-half"><%= f.text_field :name %></div>
+    <div class="pulitzer-span margin one-half">
+      <%= f.submit data: {disable_with: false}, class: 'input-medium' %> or
+      <a class="link-button-small" <%= emptier '#new_custom_option_list' %>>close</a>
+    </div>
+  <% end %>
+</div>

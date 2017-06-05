@@ -1,5 +1,5 @@
 class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
-  before_filter :get_partial_type, only: [:show, :edit, :update, :destroy]
+  before_action :get_partial_type, only: [:show, :edit, :update, :destroy]
 
   def index
     @ffst = Pulitzer::FreeFormSectionType.find(params[:ffst_id])
@@ -25,17 +25,6 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
   end
 
   def show
-    render partial: 'show', locals: { partial_type: @partial_type }
-  end
-
-  def edit
-    render partial: 'form', locals: { partial_type: @partial_type }
-  end
-
-  def update
-    old_label = @partial_type.label
-    @partial_type.update_attributes(partial_type_params)
-    Pulitzer::UpdateFreeFormSectionPartials.new(@partial_type, old_label).call
     render partial: 'show', locals: { partial_type: @partial_type }
   end
 

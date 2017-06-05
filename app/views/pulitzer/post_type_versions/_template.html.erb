@@ -1,33 +1,103 @@
-<h3><%= post_type_version.full_name %></h3>
-<div class="pulitzer-indent" id="<%= dom_id(post_type_version, :template) %>">
-  <h5>Content Elements</h5>
-  <div id="post_type_content_element_types_container_<%= dom_id(post_type_version) %>">
-    <% post_type_version.post_type_content_element_types.each do |ptcet| %>
-      <%= render partial: '/pulitzer/post_type_content_element_types/show_wrapper', locals: {ptcet: ptcet} %>
+<%= render partial: 'show', locals: {post_type_version: post_type_version} %>
+<div class="pulitzer-row highlight-off-white">
+  <div class="pulitzer-indent" id="<%= dom_id(post_type_version, :template) %>">
+    <div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version, :post_content_element_types_wrapper) %>">
+      <h4>Content Elements</h4>
+      <div class="pulitzer-row heading">
+        <div class="pulitzer-span one-fifth heading">Editor Display</div>
+        <div class="pulitzer-span ten-percent heading">Content Type</div>
+        <div class="pulitzer-span ten-percent heading">Details</div>
+        <div class="pulitzer-span two-fifths heading">&nbsp;</div>
+        <div class="pulitzer-span five-percent heading">Req'd</div>
+        <div class="pulitzer-span five-percent heading">Sort</div>
+      </div>
+      <div id="post_type_content_element_types_container_<%= dom_id(post_type) %>">
+        <% post_type_version.post_type_content_element_types.each do |ptcet| %>
+          <%= render partial: '/pulitzer/post_type_content_element_types/show_wrapper', locals: {ptcet: ptcet} %>
+        <% end %>
+      </div>
+      <div id="new_post_type_content_element_type_<%= dom_id(post_type_version) %>"></div>
+      <%= ajax_link 'add a new content element for ' + post_type_version.full_name, new_post_type_content_element_type_path(post_type_version_id: post_type_version.id), {}, "#new_post_type_content_element_type_#{dom_id(post_type_version)}" %>
+    </div>
+    <% unless post_type_version.partial? %>
+      <div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version, :free_form_section_types_wrapper) %>">
+        <h4>Free Form Sections</h4>
+        <div class="pulitzer-row heading">
+          <div class="pulitzer-span one-fifth heading">Editor Display</div>
+          <div class="pulitzer-span one-fifth heading">Sort</div>
+        </div>
+        <div id="<%= dom_id(post_type_version, :free_form_section_types_container) %>">
+          <% post_type_version.free_form_section_types.each do |ffst| %>
+            <%= render partial: '/pulitzer/free_form_section_types/show_wrapper', locals: {ffst: ffst} %>
+          <% end %>
+        </div>
+        <div id="<%= dom_id(post_type_version, :new_free_form_section_type) %>"></div>
+        <%= ajax_link 'add a new section for ' + post_type_version.full_name, new_free_form_section_type_path(post_type_version_id: post_type_version.id), {}, dom_target(post_type_version, :new_free_form_section_type) %>
+      </div>
+    <% end %>
+
+    <% if post_type_version.partial? %>
+      <div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version, :background_styles_wrapper) %>">
+        <h4>Background Styles</h4>
+        <div class="pulitzer-row heading">
+          <div class="pulitzer-span one-fifth heading">Editor Display</div>
+          <div class="pulitzer-span one-fifth heading">Css Class</div>
+        </div>
+        <div id="<%= dom_id(post_type_version, :background_styles_container) %>">
+          <% post_type_version.background_styles.each do |bg_style| %>
+            <%= render partial: '/pulitzer/background_styles/show_wrapper', locals: {background_style: bg_style} %>
+          <% end %>
+        </div>
+        <div class="pulitzer-row" id="<%= dom_id(post_type_version, :new_background_style) %>"></div>
+        <div class="pulitzer-row">
+          <%= ajax_link 'add a new background style for ' + post_type_version.full_name, new_background_style_path(background_style: {post_type_version_id: post_type_version.id}), {}, dom_target(post_type_version, :new_background_style) %>
+        </div>
+      </div>
+
+      <div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version, :justification_styles_wrapper) %>">
+        <h4>Justification Styles</h4>
+        <div class="pulitzer-row heading">
+          <div class="pulitzer-span one-fifth heading">Editor Display</div>
+          <div class="pulitzer-span one-fifth heading">Css Class</div>
+        </div>
+        <div id="<%= dom_id(post_type_version, :justification_styles_container) %>">
+          <% post_type_version.justification_styles.each do |just_style| %>
+            <%= render partial: '/pulitzer/justification_styles/show_wrapper', locals: {justification_style: just_style} %>
+          <% end %>
+        </div>
+        <div id="<%= dom_id(post_type_version, :new_justification_style) %>"></div>
+        <%= ajax_link 'add a new justification style for ' + post_type_version.full_name, new_justification_style_path(justification_style: {post_type_version_id: post_type_version.id}), {}, dom_target(post_type_version, :new_justification_style) %>
+      </div>
+
+      <div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version, :sequence_flow_styles_wrapper) %>">
+        <h4>Sequence Flow Styles</h4>
+        <div class="pulitzer-row heading">
+          <div class="pulitzer-span one-fifth heading">Editor Display</div>
+          <div class="pulitzer-span one-fifth heading">Css Class</div>
+        </div>
+        <div id="<%= dom_id(post_type_version, :sequence_flow_styles_container) %>">
+          <% post_type_version.sequence_flow_styles.each do |seq_style| %>
+            <%= render partial: '/pulitzer/sequence_flow_styles/show_wrapper', locals: {sequence_flow_style: seq_style} %>
+          <% end %>
+        </div>
+        <div id="<%= dom_id(post_type_version, :new_sequence_flow_style) %>"></div>
+        <%= ajax_link 'add a new sequence_flow style for ' + post_type_version.full_name, new_sequence_flow_style_path(sequence_flow_style: {post_type_version_id: post_type_version.id}), {}, dom_target(post_type_version, :new_sequence_flow_style) %>
+      </div>
+
+      <div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version, :arrangement_styles_wrapper) %>">
+        <h4>Arrangement Styles</h4>
+        <div class="pulitzer-row heading">
+          <div class="pulitzer-span one-fifth heading">Editor Display</div>
+          <div class="pulitzer-span one-fifth heading">Rails View File</div>
+        </div>
+        <div id="<%= dom_id(post_type_version, :arrangement_styles_container) %>">
+          <% post_type_version.arrangement_styles.each do |arr_style| %>
+            <%= render partial: '/pulitzer/arrangement_styles/show_wrapper', locals: {arrangement_style: arr_style} %>
+          <% end %>
+        </div>
+        <div id="<%= dom_id(post_type_version, :new_arrangement_style) %>"></div>
+        <%= ajax_link 'add a new arrangement style for ' + post_type_version.full_name, new_arrangement_style_path(arrangement_style: {post_type_version_id: post_type_version.id}), {}, dom_target(post_type_version, :new_arrangement_style) %>
+      </div>
     <% end %>
   </div>
-  <%= ajax_link 'add a new content element for ' + post_type_version.full_name, new_post_type_content_element_type_path(post_type_version_id: post_type_version.id), {}, "#new_post_type_content_element_type_#{dom_id(post_type_version)}" %>
-  <div id="new_post_type_content_element_type_<%= dom_id(post_type_version) %>"></div>
-
-  <% unless post_type_version.partial? %>
-    <h5>Free Form Sections</h5>
-    <div id="<%= dom_id(post_type_version, :free_form_section_types_container) %>">
-      <% post_type_version.free_form_section_types.each do |ffst| %>
-        <%= render partial: '/pulitzer/free_form_section_types/show_wrapper', locals: {ffst: ffst} %>
-      <% end %>
-    </div>
-    <%= ajax_link 'add a new section for ' + post_type_version.full_name, new_free_form_section_type_path(post_type_version_id: post_type_version.id), {}, dom_target(post_type_version, :new_free_form_section_type) %>
-    <div id="<%= dom_id(post_type_version, :new_free_form_section_type) %>"></div>
-  <% end %>
-
-  <% if post_type_version.partial? %>
-    <h5>Layouts</h5>
-    <div id="<%= dom_id(post_type_version, :layouts_container) %>">
-      <% post_type_version.layouts.each do |layout| %>
-        <%= render partial: '/pulitzer/layouts/show_wrapper', locals: {layout: layout} %>
-      <% end %>
-    </div>
-    <%= ajax_link 'add a new layout for ' + post_type_version.full_name, new_layout_path(layout: {post_type_version_id: post_type_version.id}), {}, dom_target(post_type_version, :new_layout) %>
-    <div id="<%= dom_id(post_type_version, :new_layout) %>"></div>
-  <% end %>
 </div>

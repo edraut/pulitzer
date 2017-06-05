@@ -1,13 +1,11 @@
-<ul class="inline-list">
-  <li><%= ffst.name %></li>
-  <li>
+<div class="pulitzer-row">
+  <div class="pulitzer-span one-fifth"><%= ffst.name %></div>
+  <div class="pulitzer-span one-fifth"><%= ffst.sort_order %></div>
+  <div class="pulitzer-span one-fifth">
+    <%= ajax_link "Required partials", partial_types_path(ffst_id: ffst), {}, dom_target(ffst, :associations_container) %>
+  </div>
+  <div class="pulitzer-span ten-percent">
     <%= ajax_link "Edit", edit_free_form_section_type_path(ffst), {}, dom_target(ffst) %>
-  </li>
-  <li>
-    <%= ajax_link "Required partials", partial_types_path(ffst_id: ffst), {}, "#partials_#{dom_id(ffst)}" %>
-  </li>
-  <li>
-    <%= ajax_delete 'Delete', free_form_section_type_path(ffst), {}, dom_target(ffst) %>
-  </li>
-  <div id="partials_<%= dom_id(ffst) %>"></div>
-</ul>
+  </div>
+  <div id="<%= dom_id(ffst, :associations_container) %>"></div>
+</div>

@@ -1,5 +1,5 @@
 class Pulitzer::FreeFormSectionTypesController < Pulitzer::ApplicationController
-  before_filter :get_ffst, only: [:show, :edit, :update, :destroy]
+  before_action :get_ffst, only: [:show, :edit, :update, :destroy]
 
   def new
     @post_type = Pulitzer::PostType.find(params[:post_type_id])
@@ -32,7 +32,7 @@ class Pulitzer::FreeFormSectionTypesController < Pulitzer::ApplicationController
   def destroy
     @ffst.destroy
     Pulitzer::DestroyPostTypeFreeFormSections.new(@ffst).call
-    render nothing: true
+    head :ok
   end
 
   protected

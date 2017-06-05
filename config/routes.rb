@@ -27,16 +27,24 @@ Pulitzer::Engine.routes.draw do
     end
   end
 
+  resources :custom_option_lists
+  resources :custom_options
+  
   resources :versions
   resources :content_element_types
   resources :post_type_content_element_types
+  resources :styles
   resources :free_form_section_types
   resources :partial_types do
     collection do
       patch :update_all
     end
   end
-  resources :layouts
+  resources :background_styles
+  resources :justification_styles
+  resources :sequence_flow_styles
+  resources :arrangement_styles
+
   resources :free_form_sections
   root to: 'post_types#index'
 end

@@ -1,0 +1,12 @@
+<div class="pulitzer-row margin-top margin-bottom">
+  <div class="pulitzer-row margin-bottom">
+    <%= ajax_link "add a new custom option list", new_custom_option_list_path(custom_option_list: {name: nil}), {}, "#new_custom_option_list" %>
+  </div>
+  <div id="new_custom_option_list"></div>
+</div>
+
+<div id="custom_option_lists_container">
+  <% @custom_option_lists.each do |col| %>
+    <%= render partial: 'show_wrapper', locals: {custom_option_list: col} %>
+  <% end %>
+</div>

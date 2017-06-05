@@ -1,6 +1,6 @@
 module Pulitzer
   class TagsController < ApplicationController
-    before_filter :get_tag, only: [:edit, :update, :destroy]
+    before_action :get_tag, only: [:edit, :update, :destroy]
 
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
@@ -43,7 +43,7 @@ module Pulitzer
 
     def destroy
       @tag.destroy
-      render nothing: true
+      head :ok
     end
 
     protected
@@ -54,7 +54,7 @@ module Pulitzer
 
     def render_not_found(e)
       Rails.logger.warn("Rendering 404 because #{e.inspect}")
-      render nothing: true, status: :not_found
+      head :ok, status: :not_found
     end
 
     def tag_params

@@ -1,19 +1,37 @@
 <div class="pulitzer-row">
-  <div class="pulitzer-span margin"><h5><%= partial.name %></h5></div>
   <div class="pulitzer-span right">
     <%= render partial: '/pulitzer/shared/drag_handle' %>
   </div>
 </div>
 <%= render 'pulitzer/shared/error_messages', object: partial %>
-<%= form_for partial, html: ajax_form_hash(dom_target(partial)), multipart: true,
-  data: { server_endpoint: partial_path(partial) } do |f| %>
-  <%= f.label :label %>
-  <%= f.text_field :label %>
-  <%= f.label :layout_id, 'Layout' %>
-  <%= f.collection_select :layout_id, partial.available_layouts, :id, :name, {}, {} %>
-  <%= submit_tag "Update" %>
-  <%= link_to('Cancel', partial_path(partial), :class => 'button',
-    data: { ajax_link: true, ajax_target: dom_target(partial) } ) %>
-    or
-  <%= ajax_delete 'delete', partial_path(partial), {class: 'button'}, dom_target(partial) %>
-<% end %>
+<div class="pulitzer-row">
+  <%= form_for partial, html: ajax_form_hash(dom_target(partial)), multipart: true,
+    data: { server_endpoint: partial_path(partial) } do |f| %>
+    <div class="pulitzer-span one-fifth">
+      <%= f.text_field :label %>
+    </div>
+    <div class="pulitzer-span <%= partial.available_arrangements.any? ? 'ten-percent' : 'one-fifth' %>"><%= partial.folder_path %>/<%= partial.available_arrangements.empty? ? partial.template_path : '' %></div>
+    <% if partial.available_arrangements.any? %>
+      <div class="pulitzer-span ten-percent">
+        <%= f.collection_select :arrangement_style_id, partial.available_arrangements, :id, :display_name, {}, {} %>
+      </div>
+    <% end %>
+    <div class="pulitzer-span ten-percent">    
+      <%= f.collection_select :background_style_id, partial.available_backgrounds, :id, :display_name, {}, {} %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= f.collection_select :justification_style_id, partial.available_justifications, :id, :display_name, {}, {} %>
+    </div>
+    <div class="pulitzer-span one-fifth">
+      <%= f.collection_select :sequence_flow_style_id, partial.available_sequence_flows, :id, :display_name, {}, {} %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= submit_tag "Update" %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= link_to('Cancel', partial_path(partial), :class => 'button',
+      data: { ajax_link: true, ajax_target: dom_target(partial) } ) %>
+      <%= ajax_delete 'delete', partial_path(partial), {class: 'button'}, dom_target(partial) %>
+    </div>
+  <% end %>
+</div>

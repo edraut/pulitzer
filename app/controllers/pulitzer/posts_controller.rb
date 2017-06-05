@@ -1,16 +1,17 @@
 class Pulitzer::PostsController < Pulitzer::ApplicationController
-  before_filter :get_post, only: [:show, :edit, :edit_title, :edit_slug, :show_slug, :update,
+  before_action :get_post, only: [:show, :edit, :edit_title, :edit_slug, :show_slug, :update,
     :update_slug, :processing_preview]
   before_action :get_version, only: [:edit_slug, :show_slug, :update_slug]
 
   def index
     @post_type = Pulitzer::PostType.find params[:post_type_id]
     @posts = Pulitzer::Post.where(post_type: @post_type).order(id: :desc)
+    render_ajax
   end
 
   def new
     @post = Pulitzer::Post.new(post_type_id: params[:post_type_id])
-    render partial: 'new', locals: { post: @post }
+    render_ajax locals: { post: @post }
   end
 
   def create
@@ -20,17 +21,15 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def show
-    render partial: 'show', locals: { post: @post }
+    render_ajax locals: { post: @post }
   end
 
   def edit
-    if request.xhr?
-      render partial: 'edit', locals: { post: @post }
-    end
+    render_ajax locals: { post: @post }
   end
 
   def edit_title
-     render partial: 'form', locals: { post: @post }
+    render partial: 'form', locals: { post: @post }
   end
 
   def update

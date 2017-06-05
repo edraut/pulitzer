@@ -1,5 +1,5 @@
 class Pulitzer::LayoutsController < Pulitzer::ApplicationController
-  before_filter :get_layout, only: [:show, :edit, :update, :destroy]
+  before_action :get_layout, only: [:show, :edit, :update, :destroy]
 
   def new
     @layout = Pulitzer::Layout.new(layout_params)
@@ -27,7 +27,7 @@ class Pulitzer::LayoutsController < Pulitzer::ApplicationController
 
   def destroy
     @layout.destroy
-    render nothing: true
+    head :ok
   end
 
   protected

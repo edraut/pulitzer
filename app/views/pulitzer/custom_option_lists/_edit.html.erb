@@ -1,0 +1,10 @@
+<div class="pulitzer-row">
+  <%= form_for custom_option_list, ajax_form_hash(dom_target(custom_option_list)) do |f| %>
+    <div class="pulitzer-span margin one-half"><%= f.text_field :name %></div>
+    <div class="pulitzer-span margin one-half">
+      <%= f.submit data: {disable_with: false}, class: 'input-medium' %>
+      <%= ajax_link 'cancel', custom_option_list_path(custom_option_list), {class: 'button'}, dom_target(custom_option_list) %>
+      <%= ajax_delete 'delete', custom_option_list_path(custom_option_list), {class: 'button'}, dom_target(custom_option_list) %>
+    </div>
+  <% end %>
+</div>

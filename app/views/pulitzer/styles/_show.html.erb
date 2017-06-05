@@ -1,0 +1,15 @@
+<div class="pulitzer-span one-fifth empty padding">&nbsp;</div>
+<div class="pulitzer-span one-fifth empty margin">
+  <% if style.first? %>
+    <a data-emptier="true" data-target="<%= dom_target(style.post_type_content_element_type, :styles_container) %>">close styles</a>
+  <% else %>
+    &nbsp;
+  <% end %>
+</div>
+<div class="pulitzer-span two-fifths margin">
+  <div class="pulitzer-row">
+    <div class="pulitzer-span"><%= style.display_name %> (<%= style.css_class_name %>)</div>
+    <div class="pulitzer-span right"><%= ajax_delete 'ⓧ', style_path(style), {}, dom_target(style) %></div>
+  </div>
+</div>
+<div class="pulitzer-span one-fifth empty padding">&nbsp;</div>

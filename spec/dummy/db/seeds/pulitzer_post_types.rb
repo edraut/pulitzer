@@ -5,6 +5,8 @@ module Seeds
       content_element_type = Pulitzer::ContentElementType.create(name: 'Text')
       image_element_type = Pulitzer::ContentElementType.create(name: 'Image')
       video_element_type = Pulitzer::ContentElementType.create(name: 'Video')
+      clickable_element_type = Pulitzer::ContentElementType.create(name: 'Clickable')
+
       content_elements = [
         { label: 'Hero Title 1', content_element_type_id: content_element_type.id },
         { label: 'Hero Title 2', content_element_type_id: content_element_type.id },
@@ -15,7 +17,8 @@ module Seeds
         { label: 'Footer Text', content_element_type_id: content_element_type.id },
         { label: 'Metadata title', content_element_type_id: content_element_type.id },
         { label: 'Metadata description', content_element_type_id: content_element_type.id },
-        { label: 'Metadata keywords', content_element_type_id: content_element_type.id }
+        { label: 'Metadata keywords', content_element_type_id: content_element_type.id },
+        { label: 'Call to Action Button', content_element_type_id: clickable_element_type.id }
       ]
 
       content_elements.each do |ce|
@@ -44,6 +47,10 @@ module Seeds
       welcome_post.content_elements.each do |ce|
         ce.update(body: ce.label)
       end
+
+      col = Pulitzer::CustomOptionList.create name: 'Sliders'
+      co = col.custom_options.create(display: 'Rental Estimate', value: 'contactMgmt')
+      co2 = col.custom_options.create(display: 'Agent Coterie', value: 'contactRealEstate')
     end
   end
 end

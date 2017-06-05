@@ -1,10 +1,25 @@
-<ul class="inline-list">
-  <li><%= ptcet.label %></li>
-  <li><%= ptcet.content_element_type.name %></li>
-  <li>
-    <%= ajax_link "Edit", edit_post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
-  </li>
-  <li>
+<div class="pulitzer-row">
+  <div class="pulitzer-span one-fifth"><%= ptcet.label %></div>
+  <div class="pulitzer-span ten-percent"><%= ptcet.content_element_type.name %></div>
+  <div class="pulitzer-span ten-percent">
+    <%= ptcet.type_specific_display %>
+  </div>
+  <div class="pulitzer-span two-fifths">
+    <% if ptcet.has_styles? %>
+      <%= ajax_link "Styles", styles_path(post_type_content_element_type_id: ptcet.id), {}, dom_target(ptcet, :styles_container) %>
+    <% else %>
+      &nbsp;
+    <% end %>
+  </div>
+  <div class="pulitzer-span five-percent">
+    <%= ptcet.required? ? '✓' : '' %>
+  </div>
+  <div class="pulitzer-span five-percent">
+    <%= ptcet.sort_order %>
+  </div>
+  <div class="pulitzer-span ten-percent">
+    <%= ajax_link "Edit", edit_post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %> |
     <%= ajax_delete 'Delete', post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
-  </li>
-</ul>
+  </div>
+  <div id="<%= dom_id(ptcet, :styles_container) %>"></div>
+</div>

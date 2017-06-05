@@ -16,10 +16,6 @@ describe Pulitzer::ContentElement do
     it { should belong_to(:post_type_content_element_type) }
   end
 
-  describe 'ActiveRecord enums' do
-    it { should define_enum_for(:kind).with([:template, :free_form]) }
-  end
-
   describe '.html' do
     it 'empty body' do
       content_element.body = nil

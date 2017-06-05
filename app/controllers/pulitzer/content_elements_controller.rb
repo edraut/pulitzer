@@ -1,5 +1,5 @@
 class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
-  before_filter :set_content_element, only: [:show, :edit, :update]
+  before_action :set_content_element, only: [:show, :edit, :update]
 
   def show
     render partial: 'show', locals: { content_element: @content_element }
@@ -10,8 +10,12 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
   end
 
   def update
-    @content_element.update content_element_params
-    render partial: 'show', locals: { content_element: @content_element }
+    Update.new(@content_element, content_element_params).call
+    if @content_element.errors.empty?
+      render partial: 'show', locals: { content_element: @content_element }
+    else
+      render partial: 'form', locals: { content_element: @content_element }, status: :conflict
+    end
   end
 
   def update_all
@@ -20,7 +24,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
       new_sort_order = params[:content_element].index(ce.id.to_s)
       ce.update_attribute(:sort_order, new_sort_order)
     end
-    render nothing: true
+    head :ok
   end
 
   protected

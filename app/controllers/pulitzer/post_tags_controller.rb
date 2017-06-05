@@ -1,5 +1,5 @@
 class Pulitzer::PostTagsController < Pulitzer::ApplicationController
-  before_filter :get_post_tag, only: [:destroy]
+  before_action :get_post_tag, only: [:destroy]
 
   def new
     @tag_model = params[:tag_model]
@@ -15,7 +15,7 @@ class Pulitzer::PostTagsController < Pulitzer::ApplicationController
 
   def destroy
     @post_tag.destroy
-    render nothing: true
+    head :ok
   end
 
   protected
