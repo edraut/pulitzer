@@ -14,24 +14,18 @@ module Pulitzer
 
     validates :label, presence: true
 
-    def self.any_clickable
-      return @any if @any.present?
-      @any = OpenStruct.new
-      @any.gid = 'any'
-      @any.name = 'Any'
-      @any
-    end
+    Any_clickable = OpenStruct.new
+    Any_clickable.gid = 'any'
+    Any_clickable.name = 'Any'
+    Any_clickable.freeze
 
-    def self.url_clickable
-      return @url if @url.present?
-      @url = OpenStruct.new
-      @url.gid = 'url'
-      @url.name = 'URL'
-      @url
-    end
+    URL_clickable = OpenStruct.new
+    URL_clickable.gid = 'url'
+    URL_clickable.name = 'URL'
+    URL_clickable.freeze
 
     def self.clickable_kinds
-      [any_clickable] + Pulitzer::CustomOptionList.all.to_a + [url_clickable]
+      [Any_clickable] + Pulitzer::CustomOptionList.all.to_a + [URL_clickable]
     end
 
     def clickable_kind_display
@@ -47,7 +41,7 @@ module Pulitzer
     end
 
     def clickable_kinds
-      Pulitzer::CustomOptionList.all.to_a + [self.class.url_clickable]
+      Pulitzer::CustomOptionList.all.to_a + [URL_clickable]
     end
 
     def custom_clickable_kinds

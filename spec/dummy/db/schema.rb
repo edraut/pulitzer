@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518145318) do
+ActiveRecord::Schema.define(version: 20170602204900) do
 
   create_table "pulitzer_arrangement_styles", force: :cascade do |t|
     t.integer "post_type_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170518145318) do
 
   create_table "pulitzer_content_elements", force: :cascade do |t|
     t.string   "label"
+    t.string   "title"
     t.text     "body"
     t.string   "image"
     t.integer  "version_id"
@@ -43,8 +44,19 @@ ActiveRecord::Schema.define(version: 20170518145318) do
     t.integer  "height",                            default: 100
     t.integer  "width",                             default: 100
     t.integer  "sort_order"
-    t.integer  "kind",                              default: 0
     t.integer  "partial_id"
+    t.integer  "style_id"
+    t.integer  "custom_option_id"
+  end
+
+  create_table "pulitzer_custom_option_lists", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "pulitzer_custom_options", force: :cascade do |t|
+    t.integer "custom_option_list_id"
+    t.string  "display"
+    t.string  "value"
   end
 
   create_table "pulitzer_free_form_section_types", force: :cascade do |t|
@@ -63,11 +75,6 @@ ActiveRecord::Schema.define(version: 20170518145318) do
     t.integer "post_type_id"
     t.string  "display_name"
     t.string  "css_class_name"
-  end
-
-  create_table "pulitzer_layouts", force: :cascade do |t|
-    t.integer "post_type_id"
-    t.string  "name"
   end
 
   create_table "pulitzer_partial_types", force: :cascade do |t|
@@ -98,6 +105,11 @@ ActiveRecord::Schema.define(version: 20170518145318) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pulitzer_post_type_content_element_type_custom_option_lists", force: :cascade do |t|
+    t.integer "post_type_content_element_type_id"
+    t.integer "custom_option_list_id"
+  end
+
   create_table "pulitzer_post_type_content_element_types", force: :cascade do |t|
     t.integer  "post_type_id"
     t.integer  "content_element_type_id"
@@ -109,6 +121,7 @@ ActiveRecord::Schema.define(version: 20170518145318) do
     t.string   "text_editor"
     t.boolean  "required",                default: false
     t.integer  "sort_order"
+    t.string   "clickable_kind",          default: "any", null: false
   end
 
   create_table "pulitzer_post_types", force: :cascade do |t|
@@ -131,6 +144,12 @@ ActiveRecord::Schema.define(version: 20170518145318) do
 
   create_table "pulitzer_sequence_flow_styles", force: :cascade do |t|
     t.integer "post_type_id"
+    t.string  "display_name"
+    t.string  "css_class_name"
+  end
+
+  create_table "pulitzer_styles", force: :cascade do |t|
+    t.integer "post_type_content_element_type_id"
     t.string  "display_name"
     t.string  "css_class_name"
   end

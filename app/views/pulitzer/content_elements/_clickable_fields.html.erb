@@ -25,7 +25,7 @@
 <% else %>
   <%= hidden_field_tag 'content_element[clickable_kind]', f.object.custom_option_list.gid %>
   <span class="pulitzer-span heading"><%= f.object.custom_option_list.name %></span>
-  <%= f.select :custom_option_id, options_from_collection_for_select(f.object.custom_options, :id, :display) %>
+  <%= f.select :custom_option_id, options_from_collection_for_select(f.object.custom_options, :id, :display, f.object.custom_option_id) %>
 <% end %>
 <div class="pulitzer-row"><span class="pulitzer-span heading">Style</span></div>
 <%= f.select :style_id, options_from_collection_for_select(f.object.style_options, :id, :display_name, f.object.style_id) %>

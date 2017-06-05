@@ -6,10 +6,10 @@ describe Pulitzer::CloneVersion do
   let(:version)     { post.preview_version }
 
   it 'Clones version content elements' do
-    expect(version.content_elements.size).to eq 10
+    expect(version.content_elements.size).to eq 11
     version.post.create_processing_version
     new_version = Pulitzer::CloneVersion.new(version).call
-    expect(new_version.content_elements.size).to eq 10
+    expect(new_version.content_elements.size).to eq 11
   end
 
   it 'Clones version free form sections' do
