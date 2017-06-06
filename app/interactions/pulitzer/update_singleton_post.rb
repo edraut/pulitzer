@@ -8,10 +8,12 @@ class Pulitzer::UpdateSingletonPost
 
   def call
     if post_type.singular?
-      unless post_type.singleton_post?
-        Pulitzer::CreateSingletonPost.new(post_type).call
-      else
-        post_type.singleton_post.update(title: title)
+      post_type.preview_type_versions.each do |ptv|
+        unless ptv.singleton_post?
+          Pulitzer::CreateSingletonPost.new(ptv).call
+        else
+          ptv.singleton_post.update(title: title)
+        end
       end
     end
   end
