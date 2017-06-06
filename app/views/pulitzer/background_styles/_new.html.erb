@@ -1,12 +1,12 @@
 <div class="pulitzer-rowe">
-  <%= form_for background_style, html: ajax_form_hash(dom_target(background_style.post_type, :background_styles_container), insert_method: 'append', reset_on_success: true) do |f| %>
-    <%= f.hidden_field :post_type_id %>
+  <%= form_for background_style, html: ajax_form_hash(dom_target(background_style.post_type_version, :background_styles_container), insert_method: 'append', reset_on_success: true) do |f| %>
+    <%= f.hidden_field :post_type_version_id %>
     <%= render partial: 'form_fields', locals: { f: f, background_style: background_style } %>
     <div class="pulitzer-span ten-percent">
       <%= f.submit "Create", data: {disable_with: false} %>
     </div>
     <div class="pulitzer-span ten-percent">
-      <a class="button" data-emptier="true" data-target="<%= dom_target(background_style.post_type, :new_background_style)%>">Close</a>
+      <a class="button" data-emptier="true" data-target="<%= dom_target(background_style.post_type_version, :new_background_style)%>">Close</a>
     </div>
   <% end %>
 </div>

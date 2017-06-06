@@ -5,26 +5,26 @@
     <%= f.text_field :label %>
   </div>
   <div class="pulitzer-span ten-percent">
-    <%= f.collection_select :post_type_id, Pulitzer::PostType.partials.order(:name), :id, :name, {}, revealer(dom_id(partial.free_form_section, :new_partial_type), highlander: true) %>
+    <%= f.collection_select :post_type_version_id, Pulitzer::PostType.partials.order(:name), :published_type_version_id, :name, {}, revealer(dom_id(partial.free_form_section, :new_partial_type), highlander: true) %>
   </div>
   <div class="pulitzer-span one-half" <%= revealer_target_attrs(dom_id(partial.free_form_section, :new_partial_type)) %>>
-    <% Pulitzer::PostType.partials.each do |post_type| %>
-      <div class="pulitzer-row" <%= revealer_option_attrs(dom_id(partial.free_form_section, :new_partial_type), trigger: post_type.id) %>>
+    <% Pulitzer::PostType.partials.map{|pt| pt.published_type_version}.compact.each do |post_type_version| %>
+      <div class="pulitzer-row" <%= revealer_option_attrs(dom_id(partial.free_form_section, :new_partial_type), trigger: post_type_version.id) %>>
         <div class="pulitzer-span one-fifth">
-          <% if post_type.arrangement_styles.any? %>
-            <%= f.collection_select :arrangement_style_id, post_type.arrangement_styles, :id, :display_name, {}, {} %>
+          <% if post_type_version.arrangement_styles.any? %>
+            <%= f.collection_select :arrangement_style_id, post_type_version.arrangement_styles, :id, :display_name, {}, {} %>
           <% else %>
             &nbsp;
           <% end %>
         </div>
         <div class="pulitzer-span one-fifth">
-          <%= f.collection_select :background_style_id, post_type.background_styles, :id, :display_name, {}, {} %>
+          <%= f.collection_select :background_style_id, post_type_version.background_styles, :id, :display_name, {}, {} %>
         </div>
         <div class="pulitzer-span one-fifth">
-          <%= f.collection_select :justification_style_id, post_type.justification_styles, :id, :display_name, {}, {} %>
+          <%= f.collection_select :justification_style_id, post_type_version.justification_styles, :id, :display_name, {}, {} %>
         </div>
         <div class="pulitzer-span two-fifths">
-          <%= f.collection_select :sequence_flow_style_id, post_type.sequence_flow_styles, :id, :display_name, {}, {} %>
+          <%= f.collection_select :sequence_flow_style_id, post_type_version.sequence_flow_styles, :id, :display_name, {}, {} %>
         </div>
       </div>
     <% end %>

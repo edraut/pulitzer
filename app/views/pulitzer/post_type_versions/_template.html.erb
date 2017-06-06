@@ -11,13 +11,13 @@
         <div class="pulitzer-span five-percent heading">Req'd</div>
         <div class="pulitzer-span five-percent heading">Sort</div>
       </div>
-      <div id="post_type_content_element_types_container_<%= dom_id(post_type) %>">
+      <div id="post_type_content_element_types_container_<%= dom_id(post_type_version) %>">
         <% post_type_version.post_type_content_element_types.each do |ptcet| %>
           <%= render partial: '/pulitzer/post_type_content_element_types/show_wrapper', locals: {ptcet: ptcet} %>
         <% end %>
       </div>
-      <div id="new_post_type_content_element_type_<%= dom_id(post_type_version) %>"></div>
-      <%= ajax_link 'add a new content element for ' + post_type_version.full_name, new_post_type_content_element_type_path(post_type_version_id: post_type_version.id), {}, "#new_post_type_content_element_type_#{dom_id(post_type_version)}" %>
+      <div id="<%= dom_id(post_type_version, :new_post_type_content_element_type) %>"></div>
+      <%= ajax_link 'add a new content element for ' + post_type_version.full_name, new_post_type_content_element_type_path(post_type_version_id: post_type_version.id), {}, dom_target(post_type_version, :new_post_type_content_element_type) %>
     </div>
     <% unless post_type_version.partial? %>
       <div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version, :free_form_section_types_wrapper) %>">

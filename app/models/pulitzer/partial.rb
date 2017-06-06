@@ -6,10 +6,11 @@ module Pulitzer
     belongs_to :justification_style
     belongs_to :sequence_flow_style
     belongs_to :arrangement_style
+    has_one :post_type, through: :post_type_version
     
     has_many :content_elements, dependent: :destroy
 
-    delegate :name, :post_type_content_element_types, :has_display?, to: :post_type_version
+    delegate :name, :post_type_content_element_types, :has_display?, :post_type_id, :version_number, to: :post_type_version
     delegate :template_path, to: :layout, allow_nil: true
 
     before_save :handle_sort_order
@@ -56,6 +57,10 @@ module Pulitzer
       name.downcase.gsub(/ /,'_').gsub(/\W/,'')      
     end
 
+    def version_folder
+      "v_#{version_number}"
+    end
+
     def template_path
       if arrangement_style.present?
         arrangement_style.view_file_name
@@ -65,7 +70,7 @@ module Pulitzer
     end
 
     def full_view_path
-      Pulitzer.partial_folder + '/' + folder_path + '/' + template_path
+      File.join Pulitzer.partial_folder, folder_path, version_folder, template_path
     end
 
     def clone_me

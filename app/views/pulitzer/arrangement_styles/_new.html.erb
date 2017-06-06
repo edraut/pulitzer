@@ -1,12 +1,12 @@
 <div class="pulitzer-row">
-  <%= form_for arrangement_style, html: ajax_form_hash(dom_target(arrangement_style.post_type, :arrangement_styles_container), insert_method: 'append', reset_on_success: true) do |f| %>
-    <%= f.hidden_field :post_type_id %>
+  <%= form_for arrangement_style, html: ajax_form_hash(dom_target(arrangement_style.post_type_version, :arrangement_styles_container), insert_method: 'append', reset_on_success: true) do |f| %>
+    <%= f.hidden_field :post_type_version_id %>
     <%= render partial: 'form_fields', locals: { f: f, arrangement_style: arrangement_style } %>
     <div class="pulitzer-span ten-percent">
       <%= f.submit "Create", data: {disable_with: false} %>
     </div>
     <div class="pulitzer-span ten-percent">
-      <a class="button" data-emptier="true" data-target="<%= dom_target(arrangement_style.post_type, :new_arrangement_style)%>">Close</a>
+      <a class="button" data-emptier="true" data-target="<%= dom_target(arrangement_style.post_type_version, :new_arrangement_style)%>">Close</a>
     </div>
   <% end %>
 </div>

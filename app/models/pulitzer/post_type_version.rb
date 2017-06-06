@@ -3,6 +3,7 @@ class Pulitzer::PostTypeVersion < ActiveRecord::Base
 
   belongs_to :post_type
   has_many :posts, dependent: :destroy
+  has_many :partials, dependent: :destroy
   has_many :post_type_content_element_types, dependent: :destroy
   has_many :content_element_types, through: :post_type_content_element_types
   has_many :free_form_section_types, dependent: :destroy
@@ -14,6 +15,7 @@ class Pulitzer::PostTypeVersion < ActiveRecord::Base
   delegate :name, :kind, :partial?, :template?, :plural, :plural?, to: :post_type
 
   register_transitions({
+    previewing_service: Preview,
     publishing_service: Publish,
     retiring_service: Retire })
 
@@ -56,6 +58,10 @@ class Pulitzer::PostTypeVersion < ActiveRecord::Base
   def highest_element_sort
     last_element = all_element_types.max_by{ |e| e.sort_order || 0}
     last_element&.sort_order || 0
+  end
+
+  def locked?
+    published? || retired?
   end
 
   def status_display

@@ -5,7 +5,7 @@
   <%= f.collection_select :content_element_type_id, Pulitzer::ContentElementType.all, :id, :name, {},
 revealer(dom_id(ptcet, :revealer), highlander: true) %>
 </div>
-<%= f.hidden_field :post_type_id %>
+<%= f.hidden_field :post_type_version_id %>
 
 <div <%= revealer_target_attrs(dom_id(ptcet, :revealer)) %>></div>
 
@@ -26,7 +26,7 @@ revealer(dom_id(ptcet, :revealer), highlander: true) %>
 <div <%= revealer_option_attrs(dom_id(ptcet, :revealer), trigger: Pulitzer::ContentElementType.find_by(name: 'Clickable').id) %> class="pulitzer-span two-fifths">
   <%= f.select :clickable_kind, options_from_collection_for_select(Pulitzer::PostTypeContentElementType.clickable_kinds, :gid, :name, f.object.clickable_kind) %>  
 </div>
-
+<div class="pulitzer-span ten-percent">&nbsp;</div>
 <div class="pulitzer-span five-percent">
   <%= f.check_box :required %>
 </div>

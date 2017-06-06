@@ -29,7 +29,6 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
   end
 
   def destroy
-    Pulitzer::DestroyFreeFormSectionPartials.new(@partial_type).call
     @partial_type.destroy
     head :ok
   end

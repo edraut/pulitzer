@@ -2,14 +2,14 @@ class Pulitzer::PostTypeContentElementTypesController < Pulitzer::ApplicationCon
   before_action :get_ptcet, only: [:show, :edit, :update, :destroy]
 
   def new
-    @post_type = Pulitzer::PostType.find(params[:post_type_id])
-    @ptcet = @post_type.post_type_content_element_types.build
+    @post_type_version = Pulitzer::PostTypeVersion.find(params[:post_type_version_id])
+    @ptcet = @post_type_version.post_type_content_element_types.build
     render partial: 'new', locals: {ptcet: @ptcet}
   end
 
   def create
-    @post_type = Pulitzer::PostType.find(ptcet_params[:post_type_id])
-    @ptcet = @post_type.post_type_content_element_types.create(ptcet_params)
+    @post_type_version = Pulitzer::PostTypeVersion.find(ptcet_params[:post_type_version_id])
+    @ptcet = @post_type_version.post_type_content_element_types.create(ptcet_params)
     Pulitzer::CreatePostTypeContentElements.new(@ptcet).call
     render partial: 'show_wrapper', locals: {ptcet: @ptcet}
   end

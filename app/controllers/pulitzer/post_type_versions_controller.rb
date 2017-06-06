@@ -7,26 +7,12 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
     render_ajax
   end
 
-  def new
-    @post_type_version = Pulitzer::PostTypeVersion.new(post_type_version_params)
-    render partial: 'new', locals: {post_type_version: @post_type_version}
-  end
-
   def create
-    @post_type_version = Pulitzer::PostTypeVersion.create(post_type_version_params)
+    @post_type_version = Create.new(post_type_version_params).call
     render partial: 'show_wrapper', locals: {post_type_version: @post_type_version}
   end
 
   def show
-    render partial: 'show', locals: {post_type_version: @post_type_version}
-  end
-
-  def edit
-    render partial: 'form', locals: {post_type_version: @post_type_version}
-  end
-
-  def update
-    @post_type_version.update_attributes(post_type_version_params)
     render partial: 'show', locals: {post_type_version: @post_type_version}
   end
 
@@ -42,11 +28,11 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
   def change_state
     Pulitzer::PostTypeVersionsController::ChangeState.new(@post_type_version,params[:state_change]).call
     if @post_type_version.errors.empty?
-      render partial: 'show', locals: {post_type_version: post_type_version}
+      render partial: 'show', locals: {post_type_version: @post_type_version}
     else
       render json: {
         flash_message: @post_type_version.errors.full_messages.join('<br>'),
-        html: render_to_string(partial: 'show', locals: {post_type_version: post_type_version}) },
+        html: render_to_string(partial: 'show', locals: {post_type_version: @post_type_version}) },
         status: :conflict
     end
   end

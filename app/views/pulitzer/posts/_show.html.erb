@@ -7,7 +7,7 @@
       <%= ajax_link "Edit post name", edit_title_post_path(post), {}, dom_target(post) %>
     </li>
     <li>
-      <%= link_to 'Edit content', edit_post_path(post) %>
+      <%= ajax_link 'Edit content', edit_post_path(post), {}, '[data-tab-id="templates"]' %>
     </li>
   </ul>
 </div>

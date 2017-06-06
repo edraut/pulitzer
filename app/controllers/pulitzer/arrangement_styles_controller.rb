@@ -3,7 +3,6 @@ class Pulitzer::ArrangementStylesController < Pulitzer::ApplicationController
 
   def new
     @arrangement_style = Pulitzer::ArrangementStyle.new(arrangement_style_params)
-    @post_type = @arrangement_style.post_type
     render partial: 'new', locals: {arrangement_style: @arrangement_style}
   end
 
@@ -12,8 +11,7 @@ class Pulitzer::ArrangementStylesController < Pulitzer::ApplicationController
     if @arrangement_style.errors.empty?
       render partial: 'show_wrapper', locals: {arrangement_style: @arrangement_style}
     else
-      @post_type = @arrangement_style.post_type
-      render partial: 'new', locals: {arrangement_style: @arrangement_style}
+      render partial: 'new', locals: {arrangement_style: @arrangement_style}, status: 409
     end
   end
 

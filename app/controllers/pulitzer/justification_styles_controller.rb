@@ -3,7 +3,6 @@ class Pulitzer::JustificationStylesController < Pulitzer::ApplicationController
 
   def new
     @justification_style = Pulitzer::JustificationStyle.new(justification_style_params)
-    @post_type = @justification_style.post_type
     render partial: 'new', locals: {justification_style: @justification_style}
   end
 
@@ -12,8 +11,7 @@ class Pulitzer::JustificationStylesController < Pulitzer::ApplicationController
     if @justification_style.errors.empty?
       render partial: 'show_wrapper', locals: {justification_style: @justification_style}
     else
-      @post_type = @justification_style.post_type
-      render partial: 'new', locals: {justification_style: @justification_style}
+      render partial: 'new', locals: {justification_style: @justification_style}, status: 409
     end
   end
 
