@@ -1,4 +1,4 @@
-<%= ajax_link "all #{post_type.kind.pluralize} >", post_types_path(post_type_kind: post_type.kind), {}, '[data-tab-id="' + post_type.kind.pluralize + '"]' %>
+<%= ajax_link "all #{post_type.kind.pluralize} >", pulitzer.post_types_path(post_type_kind: post_type.kind), {}, '[data-tab-id="' + post_type.kind.pluralize + '"]' %>
 <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
-  <%= ajax_link "template versions for #{post_type.name} >", post_type_versions_path(post_type_id: post_type.id), {}, '[data-tab-id="' + post_type.kind.pluralize + '"]' %>
+  <%= ajax_link "template versions for #{post_type.name} >", pulitzer.post_type_versions_path(post_type_id: post_type.id), {}, '[data-tab-id="' + post_type.kind.pluralize + '"]' %>
 <% end %>
