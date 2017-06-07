@@ -1,8 +1,8 @@
 <%= render 'pulitzer/shared/error_messages', object: partial_type %>
 <%= form_for partial_type, html: ajax_form_hash(dom_target(partial_type.free_form_section_type, :partial_container), insert_method: 'append', empty_on_success: dom_target(partial_type.free_form_section_type, :new_partial)) do |f| %>
   <%= f.hidden_field :free_form_section_type_id %>
-  <%= f.label :post_type_id, 'Partial Type' %>
-  <%= f.collection_select :post_type_id, Pulitzer::PostType.partials, :id, :name, {}, revealer(dom_id(partial_type.free_form_section_type, :new_partial_type), highlander: true) %>
+  <%= f.label :post_type_version_id, 'Partial Type' %>
+  <%= f.collection_select :post_type_version_id, Pulitzer::PostType.partials, :published_type_version_id, :name, {}, revealer(dom_id(partial_type.free_form_section_type, :new_partial_type), highlander: true) %>
 
   <%= submit_tag "Create" %>
   <a class="button" data-emptier="true" data-target="<%= dom_target(partial_type.free_form_section_type, :new_partial) %>">Close</a>

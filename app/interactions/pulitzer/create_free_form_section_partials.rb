@@ -13,8 +13,8 @@ class Pulitzer::CreateFreeFormSectionPartials
         partial = free_form_section.partials.create do |p|
           p.label         = @partial_type.label
           p.sort_order    = @partial_type.sort_order
-          p.post_type_id  = @partial_type.post_type_id
-          p.layout_id      = @partial_type.layout_id
+          p.post_type_version_id  = @partial_type.post_type_version_id
+          p.layout_id     = @partial_type.layout_id
         end
         Pulitzer::CreatePartialContentElements.new(partial).call
       end

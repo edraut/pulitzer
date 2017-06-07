@@ -5,8 +5,9 @@ describe Pulitzer::VersionsController do
   render_views
 
   let(:post_type) { Pulitzer::PostType.named('Welcome') }
-  let(:content_element_type) { post_type.post_type_content_element_types.first.content_element_type }
-  let(:ppost) { post_type.posts.first }
+  let(:post_type_version) {post_type.published_type_version}
+  let(:content_element_type) { post_type_version.post_type_content_element_types.first.content_element_type }
+  let(:ppost) { post_type_version.posts.first }
   let(:version) {ppost.preview_version}
 
   describe "updating versions", type: :request do
@@ -43,7 +44,7 @@ describe Pulitzer::VersionsController do
     end
 
     it "responds with errors if the interaction has one" do
-      ptcet = post_type.post_type_content_element_types.create(label: 'test', required: true, content_element_type: content_element_type)
+      ptcet = post_type_version.post_type_content_element_types.create(label: 'test', required: true, content_element_type: content_element_type)
       version.content_elements.first.update_columns(body: nil, post_type_content_element_type_id: ptcet.id)
       patch pulitzer.version_path id: version.id, status: 'active'
       expect(response.status).to eq 409

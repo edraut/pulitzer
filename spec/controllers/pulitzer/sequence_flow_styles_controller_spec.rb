@@ -5,11 +5,12 @@ describe Pulitzer::SequenceFlowStylesController do
   render_views
 
   let(:post_type) { Pulitzer::PostType.create(name: 'partial with various layout styles', kind: Pulitzer::PostType.kinds[:partial], plural: false) }
-  let(:sequence_flow_style) { post_type.sequence_flow_styles.create(display_name: 'White', css_class_name: 'white') }
+  let(:post_type_version) {post_type.post_type_versions.create}
+  let(:sequence_flow_style) { post_type_version.sequence_flow_styles.create(display_name: 'White', css_class_name: 'white') }
 
   describe "sequence_flow_styles", type: :request do
     it "renders the new form" do
-      get pulitzer.new_sequence_flow_style_path(sequence_flow_style: {post_type_id: post_type.id})
+      get pulitzer.new_sequence_flow_style_path(sequence_flow_style: {post_type_version_id: post_type_version.id})
       expect(response.status).to eq 200
       expect(response.body).to match /sequence_flow_style\[display_name\]/
     end
@@ -17,7 +18,7 @@ describe Pulitzer::SequenceFlowStylesController do
     it "creates a new sequence_flow_style" do
       post pulitzer.sequence_flow_styles_path(
         sequence_flow_style: {
-          post_type_id: post_type.id,
+          post_type_version_id: post_type_version.id,
           css_class_name: 'pretty-class',
           display_name: 'Pretty Class'})
       expect(response.status).to eq 200

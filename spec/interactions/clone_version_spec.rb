@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe Pulitzer::CloneVersion do
   let(:post_type)   { Pulitzer::PostType.named('Welcome')}
-  let(:post)        { post_type.posts.first }
+  let(:post_type_version) {post_type.published_type_version}
+  let(:post)        { post_type_version.posts.first }
   let(:version)     { post.preview_version }
 
   it 'Clones version content elements' do

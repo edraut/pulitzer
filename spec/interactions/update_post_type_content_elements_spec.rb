@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe Pulitzer::UpdatePostTypeContentElements do
   let(:version)     { post.preview_version }
-  let(:post)        { post_type.posts.first }
+  let(:post_type_version) {post_type.published_type_version}
+  let(:post)        { post_type_version.posts.first }
   let(:post_type)   { Pulitzer::PostType.named('Welcome') }
   let(:content_element_type) { Pulitzer::ContentElementType.find_by name: 'Text'}
-  let(:ptcet)       { post_type.post_type_content_element_types.create(content_element_type_id: content_element_type.id, label: 'A New Field for this Post Type')}
+  let(:ptcet)       { post_type_version.post_type_content_element_types.create(content_element_type_id: content_element_type.id, label: 'A New Field for this Post Type')}
 
   describe "#call" do
 

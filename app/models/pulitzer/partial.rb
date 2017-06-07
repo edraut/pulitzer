@@ -38,19 +38,19 @@ module Pulitzer
     end
 
     def available_backgrounds
-      post_type.background_styles
+      post_type_version.background_styles
     end
 
     def available_justifications
-      post_type.justification_styles
+      post_type_version.justification_styles
     end
 
     def available_sequence_flows
-      post_type.sequence_flow_styles
+      post_type_version.sequence_flow_styles
     end
 
     def available_arrangements
-      post_type.arrangement_styles
+      post_type_version.arrangement_styles
     end
 
     def folder_path

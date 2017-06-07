@@ -12,7 +12,7 @@ describe Pulitzer::Post do
   end
 
   describe "ActiveRecord associations" do
-    it { should belong_to(:post_type) }
+    it { should belong_to(:post_type_version) }
   end
 
   describe "#active_version" do

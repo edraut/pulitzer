@@ -1,4 +1,4 @@
-class Pulitzer::CreateSingletonPost
+class Pulitzer::PostTypesController::CreateSingletonPost
   attr_accessor :post_type_version, :title
 
   def initialize(post_type_version)

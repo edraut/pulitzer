@@ -6,7 +6,7 @@ class Pulitzer::PostTypesController::CreateTemplateVersion
 
   def call
     post_type_version = @post_type.post_type_versions.create
-    CreateSingletonPost.new(post_type_version).call
+    Pulitzer::PostTypesController::CreateSingletonPost.new(post_type_version).call
   end
 
 end

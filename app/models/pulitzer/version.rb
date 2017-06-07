@@ -58,13 +58,13 @@ module Pulitzer
 
     def required_partials?
       has_all_partials = true
-      free_form_section_types = post.post_type.free_form_section_types
+      free_form_section_types = post.post_type_version.free_form_section_types
       free_form_sections      = self.free_form_sections.where(name: free_form_section_types.pluck(:name))
       free_form_sections.each do |fs|
         free_form_section_type = free_form_section_types.select{|ffst| ffst.name == fs.name }
         partial_types     = free_form_section_type.first.partial_types
         partials          = fs.partials.where(label: partial_types.pluck(:label))
-        has_all_partials = partial_types.all?{|pt| fs.partials.where(post_type_id: pt.post_type_id).any?}
+        has_all_partials = partial_types.all?{|pt| fs.partials.where(post_type_version_id: pt.post_type_version_id).any?}
       end
       has_all_partials
     end

@@ -5,11 +5,12 @@ describe Pulitzer::JustificationStylesController do
   render_views
 
   let(:post_type) { Pulitzer::PostType.create(name: 'partial with various layout styles', kind: Pulitzer::PostType.kinds[:partial], plural: false) }
-  let(:justification_style) { post_type.justification_styles.create(display_name: 'White', css_class_name: 'white') }
+  let(:post_type_version) {post_type.post_type_versions.create}
+  let(:justification_style) { post_type_version.justification_styles.create(display_name: 'White', css_class_name: 'white') }
 
   describe "justification_styles", type: :request do
     it "renders the new form" do
-      get pulitzer.new_justification_style_path(justification_style: {post_type_id: post_type.id})
+      get pulitzer.new_justification_style_path(justification_style: {post_type_version_id: post_type_version.id})
       expect(response.status).to eq 200
       expect(response.body).to match /justification_style\[display_name\]/
     end
@@ -17,7 +18,7 @@ describe Pulitzer::JustificationStylesController do
     it "creates a new justification_style" do
       post pulitzer.justification_styles_path(
         justification_style: {
-          post_type_id: post_type.id,
+          post_type_version_id: post_type_version.id,
           css_class_name: 'pretty-class',
           display_name: 'Pretty Class'})
       expect(response.status).to eq 200
