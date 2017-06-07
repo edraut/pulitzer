@@ -21,7 +21,7 @@ class Pulitzer::PostTypeVersion::Publish
   end
 
   def archive_old_version
-    @old_published.update(status: 'archived') if @old_published.present?
+    @old_published.update(status: 'retired') if @old_published.present?
   end
 
   def get_old_published_version
@@ -29,7 +29,7 @@ class Pulitzer::PostTypeVersion::Publish
   end
 
   def validate_published_post
-    if @post_type_version.posts.none?{|post| post.active_version.present?}
+    if @post_type_version.template? && @post_type_version.posts.none?{|post| post.active_version.present?}
       @post_type_version.errors.add(:base, 'You must publish a post before publishing the post type')
       return false
     end
