@@ -13,13 +13,13 @@
 ActiveRecord::Schema.define(version: 20170602204900) do
 
   create_table "pulitzer_arrangement_styles", force: :cascade do |t|
-    t.integer "post_type_id"
+    t.integer "post_type_version_id"
     t.string  "display_name"
     t.string  "view_file_name"
   end
 
   create_table "pulitzer_background_styles", force: :cascade do |t|
-    t.integer "post_type_id"
+    t.integer "post_type_version_id"
     t.string  "display_name"
     t.string  "css_class_name"
   end
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20170602204900) do
   end
 
   create_table "pulitzer_free_form_section_types", force: :cascade do |t|
-    t.integer "post_type_id"
+    t.integer "post_type_version_id"
     t.string  "name"
     t.integer "sort_order"
   end
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20170602204900) do
   end
 
   create_table "pulitzer_justification_styles", force: :cascade do |t|
-    t.integer "post_type_id"
+    t.integer "post_type_version_id"
     t.string  "display_name"
     t.string  "css_class_name"
   end
@@ -82,11 +82,11 @@ ActiveRecord::Schema.define(version: 20170602204900) do
     t.string  "label"
     t.integer "sort_order"
     t.integer "layout_id"
-    t.integer "post_type_id"
+    t.integer "post_type_version_id"
   end
 
   create_table "pulitzer_partials", force: :cascade do |t|
-    t.integer "post_type_id"
+    t.integer "post_type_version_id"
     t.integer "free_form_section_id"
     t.integer "sort_order"
     t.integer "layout_id"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20170602204900) do
   end
 
   create_table "pulitzer_post_type_content_element_types", force: :cascade do |t|
-    t.integer  "post_type_id"
+    t.integer  "post_type_version_id"
     t.integer  "content_element_type_id"
     t.string   "label"
     t.integer  "height",                  default: 100
@@ -124,6 +124,13 @@ ActiveRecord::Schema.define(version: 20170602204900) do
     t.string   "clickable_kind",          default: "any", null: false
   end
 
+  create_table "pulitzer_post_type_versions", force: :cascade do |t|
+    t.integer "post_type_id"
+    t.integer "version_number",        default: 1,         null: false
+    t.string  "status",                default: "preview", null: false
+    t.index ["post_type_id"], name: "index_pulitzer_post_type_versions_on_post_type_id"
+  end
+
   create_table "pulitzer_post_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",             null: false
@@ -134,16 +141,17 @@ ActiveRecord::Schema.define(version: 20170602204900) do
 
   create_table "pulitzer_posts", force: :cascade do |t|
     t.string   "title"
-    t.integer  "post_type_id"
-    t.string   "status",       default: "unpublished"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "status",               default: "unpublished"
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "slug"
+    t.integer  "post_type_version_id"
+    t.index ["post_type_version_id"], name: "index_pulitzer_posts_on_post_type_version_id"
     t.index ["slug"], name: "index_pulitzer_posts_on_slug", unique: true
   end
 
   create_table "pulitzer_sequence_flow_styles", force: :cascade do |t|
-    t.integer "post_type_id"
+    t.integer "post_type_version_id"
     t.string  "display_name"
     t.string  "css_class_name"
   end
