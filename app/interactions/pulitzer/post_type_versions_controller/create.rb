@@ -11,7 +11,7 @@ class Pulitzer::PostTypeVersionsController::Create
     this_version_number = last_version_number + 1
     @ptv.version_number = this_version_number
     @ptv.save
-    CreateSingletonPost.new(@ptv).call
+    ::Pulitzer::CreateSingletonPost.new(@ptv).call
     @ptv
   end
 
