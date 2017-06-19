@@ -1,10 +1,14 @@
 <div class="pulitzer-row">
   <div class="pulitzer-span one-fifth"><%= arrangement_style.display_name %></div>
   <div class="pulitzer-span one-fifth"><%= arrangement_style.view_file_name %></div>
-  <div class="pulitzer-span ten-percent">
-    <%= ajax_link "Edit", edit_arrangement_style_path(arrangement_style), {}, dom_target(arrangement_style) %>
-  </div>
-  <div class="pulitzer-span ten-percent">
-    <%= ajax_delete 'Delete', arrangement_style_path(arrangement_style), {}, dom_target(arrangement_style) %>
-  </div>
+  <% if arrangement_style.post_type_version.locked? %>
+    <div class="pulitzer-span one-fifth">live</div>
+  <% else %>
+    <div class="pulitzer-span ten-percent">
+      <%= ajax_link "Edit", edit_arrangement_style_path(arrangement_style), {}, dom_target(arrangement_style) %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= ajax_delete 'Delete', arrangement_style_path(arrangement_style), {}, dom_target(arrangement_style) %>
+    </div>
+  <% end %>
 </div>

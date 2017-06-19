@@ -1,0 +1,20 @@
+<div class="pulitzer-row">
+  <ul class="inline-list">
+    <li>Version <%= post_type_version.version_number %></li>
+    <li><%= post_type_version.status_display %></li>
+    <li> <%= ajax_link post_type_version.state_change_display, change_state_post_type_version_path(post_type_version, state_change: post_type_version.state_change), {}, dom_target(post_type_version), http_method: 'PATCH' %>
+    </li>
+    <li>
+      <%= ajax_link 'Template Elements', template_post_type_version_path(post_type_version), {}, dom_target(post_type_version) %>
+    </li>
+    <% unless post_type_version.partial? %>
+      <li><%= link_to_posts(post_type_version, 'Page Index', 'Page Content') %></li>
+    <% end %>
+    <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+      <li>
+        <%= ajax_delete 'Delete', post_type_version_path(post_type_version), {}, dom_target(post_type_version) %>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

@@ -1,12 +1,12 @@
 <div class="pulitzer-row">
-  <%= form_for ffst, html: ajax_form_hash("#free_form_section_types_container_#{dom_id(ffst.post_type)}", insert_method: 'append', empty_on_success: dom_target(ffst.post_type, :new_free_form_section_type)) do |f| %>
-    <%= f.hidden_field :post_type_id %>
+  <%= form_for ffst, html: ajax_form_hash("#free_form_section_types_container_#{dom_id(ffst.post_type_version)}", insert_method: 'append', empty_on_success: dom_target(ffst.post_type_version, :new_free_form_section_type)) do |f| %>
+    <%= f.hidden_field :post_type_version_id %>
     <%= render partial: 'form_fields', locals: { f: f, ffst: ffst } %>
     <div class="pulitzer-span ten-percent">
       <%= f.submit "Create", data: {disable_with: false} %>
     </div>
     <div class="pulitzer-span ten-percent">
-      <a class="button" data-emptier="true" data-target="#new_free_form_section_type_<%= dom_id(ffst.post_type) %>">Close</a>
+      <a class="button" data-emptier="true" data-target="#new_free_form_section_type_<%= dom_id(ffst.post_type_version) %>">Close</a>
     </div>
   <% end %>
 </div>

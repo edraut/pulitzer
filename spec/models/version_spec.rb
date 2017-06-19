@@ -36,8 +36,8 @@ describe Pulitzer::Version do
 
   describe '#required_partials?' do
     let!(:partial_type)           { create(:partial_type) }
-    let(:post_type)               { free_form_section_type.post_type }
-    let!(:post)                   { create(:post, post_type: post_type) }
+    let(:post_type_version)       { free_form_section_type.post_type_version }
+    let!(:post)                   { create(:post, post_type_version: post_type_version) }
     let(:preview_version)         { post.preview_version }
     let(:free_form_section_type)  { partial_type.free_form_section_type }
 

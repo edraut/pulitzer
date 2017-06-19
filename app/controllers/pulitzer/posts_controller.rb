@@ -4,13 +4,13 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   before_action :get_version, only: [:edit_slug, :show_slug, :update_slug]
 
   def index
-    @post_type = Pulitzer::PostType.find params[:post_type_id]
-    @posts = Pulitzer::Post.where(post_type: @post_type).order(id: :desc)
+    @post_type_version = Pulitzer::PostTypeVersion.find params[:post_type_version_id]
+    @posts = Pulitzer::Post.where(post_type_version_id: @post_type_version).order(id: :desc)
     render_ajax
   end
 
   def new
-    @post = Pulitzer::Post.new(post_type_id: params[:post_type_id])
+    @post = Pulitzer::Post.new(post_type_version_id: params[:post_type_version_id])
     render_ajax locals: { post: @post }
   end
 

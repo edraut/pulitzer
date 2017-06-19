@@ -3,7 +3,6 @@ class Pulitzer::SequenceFlowStylesController < Pulitzer::ApplicationController
 
   def new
     @sequence_flow_style = Pulitzer::SequenceFlowStyle.new(sequence_flow_style_params)
-    @post_type = @sequence_flow_style.post_type
     render partial: 'new', locals: {sequence_flow_style: @sequence_flow_style}
   end
 
@@ -12,8 +11,7 @@ class Pulitzer::SequenceFlowStylesController < Pulitzer::ApplicationController
     if @sequence_flow_style.errors.empty?
       render partial: 'show_wrapper', locals: {sequence_flow_style: @sequence_flow_style}
     else
-      @post_type = @sequence_flow_style.post_type
-      render partial: 'new', locals: {sequence_flow_style: @sequence_flow_style}
+      render partial: 'new', locals: {sequence_flow_style: @sequence_flow_style}, status: 409
     end
   end
 

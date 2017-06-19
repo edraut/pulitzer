@@ -7,7 +7,8 @@ describe Pulitzer::PostTypeContentElementTypesController do
   let(:custom_option_list) {Pulitzer::CustomOptionList.find_by name: 'Sliders'}
   let(:cet) {Pulitzer::ContentElementType.find_by name: 'Clickable'}
   let(:post_type) {Pulitzer::PostType.create(name: 'Text and Action', plural: true, kind: :partial)}
-  let(:post_type_content_element_type) {post_type.post_type_content_element_types.create label: 'Action Button', content_element_type_id: cet.id}
+  let(:post_type_version) {post_type.post_type_versions.create(status: :published)}
+  let(:post_type_content_element_type) {post_type_version.post_type_content_element_types.create label: 'Action Button', content_element_type_id: cet.id}
 
   describe "clickable_types", type: :request do
     it "renders the correct options for clickable_kinds" do
@@ -23,7 +24,7 @@ describe Pulitzer::PostTypeContentElementTypesController do
         post_type_content_element_type:{
           label: 'Action Button 2',
           content_element_type_id: cet.id,
-          post_type_id: post_type.id,
+          post_type_version_id: post_type_version.id,
           clickable_kind: 'any'
         }
       )
@@ -31,7 +32,7 @@ describe Pulitzer::PostTypeContentElementTypesController do
       ptcet = Pulitzer::PostTypeContentElementType.order(id: :desc).first
       expect(ptcet.label).to eq 'Action Button 2'
       expect(ptcet.content_element_type_id).to eq cet.id
-      expect(ptcet.post_type_id).to eq post_type.id
+      expect(ptcet.post_type_version_id).to eq post_type_version.id
       expect(ptcet.clickable_kind).to eq 'any'
     end
 
@@ -40,7 +41,7 @@ describe Pulitzer::PostTypeContentElementTypesController do
         post_type_content_element_type:{
           label: 'Action Button 2',
           content_element_type_id: cet.id,
-          post_type_id: post_type.id,
+          post_type_version_id: post_type_version.id,
           clickable_kind: custom_option_list.gid
         }
       )
@@ -48,7 +49,7 @@ describe Pulitzer::PostTypeContentElementTypesController do
       ptcet = Pulitzer::PostTypeContentElementType.order(id: :desc).first
       expect(ptcet.label).to eq 'Action Button 2'
       expect(ptcet.content_element_type_id).to eq cet.id
-      expect(ptcet.post_type_id).to eq post_type.id
+      expect(ptcet.post_type_version_id).to eq post_type_version.id
       expect(ptcet.custom_option_list.id).to eq custom_option_list.id
     end
 
@@ -57,7 +58,7 @@ describe Pulitzer::PostTypeContentElementTypesController do
         post_type_content_element_type:{
           label: 'Action Button 2',
           content_element_type_id: cet.id,
-          post_type_id: post_type.id,
+          post_type_version_id: post_type_version.id,
           clickable_kind: 'url'
         }
       )
@@ -65,7 +66,7 @@ describe Pulitzer::PostTypeContentElementTypesController do
       ptcet = Pulitzer::PostTypeContentElementType.order(id: :desc).first
       expect(ptcet.label).to eq 'Action Button 2'
       expect(ptcet.content_element_type_id).to eq cet.id
-      expect(ptcet.post_type_id).to eq post_type.id
+      expect(ptcet.post_type_version_id).to eq post_type_version.id
       expect(ptcet.clickable_kind).to eq 'url'
     end
 
@@ -86,14 +87,14 @@ describe Pulitzer::PostTypeContentElementTypesController do
         post_type_content_element_type: {
           label: 'Action Button 2',
           content_element_type_id: cet.id,
-          post_type_id: post_type.id,
+          post_type_version_id: post_type_version.id,
           clickable_kind: 'url'
         }
       )
       expect(response.status).to eq 200
       expect(post_type_content_element_type.reload.label).to eq 'Action Button 2'
       expect(post_type_content_element_type.content_element_type_id).to eq cet.id
-      expect(post_type_content_element_type.post_type_id).to eq post_type.id
+      expect(post_type_content_element_type.post_type_version_id).to eq post_type_version.id
       expect(post_type_content_element_type.clickable_kind).to eq 'url'
     end
 

@@ -2,6 +2,7 @@ module Seeds
   module PulitzerPostTypes
     def self.create
       welcome_post_type = Pulitzer::PostType.create( name: "Welcome", plural: true, kind: :template)
+      post_type_version = welcome_post_type.post_type_versions.create(status: :published)
       content_element_type = Pulitzer::ContentElementType.create(name: 'Text')
       image_element_type = Pulitzer::ContentElementType.create(name: 'Image')
       video_element_type = Pulitzer::ContentElementType.create(name: 'Video')
@@ -22,24 +23,27 @@ module Seeds
       ]
 
       content_elements.each do |ce|
-        welcome_post_type.post_type_content_element_types.create ce
+        post_type_version.post_type_content_element_types.create ce
       end
 
       free_forms = [{name: "Main Content"}, {name: "Handpicked Homes"}]
-      free_forms.each{|ff| welcome_post_type.free_form_section_types.create(ff)}
+      free_forms.each{|ff| post_type_version.free_form_section_types.create(ff)}
 
-      welcome_post = Pulitzer::Post.create( title: "Welcome", post_type: welcome_post_type )
+      welcome_post = Pulitzer::Post.create( title: "Welcome", post_type_version: post_type_version )
 
       Pulitzer::CreatePostContentElements.new(welcome_post).call
 
       travel_guide_post_type = Pulitzer::PostType.create( name: "Travel Guides", plural: true, kind: :template)
-      travel_guide = travel_guide_post_type.posts.create( title: 'Complete Guide to Breckenridge')
+      tg_version = travel_guide_post_type.post_type_versions.create(status: :published)
+      travel_guide = tg_version.posts.create( title: 'Complete Guide to Breckenridge')
 
       travel_article_post_type = Pulitzer::PostType.create( name: "Travel Articles", plural: true, kind: :template)
-      travel_article = travel_article_post_type.posts.create( title: 'Ski Jump Competition')
+      ta_version = travel_article_post_type.post_type_versions.create(status: :published)
+      travel_article = ta_version.posts.create( title: 'Ski Jump Competition')
 
       external_article_post_type = Pulitzer::PostType.create( name: "External Articles", plural: true, kind: :template)
-      external_article = external_article_post_type.posts.create( title: 'Why visit Breckenridge')
+      ea_version = external_article_post_type.post_type_versions.create(status: :published)
+      external_article = ea_version.posts.create( title: 'Why visit Breckenridge')
 
       #publish the welcome post
       welcome_post = Pulitzer::Post.find_by title: "Welcome"

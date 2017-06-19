@@ -19,15 +19,17 @@ Pulitzer::Engine.routes.draw do
   end
 
   resources :tags
-  resources :custom_option_lists
-  resources :custom_options
-  
-  resources :post_types do
+  resources :post_types
+  resources :post_type_versions do
     member do
       get :template
+      patch :change_state
     end
   end
 
+  resources :custom_option_lists
+  resources :custom_options
+  
   resources :versions
   resources :content_element_types
   resources :post_type_content_element_types

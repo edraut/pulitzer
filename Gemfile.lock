@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pulitzer (0.14.2)
+    pulitzer (0.15.2)
       carrierwave (< 1.0)
       carrierwave-aws (< 2.0)
       foreign_office (>= 0.9.1, < 1.0)
@@ -56,13 +56,13 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.4)
-    aws-sdk (2.9.29)
-      aws-sdk-resources (= 2.9.29)
-    aws-sdk-core (2.9.29)
+    aws-sdk (2.9.32)
+      aws-sdk-resources (= 2.9.32)
+    aws-sdk-core (2.9.32)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.9.29)
-      aws-sdk-core (= 2.9.29)
+    aws-sdk-resources (2.9.32)
+      aws-sdk-core (= 2.9.32)
     aws-sigv4 (1.0.0)
     builder (3.2.3)
     byebug (8.2.1)
@@ -235,6 +235,7 @@ DEPENDENCIES
   pry-remote (= 0.1.8, < 1.0)
   pulitzer!
   rails-controller-testing
+  rspec (~> 3.5)
   rspec-rails (>= 3.5, < 4.0)
   shoulda-matchers (~> 3.0.0, < 4.0)
   sqlite3 (~> 1.3, < 2.0)

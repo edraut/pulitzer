@@ -1,13 +1,13 @@
 class Pulitzer::CreatePostTypeContentElements
-  attr_accessor :post_type, :ptcet, :old_label
+  attr_accessor :post_type_version, :ptcet, :old_label
 
   def initialize(ptcet)
-    self.post_type  = ptcet.post_type
+    self.post_type_version  = ptcet.post_type_version
     self.ptcet      = ptcet
   end
 
   def call
-    post_type.posts.each do |post|
+    post_type_version.posts.each do |post|
       post.preview_version.content_elements.create do |ce|
         ce.label                          = ptcet.label
         ce.height                         = ptcet.height

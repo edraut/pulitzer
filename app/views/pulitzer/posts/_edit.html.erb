@@ -1,7 +1,8 @@
-<h1>Editing <%= post.title %></h1>
-<div class="pulitzer-row margin-bottom list-item">
-  <%= link_back_to_posts(post.post_type, "Back to #{post.post_type.name.singularize} Posts", 'Back to post types') %>
-</div>
+<%= render partial: '/pulitzer/posts/breadcrumbs', locals: {post_type: post.post_type} %>
+<% if post.plural? %>
+  <%= ajax_link "#{post.post_type.name.singularize} Posts >", pulitzer.posts_path(post_type_version_id: post.post_type_version_id), {}, '[data-tab-id="templates"]' %>
+<% end %>
+<h1>Editing <%= post.editor_title %></h1>
 
 <div id="<%= dom_id(post, :preview_version)%>">
 </div>

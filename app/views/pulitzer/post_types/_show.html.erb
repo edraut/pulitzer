@@ -1,21 +1,16 @@
 <div class="pulitzer-row">
   <div class="pulitzer-row padding">
     <div class="pulitzer-span one-quarter"><%= post_type.name %></div>
-    <% unless post_type.partial? %>
-      <div class="pulitzer-span margin ten-percent"><%= link_to_posts(post_type, 'Index', 'Manage') %></div>
-    <% end %>
     <div class="pulitzer-span ten-percent">
-      <% if 'template' == action_name %>
-        <%= ajax_link 'Template', post_type_path(post_type), {}, dom_target(post_type) %>
+      <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+        <%= ajax_link 'Templates', post_type_versions_path(post_type_id: post_type.id), {}, '[data-tab-id="' + post_type.kind.pluralize + '"]' %>
       <% else %>
-        <%= ajax_link 'Template', template_post_type_path(post_type), {}, dom_target(post_type) %>
+        <%= link_to_posts(post_type.published_type_version, 'Page Index', 'Page Content') %>
       <% end %>
     </div>
     <div class="pulitzer-span ten-percent">
       <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
         <%= ajax_link "Details", edit_post_type_path(post_type), {}, dom_target(post_type) %>
-      <% else %>
-        <%= post_type.name %>
       <% end %>
     </div>
     <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
@@ -24,5 +19,4 @@
       </div>
     <% end %>
   </div>
-
 </div>

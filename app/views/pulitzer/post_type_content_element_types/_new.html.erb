@@ -1,11 +1,11 @@
 <div class="pulitzer-row">
-  <%= form_for ptcet, html: ajax_form_hash("#post_type_content_element_types_container_#{dom_id(ptcet.post_type)}", insert_method: 'append', reset_on_success: true) do |f| %>
+  <%= form_for ptcet, html: ajax_form_hash("#post_type_content_element_types_container_#{dom_id(ptcet.post_type_version)}", insert_method: 'append', reset_on_success: true) do |f| %>
     <%= render partial: 'form_fields', locals: { f: f, ptcet: ptcet } %>
     <div class="pulitzer-span ten-percent">
       <%= f.submit "Create", data: { disable_with: false } %>
     </div>
     <div class="pulitzer-span ten-percent">
-      <a class="button" data-emptier="true" data-target="#new_post_type_content_element_type_<%= dom_id(ptcet.post_type)%>" >Close</a>
+      <a class="button" data-emptier="true" data-target="#new_post_type_content_element_type_<%= dom_id(ptcet.post_type_version)%>" >Close</a>
     </div>
   <% end %>
 </div>

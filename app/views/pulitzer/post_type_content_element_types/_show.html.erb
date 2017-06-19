@@ -18,8 +18,12 @@
     <%= ptcet.sort_order %>
   </div>
   <div class="pulitzer-span ten-percent">
-    <%= ajax_link "Edit", edit_post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %> |
-    <%= ajax_delete 'Delete', post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
+    <% if ptcet.post_type_version.locked? %>
+      live
+    <% else %>
+      <%= ajax_link "Edit", edit_post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %> |
+      <%= ajax_delete 'Delete', post_type_content_element_type_path(ptcet), {}, dom_target(ptcet) %>
+    <% end %>
   </div>
   <div id="<%= dom_id(ptcet, :styles_container) %>"></div>
 </div>
