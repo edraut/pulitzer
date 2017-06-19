@@ -21,6 +21,9 @@ module Dummy
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     Rails.application.config.assets.precompile += %w( pulitzer/pulitzer.css )
+    config.autoload_paths += %W(
+        #{Rails.root}/lib
+        )
   end
 end
 

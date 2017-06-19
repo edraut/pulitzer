@@ -11,9 +11,9 @@ module Pulitzer
       end
     end
 
-    def link_back_to_posts(post_type, plural_label, singular_label)
-      if post_type.plural?
-        ajax_link plural_label, pulitzer.posts_path(post_type_id: post_type.id), {}, '[data-tab-id="templates"]'
+    def link_back_to_posts(post_type_version, plural_label, singular_label)
+      if post_type_version.plural?
+        ajax_link plural_label, pulitzer.posts_path(post_type_version_id: post_type_version.id), {}, '[data-tab-id="templates"]'
       else
         ajax_link singular_label, pulitzer.post_types_path, {}, '[data-tab-id="templates"]'
       end

@@ -5,13 +5,11 @@
       <%= tab_trigger('tags')%>>
       Tags
     </div>
-  <% end %>
-  <div class="pulitzer-pill"
-    href="<%= post_types_path(post_type_kind: 'template') %>"
-    <%= tab_trigger('templates')%>>
-    Full Page Templates
-  </div>
-  <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+    <div class="pulitzer-pill"
+      href="<%= post_types_path(post_type_kind: 'template') %>"
+      <%= tab_trigger('templates')%>>
+      Full Page Templates
+    </div>
     <div class="pulitzer-pill"
       href="<%= post_types_path(post_type_kind: 'partial') %>"
       <%= tab_trigger('partials')%>>
@@ -22,13 +20,18 @@
       <%= tab_trigger('options')%>>
       Clickable Options
     </div>
+  <% else %>
+    <div class="hidden"
+      href="<%= post_types_path(post_type_kind: 'template') %>"
+      <%= tab_trigger('templates')%>>
+    </div>  
   <% end %>
 </div>
 <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
   <div class="pulitzer-row" <%= tab_content('tags') %>></div>
-<% end %>
-<div class="pulitzer-row" <%= tab_content('templates') %>></div>
-<% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+  <div class="pulitzer-row" <%= tab_content('templates') %>></div>
   <div class="pulitzer-row" <%= tab_content('partials') %>></div>
   <div class="pulitzer-row" <%= tab_content('options') %>></div>
+<% else %>
+  <div class="pulitzer-row" <%= tab_content('templates') %>></div>
 <% end %>

@@ -20,16 +20,12 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def create
     @post_type = Pulitzer::PostType.create(post_type_params)
-    Pulitzer::CreateSingletonPost.new(@post_type).call
+    CreateTemplateVersion.new(@post_type).call
     render partial: 'show_wrapper', locals: {post_type: @post_type}
   end
 
   def show
     render partial: 'show', locals: {post_type: @post_type}
-  end
-
-  def template
-    render_ajax locals: {post_type: @post_type}
   end
 
   def edit

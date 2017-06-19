@@ -1,0 +1,15 @@
+<%= ajax_link '> all ' + @post_type.kind.pluralize + ' > ', post_types_path(post_type_kind: @post_type.kind), {}, '[data-tab-id="' + @post_type.kind.pluralize + '"]' %>
+<h3>"<%= @post_type.name %>" Template Versions</h3>
+<div class="pulitzer-row margin-bottom list-item">
+  <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
+    <%= ajax_link "create a new version of this template",
+          post_type_versions_path(post_type_version: {post_type_id: @post_type.id}),
+          {}, '#post_type_versions_container', http_method: 'POST', insert_method: 'append' %>
+  <% end %>
+</div>
+
+<div id="post_type_versions_container">
+  <% @post_type_versions.each do |post_type_version| %>
+    <%= render partial: 'show_wrapper', locals: {post_type_version: post_type_version} %>
+  <% end %>
+</div>

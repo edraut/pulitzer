@@ -10,7 +10,8 @@ class PagesController < ApplicationController
 #Pulitzer Generated Actions
 
   def welcome
-    @post = Pulitzer::PostType.named('Welcome').posts.find_by!(slug: params[:slug]).get_active_version!
+    post_type_version = Pulitzer::PostType.named('Welcome').published_type_version
+    @post = post_type_version.posts.find_by!(slug: params[:slug]).get_active_version!
   end
 
 end

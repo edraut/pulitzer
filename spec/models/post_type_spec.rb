@@ -12,12 +12,6 @@ describe Pulitzer::PostType do
     it { should validate_presence_of(:kind) }
   end
 
-  describe "ActiveRecord associations" do
-    it { should have_many(:posts).dependent(:destroy) }
-    it { should have_many(:post_type_content_element_types).dependent(:destroy) }
-    it { should have_many(:content_element_types).through(:post_type_content_element_types) }
-  end
-
   describe 'ActiveRecord enums' do
     it { should define_enum_for(:kind).
       with([:template, :partial]) }

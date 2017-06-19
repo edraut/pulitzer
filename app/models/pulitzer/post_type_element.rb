@@ -5,7 +5,7 @@ module Pulitzer
     end
 
     def highest_sibling_sort
-      self.post_type.highest_element_sort
+      self.post_type_version.highest_element_sort
     end
 
     def handle_sort_order

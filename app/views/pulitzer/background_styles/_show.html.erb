@@ -1,10 +1,14 @@
 <div class="pulitzer-row">
   <div class="pulitzer-span one-fifth"><%= background_style.display_name %></div>
   <div class="pulitzer-span one-fifth"><%= background_style.css_class_name %></div>
-  <div class="pulitzer-span ten-percent">
-    <%= ajax_link "Edit", edit_background_style_path(background_style), {}, dom_target(background_style) %>
-  </div>
-  <div class="pulitzer-span ten-percenth">
-    <%= ajax_delete 'Delete', background_style_path(background_style), {}, dom_target(background_style) %>
-  </div>
+  <% if background_style.post_type_version.locked? %>
+    <div class="pulitzer-span one-fifth">live</div>
+  <% else %>
+    <div class="pulitzer-span ten-percent">
+      <%= ajax_link "Edit", edit_background_style_path(background_style), {}, dom_target(background_style) %>
+    </div>
+    <div class="pulitzer-span ten-percenth">
+      <%= ajax_delete 'Delete', background_style_path(background_style), {}, dom_target(background_style) %>
+    </div>
+  <% end %>
 </div>

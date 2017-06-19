@@ -3,7 +3,6 @@ class Pulitzer::BackgroundStylesController < Pulitzer::ApplicationController
 
   def new
     @background_style = Pulitzer::BackgroundStyle.new(background_style_params)
-    @post_type = @background_style.post_type
     render partial: 'new', locals: {background_style: @background_style}
   end
 
@@ -12,8 +11,7 @@ class Pulitzer::BackgroundStylesController < Pulitzer::ApplicationController
     if @background_style.errors.empty?
       render partial: 'show_wrapper', locals: {background_style: @background_style}
     else
-      @post_type = @background_style.post_type
-      render partial: 'new', locals: {background_style: @background_style}
+      render partial: 'new', locals: {background_style: @background_style}, status: 409
     end
   end
 

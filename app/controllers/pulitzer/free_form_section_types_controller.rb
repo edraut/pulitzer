@@ -2,14 +2,14 @@ class Pulitzer::FreeFormSectionTypesController < Pulitzer::ApplicationController
   before_action :get_ffst, only: [:show, :edit, :update, :destroy]
 
   def new
-    @post_type = Pulitzer::PostType.find(params[:post_type_id])
-    @ffst = @post_type.free_form_section_types.build
+    @post_type_version = Pulitzer::PostTypeVersion.find(params[:post_type_version_id])
+    @ffst = @post_type_version.free_form_section_types.build
     render partial: 'new', locals: {ffst: @ffst}
   end
 
   def create
-    @post_type = Pulitzer::PostType.find(ffst_params[:post_type_id])
-    @ffst = @post_type.free_form_section_types.create(ffst_params)
+    @post_type_version = Pulitzer::PostTypeVersion.find(ffst_params[:post_type_version_id])
+    @ffst = @post_type_version.free_form_section_types.create(ffst_params)
     Pulitzer::CreatePostTypeFreeFormSections.new(@ffst).call
     render partial: 'show_wrapper', locals: {ffst: @ffst}
   end

@@ -1,15 +1,16 @@
 module Pulitzer
   class Partial < ActiveRecord::Base
     belongs_to :free_form_section
-    belongs_to :post_type
+    belongs_to :post_type_version
     belongs_to :background_style
     belongs_to :justification_style
     belongs_to :sequence_flow_style
     belongs_to :arrangement_style
+    has_one :post_type, through: :post_type_version
     
     has_many :content_elements, dependent: :destroy
 
-    delegate :name, :post_type_content_element_types, :has_display?, to: :post_type
+    delegate :name, :post_type_content_element_types, :has_display?, :post_type_id, :version_number, to: :post_type_version
     delegate :template_path, to: :layout, allow_nil: true
 
     before_save :handle_sort_order
@@ -37,23 +38,27 @@ module Pulitzer
     end
 
     def available_backgrounds
-      post_type.background_styles
+      post_type_version.background_styles
     end
 
     def available_justifications
-      post_type.justification_styles
+      post_type_version.justification_styles
     end
 
     def available_sequence_flows
-      post_type.sequence_flow_styles
+      post_type_version.sequence_flow_styles
     end
 
     def available_arrangements
-      post_type.arrangement_styles
+      post_type_version.arrangement_styles
     end
 
     def folder_path
       name.downcase.gsub(/ /,'_').gsub(/\W/,'')      
+    end
+
+    def version_folder
+      "v_#{version_number}"
     end
 
     def template_path
@@ -65,7 +70,7 @@ module Pulitzer
     end
 
     def full_view_path
-      Pulitzer.partial_folder + '/' + folder_path + '/' + template_path
+      File.join Pulitzer.partial_folder, folder_path, version_folder, template_path
     end
 
     def clone_me

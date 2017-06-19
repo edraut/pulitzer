@@ -2,7 +2,7 @@ module Pulitzer
   class PostTypeContentElementType < ActiveRecord::Base
     include Pulitzer::PostTypeElement
     
-    belongs_to :post_type
+    belongs_to :post_type_version
     belongs_to :content_element_type
     has_many :styles
     

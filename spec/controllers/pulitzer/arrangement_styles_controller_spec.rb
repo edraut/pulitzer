@@ -5,11 +5,12 @@ describe Pulitzer::ArrangementStylesController do
   render_views
 
   let(:post_type) { Pulitzer::PostType.create(name: 'partial with various layout styles', kind: Pulitzer::PostType.kinds[:partial], plural: false) }
-  let(:arrangement_style) { post_type.arrangement_styles.create(display_name: 'White', view_file_name: 'white') }
+  let(:post_type_version) {post_type.post_type_versions.create}
+  let(:arrangement_style) { post_type_version.arrangement_styles.create(display_name: 'White', view_file_name: 'white') }
 
   describe "arrangement_styles", type: :request do
     it "renders the new form" do
-      get pulitzer.new_arrangement_style_path(arrangement_style: {post_type_id: post_type.id})
+      get pulitzer.new_arrangement_style_path(arrangement_style: {post_type_version_id: post_type_version.id})
       expect(response.status).to eq 200
       expect(response.body).to match /arrangement_style\[display_name\]/
     end
@@ -17,7 +18,7 @@ describe Pulitzer::ArrangementStylesController do
     it "creates a new arrangement_style" do
       post pulitzer.arrangement_styles_path(
         arrangement_style: {
-          post_type_id: post_type.id,
+          post_type_version_id: post_type_version.id,
           view_file_name: 'pretty-arrangement',
           display_name: 'Pretty Arrangement'})
       expect(response.status).to eq 200
