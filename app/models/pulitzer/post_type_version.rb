@@ -1,5 +1,6 @@
 class Pulitzer::PostTypeVersion < ActiveRecord::Base
   include StateMachine::Model
+  include ForeignOffice::Broadcaster if defined? ForeignOffice
 
   belongs_to :post_type
   has_many :posts, dependent: :destroy
@@ -11,6 +12,7 @@ class Pulitzer::PostTypeVersion < ActiveRecord::Base
   has_many :justification_styles, dependent: :destroy
   has_many :sequence_flow_styles, dependent: :destroy
   has_many :arrangement_styles, dependent: :destroy
+  attr_accessor :processed_element_count
 
   delegate :name, :kind, :partial?, :template?, :plural, :plural?, to: :post_type
 
