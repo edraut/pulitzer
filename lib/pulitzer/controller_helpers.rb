@@ -5,5 +5,26 @@ module Pulitzer
         action_name,
         "v_#{version_number.to_s}.html.erb"
     end
+
+    def get_active_post(post_type_name)
+      @post_type_version = Pulitzer::PostType.named(post_type_name).published_type_version
+      @post = get_post_for_version(@post_type_version)
+      return @post, @post_type_version
+    end
+
+    def get_preview_post(post_type_name)
+      @post_type_version = Pulitzer::PostType.named(post_type_name).post_type_versions.find_by(version_number: params[:version_number])
+      @post = get_post_for_version(@post_type_version)
+      return @post, @post_type_version
+    end
+
+    def get_post_for_version(ptv)
+      if ptv.plural?
+        ptv.posts.find_by!(slug: params[:slug]).get_active_version!
+      else
+        ptv.singleton_post.get_active_version!
+      end
+    end
+
   end
 end
