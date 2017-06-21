@@ -8,7 +8,11 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
       @post_type_kind = 'template'
     end
     if request.xhr?
-      @post_types = Pulitzer::PostType.send(@post_type_kind).order(name: :asc)
+      if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure)
+        @post_types = Pulitzer::PostType.send(@post_type_kind).order(name: :asc)
+      else
+        @post_types = Pulitzer::PostType.send(@post_type_kind).joins(:post_type_versions).where(pulitzer_post_type_versions: {status: 'published'}).distinct.order(name: :asc)
+      end
       render_ajax
     end
   end
