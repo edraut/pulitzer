@@ -1,15 +1,16 @@
 class Pulitzer::CloneVersion
   include Pulitzer::Engine.routes.url_helpers
 
-  def initialize(version)
+  def initialize(version, new_version = nil)
     @version = version
     @post = @version.post
+    @new_version = new_version
     Rails.logger.info("Pulitzer::CloneVersion !!! ")
     Rails.logger.info($0)
   end
 
   def call
-    new_version = @post.processing_version
+    new_version = @new_version || @post.processing_version
     cloning_errors = []
     new_version.processed_element_count = 0
     @version.content_elements.each do |ce|
@@ -44,7 +45,9 @@ class Pulitzer::CloneVersion
       new_version.processed_element_count += 1
       new_version.broadcast_change if defined? ForeignOffice
     end
-    @post.new_preview_version = edit_version_path(new_version)
+    unless @new_version
+      @post.new_preview_version = edit_version_path(new_version)
+    end
     new_version.processed_element_count += 1
     new_version.broadcast_change if defined? ForeignOffice
     @post.broadcast_change if defined? ForeignOffice
