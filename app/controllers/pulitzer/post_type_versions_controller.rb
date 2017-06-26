@@ -1,5 +1,5 @@
 class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
-  before_filter :get_post_type_version, except: [:index, :new, :create]
+  before_action :get_post_type_version, except: [:index, :new, :create]
 
   def index
     @post_type = Pulitzer::PostType.find(params[:post_type_id])
