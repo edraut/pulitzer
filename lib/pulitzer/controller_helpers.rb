@@ -19,10 +19,14 @@ module Pulitzer
     end
 
     def get_post_for_version(ptv,status)
-      if ptv.plural?
-        ptv.posts.find_by!(slug: params[:slug]).send "get_#{status}_version!"
+      if ptv.present?
+        if ptv.plural?
+          ptv.posts.find_by!(slug: params[:slug]).send "get_#{status}_version!"
+        else
+          ptv.singleton_post.get_active_version!
+        end
       else
-        ptv.singleton_post.get_active_version!
+        nil
       end
     end
 
