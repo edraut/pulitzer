@@ -3,7 +3,7 @@ class Pulitzer::CreatePostTypeContentElements
 
   def initialize(ptcet)
     self.post_type_version  = ptcet.post_type_version
-    self.ptcet      = ptcet
+    self.ptcet              = ptcet
   end
 
   def call

@@ -6,9 +6,11 @@
           post_type_versions_path(post_type_version: {post_type_id: @post_type.id}),
           {}, '#post_type_versions_container', http_method: 'POST', insert_method: 'append' %>
   <br>
-  <%= ajax_link "Clone the published version of this template",
-        clone_post_type_versions_path(post_type_version: {post_type_id: @post_type.id}), {}, '#post_type_versions_container',
-        http_method: 'POST', insert_method: 'append' %>
+  <% if @post_type.published_type_version %>
+    <%= ajax_link "Clone the published version of this template",
+          clone_post_type_versions_path(post_type_version: {post_type_id: @post_type.id}), {}, '#post_type_versions_container',
+          http_method: 'POST', insert_method: 'append' %>
+    <% end %>
   <% end %>
 </div>
 

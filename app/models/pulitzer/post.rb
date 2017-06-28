@@ -24,7 +24,7 @@ module Pulitzer
     end
 
     def clonable_versions
-      versions.where(status: 'active').or(versions.where(status: 'preview'))
+      versions.where(status: ['active','preview'])
     end
 
     def tags
