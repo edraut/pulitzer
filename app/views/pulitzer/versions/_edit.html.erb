@@ -39,7 +39,6 @@
       <% end %>
     </div>
   </div>
-
   <% version.all_elements.each do |element| %>
     <%= render partial: "/pulitzer/#{element.class.table_name.gsub(/pulitzer_/,'')}/show_wrapper", locals: { element: element } %>
   <% end %>
@@ -47,10 +46,14 @@
     <%= render partial: 'pulitzer/versions/form', locals: { version: version } %>
   </div>
   <div class="preview-link">
-    <% if @preview_path %>
+    <% if @preview_path && !version.empty_required_content_elements? %>
       <%= link_to "Preview", @preview_path, target: '_blank' %>
     <% else %>
-      <small>Preview not available</small>
+      <small>Preview not available.
+        <% if version.empty_required_content_elements? %>
+          Missing required content
+        <% end %>
+      </small>
     <% end %>
   </div>
 <% end %>
