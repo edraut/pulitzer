@@ -46,11 +46,11 @@
     <%= render partial: 'pulitzer/versions/form', locals: { version: version } %>
   </div>
   <div class="preview-link">
-    <% if @preview_path && !version.empty_required_content_elements? %>
+    <% if @preview_path && version.publishable? %>
       <%= link_to "Preview", @preview_path, target: '_blank' %>
     <% else %>
       <small>Preview not available.
-        <% if version.empty_required_content_elements? %>
+        <% if !version.publishable? %>
           Missing required content
         <% end %>
       </small>

@@ -52,6 +52,10 @@ module Pulitzer
         processed_element_count: self.processed_element_count
     end
 
+    def publishable?
+      !empty_required_content_elements? && required_partials?
+    end
+
     def empty_required_content_elements?
       content_elements.required.select{|ce| ce.empty_body?}.any? || free_form_sections.includes(partials: :content_elements).map(&:partials).flatten.map(&:content_elements).flatten.select{|ce| ce.empty_body? && ce.required?}.any?
     end
