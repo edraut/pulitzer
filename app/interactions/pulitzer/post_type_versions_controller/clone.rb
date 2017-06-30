@@ -5,7 +5,7 @@ class Pulitzer::PostTypeVersionsController::Clone
   end
 
   def call
-    new_post_type_version = Pulitzer::PostTypeVersionsController::Create.new(@params).call
+    new_post_type_version = Pulitzer::PostTypeVersionsController::Create.new(@params, false).call
     published_type_version = new_post_type_version.post_type.published_type_version
     cloning_errors = []
     new_post_type_version.processed_element_count = 0
