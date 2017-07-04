@@ -1,5 +1,5 @@
 module Pulitzer
-  class CloneVersionJob < ActiveJob::Base
+  class ClonePostTypeVersion < ActiveJob::Base
     queue_as Pulitzer.clone_queue
 
     def perform(post_type_version_params)

@@ -38,8 +38,10 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
   end
 
   def clone
-    @post_type_version = Clone.new(post_type_version_params).call
-    render partial: 'show_wrapper', locals: {post_type_version: @post_type_version}
+    post_type_version = Pulitzer::PostTypeVersionsController::Create.new(post_type_version_params, false).call
+    post_type_version.processing!
+    Pulitzer::ClonePostTypeVersion.perform_later(post_type_version)
+    render_ajax locals: {post_type_version: post_type_version, post_type: post_type_version.post_type}
   end
 
   protected
