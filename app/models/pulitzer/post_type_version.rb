@@ -1,6 +1,7 @@
 class Pulitzer::PostTypeVersion < ActiveRecord::Base
   include StateMachine::Model
   include ForeignOffice::Broadcaster if defined? ForeignOffice
+  enum processing_status: [ :unprocessed, :processing, :processing_failed, :processed ]
 
   belongs_to :post_type
   has_many :posts, dependent: :destroy
@@ -12,7 +13,7 @@ class Pulitzer::PostTypeVersion < ActiveRecord::Base
   has_many :justification_styles, dependent: :destroy
   has_many :sequence_flow_styles, dependent: :destroy
   has_many :arrangement_styles, dependent: :destroy
-  attr_accessor :processed_element_count
+  attr_accessor :processed_element_count, :finished_processing
 
   delegate :name, :kind, :partial?, :template?, :plural, :plural?, to: :post_type
 
@@ -82,5 +83,15 @@ class Pulitzer::PostTypeVersion < ActiveRecord::Base
 
   def state_change_display
     state_change.to_s.humanize
+  end
+
+  def serialize
+    self.attributes.merge \
+      processed_element_count: self.processed_element_count,
+      finished_processing: self.finished_processing
+  end
+
+  def published_posts_count
+    post_type.published_type_version.posts.count
   end
 end
