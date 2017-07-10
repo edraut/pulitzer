@@ -1,7 +1,8 @@
 class Pulitzer::PostTypeVersionsController::Create
 
-  def initialize(params)
+  def initialize(params, create_post=true)
     @params = params.to_h.to_hash.symbolize_keys
+    @create_post = create_post
   end
 
   def call
@@ -11,7 +12,7 @@ class Pulitzer::PostTypeVersionsController::Create
     this_version_number = last_version_number + 1
     @ptv.version_number = this_version_number
     @ptv.save
-    ::Pulitzer::CreateSingletonPost.new(@ptv).call
+    ::Pulitzer::CreateSingletonPost.new(@ptv).call if @create_post
     @ptv
   end
 

@@ -1,0 +1,14 @@
+<div class="pulitzer-row margin-bottom" id="<%= dom_id(post_type_version) %>">
+  <% if post_type_version.processing_failed? %>
+    <div class="pulitzer-row">
+      There was a problem cloning this post type version.
+    </div>
+  <% elsif post_type_version.processing? %>
+    <p>Cloning posts for <%= post_type_version.full_name %> </p>
+    <div class="pulitzer-row">
+      <progress value="1" max="<%= post_type_version.published_posts_count + 1 %>" <%= listener_attrs post_type_version, :processed_element_count if defined? ForeignOffice %>></progress>
+    </div>
+    <a <%= listener_attrs post_type_version, :finished_processing, trigger: true if defined? ForeignOffice %>
+       <%= ajax_link_attrs(dom_target(post_type_version)) %> > </a>
+  <% end %>
+</div>

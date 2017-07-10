@@ -21,6 +21,9 @@ Pulitzer::Engine.routes.draw do
   resources :tags
   resources :post_types
   resources :post_type_versions do
+    collection do
+      post :clone
+    end
     member do
       get :template
       patch :change_state
@@ -29,7 +32,7 @@ Pulitzer::Engine.routes.draw do
 
   resources :custom_option_lists
   resources :custom_options
-  
+
   resources :versions
   resources :content_element_types
   resources :post_type_content_element_types
