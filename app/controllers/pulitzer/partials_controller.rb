@@ -46,6 +46,7 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
   end
 
   def upgrade
+    partials = UpgradePartialVersion.new(@partial).call
     head :ok
   end
 

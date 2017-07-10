@@ -89,6 +89,5 @@ module Pulitzer
     def upgradable?
       version_number < (post_type_version&.post_type&.post_type_versions&.maximum(:version_number) || 0)
     end
-
   end
 end
