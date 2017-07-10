@@ -45,6 +45,10 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
     head :ok
   end
 
+  def upgrade
+    head :ok
+  end
+
   protected
 
   def partial_params
