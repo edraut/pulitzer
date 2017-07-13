@@ -15,7 +15,7 @@
 </div>
 <div class="pulitzer-row margin-bottom">
   <% if partial.upgradable? %>
-      <%= ajax_link "Upgrade #{partial.label} to the last partial version", upgrade_partial_path(partial), {class: 'button'}, dom_id(partial), http_method: 'PATCH' %>
+      <%= ajax_link "Upgrade #{partial.label} to the last partial version", upgrade_partial_path(partial), {class: 'button'}, dom_target(partial), http_method: 'PATCH' %>
   <% end %>
 </div>
 <div <%= collapsed(dom_id(partial)) %>>
