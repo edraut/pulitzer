@@ -6,7 +6,7 @@ class Pulitzer::PartialsController::UpgradePartialVersion
   end
 
   def call
-    most_recent_partial_version = @partial.post_type_version.post_type.most_recent_post_type_version
+    most_recent_partial_version = @partial.post_type_version.post_type.most_recent_published_post_type_version
     new_partial = @free_form_section.partials.create(label: @partial.label, post_type_version_id: most_recent_partial_version.id)
     Pulitzer::CreatePartialContentElements.new(new_partial).call
     content_elements = new_partial.content_elements.to_a

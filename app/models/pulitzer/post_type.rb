@@ -17,7 +17,7 @@ class Pulitzer::PostType < ActiveRecord::Base
     published_type_version&.id
   end
 
-  def most_recent_post_type_version
-    post_type_versions.order(version_number: :desc)&.first
+  def most_recent_published_post_type_version
+    post_type_versions&.published&.order(version_number: :desc)&.first
   end
 end
