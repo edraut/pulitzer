@@ -23,6 +23,10 @@ module Pulitzer
       versions.find_by!(status: Pulitzer::Version.statuses[:active])
     end
 
+    def clonable_versions
+      versions.where(status: ['active','preview'])
+    end
+
     def tags
       post_tags.map(&:label)
     end

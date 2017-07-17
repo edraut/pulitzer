@@ -1,11 +1,11 @@
 module Pulitzer
   class PostTypeContentElementType < ActiveRecord::Base
     include Pulitzer::PostTypeElement
-    
+
     belongs_to :post_type_version
     belongs_to :content_element_type
     has_many :styles
-    
+
     before_save :handle_sort_order
 
     delegate :type, :image_type?, :has_styles?, to: :content_element_type
@@ -80,6 +80,13 @@ module Pulitzer
 
     def first_style
       styles.first
+    end
+
+    def clone_me
+      clone_attrs = self.attributes.dup
+      clone_attrs.delete 'id'
+      clone_attrs.delete 'post_type_version_id'
+      Pulitzer::PostTypeContentElementType.new(clone_attrs)
     end
 
   end

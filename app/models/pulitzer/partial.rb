@@ -7,7 +7,7 @@ module Pulitzer
     belongs_to :sequence_flow_style
     belongs_to :arrangement_style
     has_one :post_type, through: :post_type_version
-    
+
     has_many :content_elements, dependent: :destroy
 
     delegate :name, :post_type_content_element_types, :has_display?, :post_type_id, :version_number, to: :post_type_version
@@ -54,7 +54,7 @@ module Pulitzer
     end
 
     def folder_path
-      name.downcase.gsub(/ /,'_').gsub(/\W/,'')      
+      name.downcase.gsub(/ /,'_').gsub(/\W/,'')
     end
 
     def version_folder
@@ -86,5 +86,8 @@ module Pulitzer
       my_clone
     end
 
+    def upgradable?
+      version_number < (post_type_version&.post_type&.post_type_versions&.published&.maximum(:version_number) || 0)
+    end
   end
 end

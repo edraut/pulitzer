@@ -1,5 +1,5 @@
 class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
-  before_action :get_post_type_version, except: [:index, :new, :create]
+  before_action :get_post_type_version, except: [:index, :new, :create, :clone]
 
   def index
     @post_type = Pulitzer::PostType.find(params[:post_type_id])
@@ -35,6 +35,13 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
         html: render_to_string(partial: 'show', locals: {post_type_version: @post_type_version}) },
         status: :conflict
     end
+  end
+
+  def clone
+    post_type_version = Pulitzer::PostTypeVersionsController::Create.new(post_type_version_params, false).call
+    post_type_version.processing!
+    Pulitzer::ClonePostTypeVersion.perform_later(post_type_version)
+    render_ajax locals: {post_type_version: post_type_version, post_type: post_type_version.post_type}
   end
 
   protected

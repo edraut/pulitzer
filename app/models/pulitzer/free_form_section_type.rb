@@ -10,5 +10,12 @@ module Pulitzer
       partial_types.first
     end
 
+    def clone_me
+      clone_attrs = self.attributes.dup
+      clone_attrs.delete 'id'
+      clone_attrs.delete 'post_type_version_id'
+      Pulitzer::FreeFormSectionType.new(clone_attrs)
+    end
+
   end
 end
