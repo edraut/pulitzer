@@ -17,6 +17,8 @@ class Pulitzer::PostTypeVersion < ActiveRecord::Base
 
   delegate :name, :kind, :partial?, :template?, :plural, :plural?, to: :post_type
 
+  scope :published, -> { where(status: 'published') }
+
   register_transitions({
     previewing_service: Preview,
     publishing_service: Publish,

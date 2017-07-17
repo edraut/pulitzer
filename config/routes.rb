@@ -16,6 +16,9 @@ Pulitzer::Engine.routes.draw do
     collection do
       patch :update_all
     end
+    member do
+      patch :upgrade
+    end
   end
 
   resources :tags

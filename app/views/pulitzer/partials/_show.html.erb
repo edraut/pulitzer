@@ -13,6 +13,11 @@
     <%= render partial: '/pulitzer/shared/drag_handle' %>
   </div>
 </div>
+<div class="pulitzer-row margin-bottom">
+  <% if partial.upgradable? %>
+      <%= ajax_link "Upgrade #{partial.label} to the last partial version", upgrade_partial_path(partial), {class: 'button'}, dom_target(partial), http_method: 'PATCH' %>
+  <% end %>
+</div>
 <div <%= collapsed(dom_id(partial)) %>>
 <%= render partial: '/pulitzer/content_elements/partial_index', locals: {partial: partial} %>
 </div>
