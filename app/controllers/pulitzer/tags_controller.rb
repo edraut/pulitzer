@@ -54,7 +54,7 @@ module Pulitzer
 
     def render_not_found(e)
       Rails.logger.warn("Rendering 404 because #{e.inspect}")
-      head :ok and return, status: :not_found
+      head :not_found
     end
 
     def tag_params

@@ -8,9 +8,8 @@ describe Pulitzer::PostTag do
   end
 
   describe "Active Model validations" do
-    it { should validate_presence_of(:version_id) }
-    it { should validate_presence_of(:label_id) }
-    it { should validate_presence_of(:label_type) }
+    it { should validate_presence_of(:version) }
+    it { should validate_presence_of(:label) }
   end
 
   describe "ActiveRecord associations" do
