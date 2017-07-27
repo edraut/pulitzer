@@ -2,10 +2,22 @@
 <h1><%= @post_type_version.name.singularize %> Post</h1>
 
 <div class="pulitzer-row margin-bottom list-item">
-  <br>
-  <%= ajax_link "Add a new #{@post_type_version.name.singularize} Post", new_post_path(post_type_version_id: params[:post_type_version_id]), {}, '#new_post' %>
-  <div id="new_post"></div>
+  <div class="pulitzer-span one-quarter margin">
+    <%= ajax_link "Add a new #{@post_type_version.name.singularize} Post", new_post_path(post_type_version_id: params[:post_type_version_id]), {}, '#new_post' %>
+  </div>
+  <!-- Incomplete, needs a post exporter that can handle partial links to their templates, styles, etc.
+  <div class="pulitzer-span one-quarter">
+    <div class="pulitzer-span">Import a Post</div>
+    <div class="pulitzer-span">
+      <%#= form_for @post_type_version, url: import_post_post_type_version_path(@post_type_version), html: ajax_form_hash('#post_type_versions_container', insert_method: 'append').merge( multipart: true, method: 'PATCH') do |f| %>
+        <%#= f.file_field :import_json %>
+        <%#= f.submit 'Import', import_post_submit_hash(@post_type_version) %>
+      <%# end %>
+    </div>
+  </div>
+-->
 </div>
+<div class="pulitzer-row" id="new_post"></div>
 
 <div id="posts_container">
   <% @posts.each do |post| %>

@@ -34,7 +34,7 @@ class Pulitzer::BackgroundStylesController < Pulitzer::ApplicationController
 
   def destroy
     @background_style.destroy
-    head :ok
+    head :ok and return
   end
 
   protected

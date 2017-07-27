@@ -1,5 +1,5 @@
 module Pulitzer
-  class CustomOptionList < ActiveRecord::Base
+  class CustomOptionList < Pulitzer::ApplicationRecord
     belongs_to :content_element_type
     has_many :custom_options
 

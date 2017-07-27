@@ -26,7 +26,7 @@ class Pulitzer::StylesController < Pulitzer::ApplicationController
 
   def destroy
     @style.destroy
-    head :ok
+    head :ok and return
   end
 
   protected

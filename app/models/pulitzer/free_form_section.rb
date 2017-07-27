@@ -1,11 +1,29 @@
 module Pulitzer
-  class FreeFormSection < ActiveRecord::Base
+  class FreeFormSection < Pulitzer::ApplicationRecord
     belongs_to :version
     belongs_to :free_form_section_type
     has_many :partials, -> { order :sort_order}
 
+    accepts_nested_attributes_for :partials
+    
     delegate :sort_order, to: :free_form_section_type, allow_nil: true
     
+    def self.export_config
+      {
+        except: [:id, :version_id, :free_form_section_type_id],
+        include: {
+          partials: Pulitzer::Partial.export_config
+        }
+      }
+    end
+
+    def self.convert_nested_assoc(json_hash)
+      json_hash[attrs_name].map!{|ffs_attrs|
+        new_attrs = Pulitzer::Partial.convert_hash_to_nested ffs_attrs
+      }
+      json_hash      
+    end
+
     def partial(name)
       self.partials.to_a.detect{|ffs| ffs.name == name}
     end

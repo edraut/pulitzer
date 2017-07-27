@@ -24,7 +24,7 @@ class Pulitzer::ContentElementsController < Pulitzer::ApplicationController
       new_sort_order = params[:content_element].index(ce.id.to_s)
       ce.update_attribute(:sort_order, new_sort_order)
     end
-    head :ok
+    head :ok and return
   end
 
   protected

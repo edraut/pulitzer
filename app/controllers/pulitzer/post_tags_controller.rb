@@ -15,7 +15,7 @@ class Pulitzer::PostTagsController < Pulitzer::ApplicationController
 
   def destroy
     @post_tag.destroy
-    head :ok
+    head :ok and return
   end
 
   protected

@@ -32,7 +32,7 @@ class Pulitzer::FreeFormSectionTypesController < Pulitzer::ApplicationController
   def destroy
     @ffst.destroy
     Pulitzer::DestroyPostTypeFreeFormSections.new(@ffst).call
-    head :ok
+    head :ok and return
   end
 
   protected

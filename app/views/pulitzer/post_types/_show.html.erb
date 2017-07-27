@@ -17,6 +17,9 @@
       <div class="pulitzer-span ten-percent">
         <%= ajax_delete 'Delete', post_type_path(post_type), {}, dom_target(post_type) %>
       </div>
+      <div class="pulitzer-span ten-percent">
+        <%= link_to 'Export', export_post_type_path(post_type), {} %>
+      </div>
     <% end %>
   </div>
 </div>

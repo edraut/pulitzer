@@ -30,7 +30,7 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
 
   def destroy
     @partial_type.destroy
-    head :ok
+    head :ok and return
   end
 
   def update_all
@@ -39,7 +39,7 @@ class Pulitzer::PartialTypesController < Pulitzer::ApplicationController
       new_sort_order = params[:partial_type].index(pt.id.to_s)
       pt.update_attribute(:sort_order, new_sort_order)
     end
-    head :ok
+    head :ok and return
   end
 
   protected

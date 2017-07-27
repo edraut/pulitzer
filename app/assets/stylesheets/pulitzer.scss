@@ -51,6 +51,9 @@ body {
   position: relative;
   float: left;
   width: 100%;
+  &.bold {
+    font-weight: bold;
+  }
   &.padding {
     padding: 0px 20px;
   }
@@ -154,6 +157,9 @@ body {
   }
 }
 .pulitzer-span {
+  &.bold {
+    font-weight: bold;
+  }
   &.right {
     float: right;
     text-align: right;

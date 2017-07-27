@@ -1,16 +1,17 @@
 module Pulitzer
-  class Post < ActiveRecord::Base
+  class Post < Pulitzer::ApplicationRecord
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     extend ::FriendlyId
-    has_many :versions, dependent: :destroy
+    has_many :versions, dependent: :destroy, index_errors: true, inverse_of: :post
     has_one :active_version, -> { where(status: 'active') }, class_name: "Pulitzer::Version"
 
+    accepts_nested_attributes_for :versions
+    
     belongs_to :post_type_version
     delegate :post_type_content_element_types, :free_form_section_types, :has_free_form_sections?, :has_templated_content_elements?, :post_type, :post_type_id, :plural?, to: :post_type_version
     delegate :post_tags, :content_elements, :content_element, :section, :has_label_type, :has_label, :post_tags_for, to: :active_version, allow_nil: true
 
     friendly_id :title, use: [:slugged, :finders]
-    after_create :create_preview_version
 
     attr_accessor :new_preview_version
 
@@ -18,6 +19,23 @@ module Pulitzer
     validates :slug, uniqueness: true
 
     TAG_MODELS = ["Pulitzer::Tag"] + Pulitzer.tagging_models
+
+    def self.export_config
+      {
+        except: [:id, :post_type_version_id, :created_at, :updated_at, :slug],
+        include: {
+          versions: Version.export_config
+        }
+      }
+    end
+    
+    def self.convert_nested_assoc(json_hash)
+      this_array = json_hash.has_key?(attrs_name) ? json_hash[attrs_name] : [json_hash]
+      this_array.map!{|p_attrs|
+        new_attrs = Pulitzer::Version.convert_hash_to_nested p_attrs
+      }
+      json_hash
+    end
 
     def active_version!
       versions.find_by!(status: Pulitzer::Version.statuses[:active])

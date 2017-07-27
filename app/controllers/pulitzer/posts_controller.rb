@@ -1,7 +1,5 @@
 class Pulitzer::PostsController < Pulitzer::ApplicationController
-  before_action :get_post, only: [:show, :edit, :edit_title, :edit_slug, :show_slug, :update,
-    :update_slug, :processing_preview]
-  before_action :get_version, only: [:edit_slug, :show_slug, :update_slug]
+  before_action :get_post, except: [:index, :new, :create]
 
   def index
     @post_type_version = Pulitzer::PostTypeVersion.find params[:post_type_version_id]
@@ -15,9 +13,13 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def create
-    @post = Pulitzer::Post.create(post_params)
-    Pulitzer::CreatePostContentElements.new(@post).call if @post
-    render partial: 'show_wrapper', locals: { post: @post }
+    @post = Create.new(post_params).call
+    if @post.errors.empty?
+      Pulitzer::CreatePostContentElements.new(@post).call if @post
+      render partial: 'show_wrapper', locals: { post: @post }
+    else
+      render partial: 'new', locals: { post: @post }, status: 409
+    end
   end
 
   def show
@@ -25,6 +27,14 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def edit
+    route = "#{Pulitzer.preview_namespace}_#{@post.post_type.name.parameterize(separator: '_')}_path"
+    if main_app.respond_to?(route)
+      if @post.plural?
+        @preview_path = main_app.public_send(route, @post.slug, {version_number: @post.post_type_version.version_number})
+      else
+        @preview_path = main_app.public_send(route, {version_number: @post.post_type_version.version_number})
+      end
+    end
     render_ajax locals: { post: @post }
   end
 
@@ -32,19 +42,30 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
     render partial: 'form', locals: { post: @post }
   end
 
+  def export
+    post_json = Export.new(@post).call
+    send_data(post_json,
+      disposition: 'attachment',
+      filename: @post.title.parameterize + '_post.json')
+  end
+
   def update
-    @post.update_attributes(post_params)
-    render partial: 'show', locals: { post: @post }
+    Update.new(@post,post_params).call
+    if @post.errors.empty?
+      render partial: 'show', locals: { post: @post }
+    else
+      render partial: 'form', locals: { post: @post }, status: 409
+    end
   end
 
   def destroy
     @post.destroy
-    render head :ok
+    render head :ok and return
   end
 
   def edit_slug
     if request.xhr?
-      render partial: 'form_slug', locals: { post: @post, version: @version }
+      render partial: 'form_slug', locals: { post: @post }
     end
   end
 
@@ -53,14 +74,17 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def update_slug
-    if @post.update_attributes(post_params)
-      if @version.preview?
-        route                       = "#{Pulitzer.preview_namespace}_#{@post.post_type.name.parameterize('_')}_path"
-        @preview_path               = main_app.public_send(route, @post.slug) if main_app.respond_to?(route)
+    Update.new(@post,post_params).call
+    if @post.errors.empty?
+      route                       = "#{Pulitzer.preview_namespace}_#{@post.post_type.name.parameterize(separator: '_')}_path"
+      if @post.plural?
+        @preview_path = main_app.public_send(route, @post.slug, {version_number: @post.post_type_version.version_number})
+      else
+        @preview_path = main_app.public_send(route, {version_number: @post.post_type_version.version_number})
       end
-      render partial: 'pulitzer/posts/edit', locals: { version: @version, post: @post }
+      render partial: 'show_slug', locals: { post: @post }
     else
-      render partial: 'form_slug', locals: { post: @post, version: @version }, status: :conflict
+      render partial: 'form_slug', locals: { post: @post }, status: :conflict
     end
   end
 
@@ -68,10 +92,6 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
 
   def post_params
     params[:post].permit!
-  end
-
-  def get_version
-    @version = Pulitzer::Version.find(params[:version_id])
   end
 
   def get_post

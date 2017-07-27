@@ -32,7 +32,7 @@ class Pulitzer::PostTypeContentElementTypesController < Pulitzer::ApplicationCon
   def destroy
     @ptcet.destroy
     Pulitzer::DestroyPostTypeContentElements.new(@ptcet).call
-    head :ok
+    head :ok and return
   end
 
   protected

@@ -1,11 +1,13 @@
 module Pulitzer
-  class PostTypeContentElementType < ActiveRecord::Base
+  class PostTypeContentElementType < Pulitzer::ApplicationRecord
     include Pulitzer::PostTypeElement
 
     belongs_to :post_type_version
     belongs_to :content_element_type
     has_many :styles
 
+    accepts_nested_attributes_for :styles
+    
     before_save :handle_sort_order
 
     delegate :type, :image_type?, :has_styles?, to: :content_element_type
@@ -23,6 +25,22 @@ module Pulitzer
     URL_clickable.gid = 'url'
     URL_clickable.name = 'URL'
     URL_clickable.freeze
+
+    def self.export_config
+      {
+        except: [:id, :post_type_version_id],
+        include: {
+          styles: { except: :id }
+        }
+      }
+    end
+
+    def self.convert_nested_assoc(json_hash)
+      json_hash[attrs_name].map!{|ptcet_attrs|
+        new_attrs = Pulitzer::Style.convert_hash_to_nested ptcet_attrs
+      }
+      json_hash      
+    end
 
     def self.clickable_kinds
       [Any_clickable] + Pulitzer::CustomOptionList.all.to_a + [URL_clickable]

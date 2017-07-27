@@ -39,7 +39,7 @@ module Pulitzer
 
     def destroy
       @custom_option_list.destroy
-      head :ok
+      head :ok and return
     end
 
     protected

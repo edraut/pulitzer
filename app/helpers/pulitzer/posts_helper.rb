@@ -55,5 +55,13 @@ module Pulitzer
     def select2_html_options(tag_model)
       { class: 'seletct2-pulitzer-tags', data: { select2_trigger: true } }
     end
+
+    def import_post_submit_hash(post_type_version)
+      if post_type_version.plural?
+        {}
+      else
+        {confirm: 'This will delete the existing post if any exists.'}
+      end
+    end
   end
 end
