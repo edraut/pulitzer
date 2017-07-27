@@ -34,7 +34,7 @@ class Pulitzer::SequenceFlowStylesController < Pulitzer::ApplicationController
 
   def destroy
     @sequence_flow_style.destroy
-    head :ok
+    head :ok and return
   end
 
   protected

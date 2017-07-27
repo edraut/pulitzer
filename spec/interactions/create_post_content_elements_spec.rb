@@ -14,6 +14,7 @@ describe Pulitzer::CreatePostContentElements do
   it 'Copies free form sections to preview version' do
     ff_post_type = create(:post_type_version, :with_free_form_sections)
     ff_post = ff_post_type.posts.create title: 'test'
+    ff_post.create_preview_version
     expect(ff_post_type.free_form_section_types.size).to eq 3
     expect(ff_post.preview_version.free_form_sections.size).to eq 0
     Pulitzer::CreatePostContentElements.new(ff_post).call

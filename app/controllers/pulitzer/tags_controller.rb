@@ -43,7 +43,7 @@ module Pulitzer
 
     def destroy
       @tag.destroy
-      head :ok
+      head :ok and return
     end
 
     protected
@@ -54,7 +54,7 @@ module Pulitzer
 
     def render_not_found(e)
       Rails.logger.warn("Rendering 404 because #{e.inspect}")
-      head :ok, status: :not_found
+      head :not_found
     end
 
     def tag_params

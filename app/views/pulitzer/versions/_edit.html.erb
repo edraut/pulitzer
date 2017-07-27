@@ -19,16 +19,6 @@
 <% elsif version.preview? %>
   <div class="pulitzer-row margin-bottom list-item">
     <div class="pulitzer-row">
-      <div class="pulitzer-span margin match-h2" <%= expander(dom_id(version, :slug)) %>>&rtrif;</div>
-      <div class="pulitzer-span margin match-h2" <%= collapser(dom_id(version, :slug)) %>>&dtrif;</div>
-      <div class="pulitzer-span"><h2>Slug</h2></div>
-      <div <%= collapsed(dom_id(version, :slug)) %>>
-        <%= render partial: 'pulitzer/posts/slug_wrapper', locals: { post: version.post, version: version } %>
-      </div>
-    </div>
-  </div>
-  <div class="pulitzer-row margin-bottom list-item">
-    <div class="pulitzer-row">
       <div class="pulitzer-span margin match-h2" <%= expander(dom_id(version, :tags)) %>>&rtrif;</div>
       <div class="pulitzer-span margin match-h2" <%= collapser(dom_id(version, :tags)) %>>&dtrif;</div>
       <div class="pulitzer-span"><h2>Tags</h2></div>
@@ -44,16 +34,5 @@
   <% end %>
   <div class="pulitzer-row">
     <%= render partial: 'pulitzer/versions/form', locals: { version: version } %>
-  </div>
-  <div class="preview-link">
-    <% if @preview_path && version.publishable? %>
-      <%= link_to "Preview", @preview_path, target: '_blank' %>
-    <% else %>
-      <small>Preview not available.
-        <% if !version.publishable? %>
-          Missing required content
-        <% end %>
-      </small>
-    <% end %>
   </div>
 <% end %>

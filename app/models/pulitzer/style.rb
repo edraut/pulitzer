@@ -1,5 +1,5 @@
 module Pulitzer
-  class Style < ActiveRecord::Base
+  class Style < Pulitzer::ApplicationRecord
     has_many :content_elements
     belongs_to :post_type_content_element_type
     validates :display_name, :css_class_name, presence: true

@@ -1,5 +1,5 @@
 module Pulitzer
-  class Partial < ActiveRecord::Base
+  class Partial < Pulitzer::ApplicationRecord
     belongs_to :free_form_section
     belongs_to :post_type_version
     belongs_to :background_style
@@ -10,10 +10,28 @@ module Pulitzer
 
     has_many :content_elements, dependent: :destroy
 
+    accepts_nested_attributes_for :content_elements
+    
     delegate :name, :post_type_content_element_types, :has_display?, :post_type_id, :version_number, to: :post_type_version
     delegate :template_path, to: :layout, allow_nil: true
 
     before_save :handle_sort_order
+
+    def self.export_config
+      {
+        except: [:id, :free_form_section_id],
+        include: {
+          content_elements: Pulitzer::ContentElement.export_config
+        }
+      }
+    end
+
+    def self.convert_nested_assoc(json_hash)
+      json_hash[attrs_name].map!{|p_attrs|
+        new_attrs = Pulitzer::ContentElement.convert_hash_to_nested p_attrs
+      }
+      json_hash      
+    end
 
     def content_element(label)
       self.content_elements.find_by(label: label)

@@ -27,7 +27,7 @@ class Pulitzer::LayoutsController < Pulitzer::ApplicationController
 
   def destroy
     @layout.destroy
-    head :ok
+    head :ok and return
   end
 
   protected

@@ -4,6 +4,9 @@
 <% end %>
 <h1>Editing <%= post.editor_title %></h1>
 
-<div id="<%= dom_id(post, :preview_version)%>">
+<%= render partial: 'slug_wrapper', locals: {post: post} %>
+
+<div class="pulitzer-row margin-bottom" id="<%= dom_id(post, :preview_version)%>">
 </div>
+
 <%= ajax_link_now '', pulitzer.edit_version_path(post.next_version), {}, dom_target(post, :preview_version) %>

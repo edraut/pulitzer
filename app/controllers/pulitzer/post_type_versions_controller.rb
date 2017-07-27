@@ -18,7 +18,7 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
 
   def destroy
     @post_type_version.destroy
-    render nothing: true
+    head :ok and return
   end
 
   def template
@@ -42,6 +42,22 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
     post_type_version.processing!
     Pulitzer::ClonePostTypeVersion.perform_later(post_type_version)
     render_ajax locals: {post_type_version: post_type_version, post_type: post_type_version.post_type}
+  end
+
+  def export
+    post_type_version_json = Export.new(@post_type_version).call
+    send_data(post_type_version_json,
+      disposition: 'attachment',
+      filename: @post_type_version.full_name.parameterize + '.json')
+  end
+
+  def import_post
+    @post = ImportPost.new(@post_type_version, post_type_version_params).call
+    if @post.errors.empty?
+      render partial: 'show', locals: {post_type_version: @post_type_version}
+    else
+      render json: {flash_message: "Error importing: #{@post.errors.full_messages}"}, status: 409
+    end
   end
 
   protected

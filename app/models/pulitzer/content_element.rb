@@ -1,5 +1,5 @@
 module Pulitzer
-  class ContentElement < ActiveRecord::Base
+  class ContentElement < Pulitzer::ApplicationRecord
     mount_uploader :image, Pulitzer::ImageUploader
 
     # Associations
@@ -35,6 +35,10 @@ module Pulitzer
     #   self.photo.recreate_versions!
     #   self.broadcast_change
     # end
+
+    def self.export_config
+      { except: [:id, :image, :post_type_content_element_type_id, :version_id, :style_id, :partial_id, :custom_option_id, :created_at, :updated_at]}
+    end
 
     def video_link
       if video_type? && !body.nil?

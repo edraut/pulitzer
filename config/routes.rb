@@ -5,6 +5,7 @@ Pulitzer::Engine.routes.draw do
       get :edit_slug
       get :edit_title
       get :show_slug
+      get :export
       patch :update_slug
     end
   end
@@ -22,7 +23,15 @@ Pulitzer::Engine.routes.draw do
   end
 
   resources :tags
-  resources :post_types
+  resources :post_types do
+    collection do
+      post :import
+    end
+    member do
+      patch :import_version
+      get :export
+    end
+  end
   resources :post_type_versions do
     collection do
       post :clone
@@ -30,6 +39,8 @@ Pulitzer::Engine.routes.draw do
     member do
       get :template
       patch :change_state
+      get :export
+      patch :import_post
     end
   end
 

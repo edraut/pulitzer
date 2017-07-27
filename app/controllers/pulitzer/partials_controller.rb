@@ -37,12 +37,12 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
       new_sort_order = params[:partial].index(partial.id.to_s)
       partial.update_attribute(:sort_order, new_sort_order)
     end
-    head :ok
+    head :ok and return
   end
 
   def destroy
     @partial.destroy
-    head :ok
+    head :ok and return
   end
 
   def upgrade

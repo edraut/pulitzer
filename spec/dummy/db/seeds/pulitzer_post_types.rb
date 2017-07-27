@@ -30,7 +30,8 @@ module Seeds
       free_forms.each{|ff| post_type_version.free_form_section_types.create(ff)}
 
       welcome_post = Pulitzer::Post.create( title: "Welcome", post_type_version: post_type_version )
-
+      welcome_post.create_preview_version
+      
       Pulitzer::CreatePostContentElements.new(welcome_post).call
 
       travel_guide_post_type = Pulitzer::PostType.create( name: "Travel Guides", plural: true, kind: :template)

@@ -1,6 +1,15 @@
 <div class="pulitzer-row margin-bottom list-item">
   <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
     <%= ajax_link "add a new #{@post_type_kind}", new_post_type_path(post_type: {kind: @post_type_kind}), {}, "#new_#{@post_type_kind}" %>
+    <div class="pulitzer-span right">
+      <div class="pulitzer-row bold margin-bottom">Import New <%= @post_type_kind.humanize %> from JSON file</div>
+      <div class="pulitzer-row">
+        <%= form_tag import_post_types_path, ajax_form_hash("##{@post_type_kind}s_container", insert_method: 'append').merge( multipart: true ) do %>
+          <%= file_field_tag :import_json %>
+          <%= submit_tag 'Import' %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
   <div id="new_<%= @post_type_kind %>"></div>
 </div>

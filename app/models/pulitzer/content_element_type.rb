@@ -1,5 +1,5 @@
 module Pulitzer
-  class ContentElementType < ActiveRecord::Base
+  class ContentElementType < Pulitzer::ApplicationRecord
     validates :name, presence: true, uniqueness: true
     has_many :post_type_content_element_types, dependent: :destroy
     has_many :layouts, dependent: :destroy

@@ -9,6 +9,7 @@ class Pulitzer::CreateSingletonPost
   def call
     if post_type_version.singular? && !post_type_version.posts.any?
       singleton_post = post_type_version.posts.create(title: title)
+      singleton_post.create_preview_version
       Pulitzer::CreatePostContentElements.new(singleton_post).call
     end
   end

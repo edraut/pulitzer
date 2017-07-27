@@ -1,5 +1,5 @@
 class Pulitzer::PostTypesController < Pulitzer::ApplicationController
-  before_action :get_post_type, except: [:index, :new, :create]
+  before_action :get_post_type, except: [:import, :index, :new, :create]
 
   def index
     if params[:post_type_kind]
@@ -32,6 +32,27 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
     render partial: 'show', locals: {post_type: @post_type}
   end
 
+  def export
+    post_type_json = Export.new(@post_type).call
+    send_data(post_type_json,
+      disposition: 'attachment',
+      filename: @post_type.name.parameterize + '.json')
+  end
+
+  def import
+    @post_type = Import.new(params).call
+    render partial: 'show_wrapper', locals: {post_type: @post_type}
+  end
+
+  def import_version
+    @post_type_version = ImportVersion.new(@post_type, post_type_params).call
+    if @post_type_version.errors.empty?
+      render partial: '/pulitzer/post_type_versions/show_wrapper', locals: {post_type_version: @post_type_version}
+    else
+      render json: {flash_message: "Error importing: #{@post_type_version.errors.full_messages}"}, status: 409
+    end
+  end
+
   def edit
     render partial: 'form', locals: {post_type: @post_type}
   end
@@ -44,7 +65,7 @@ class Pulitzer::PostTypesController < Pulitzer::ApplicationController
 
   def destroy
     @post_type.destroy
-    head :ok
+    head :ok and return
   end
 
   protected

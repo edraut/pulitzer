@@ -1,20 +1,23 @@
 <div class="pulitzer-row">
-  <ul class="inline-list">
-    <li>Version <%= post_type_version.version_number %></li>
-    <li><%= post_type_version.status_display %></li>
-    <li> <%= ajax_link post_type_version.state_change_display, change_state_post_type_version_path(post_type_version, state_change: post_type_version.state_change), {}, dom_target(post_type_version), http_method: 'PATCH' %>
-    </li>
-    <li>
-      <%= ajax_link 'Template Elements', template_post_type_version_path(post_type_version), {}, dom_target(post_type_version) %>
-    </li>
+  <div class="pulitzer-row padding">
+    <div class="pulitzer-span ten-percent">Version <%= post_type_version.version_number %></div>
+    <div class="pulitzer-span ten-percent"><%= post_type_version.status_display %></div>
+    <div class="pulitzer-span ten-percent"> <%= ajax_link post_type_version.state_change_display, change_state_post_type_version_path(post_type_version, state_change: post_type_version.state_change), {}, dom_target(post_type_version), http_method: 'PATCH' %>
+    </div>
+    <div class="pulitzer-span ten-percent">
+      <%= ajax_link 'Elements', template_post_type_version_path(post_type_version), {}, dom_target(post_type_version) %>
+    </div>
     <% unless post_type_version.partial? %>
-      <li><%= link_to_posts(post_type_version, 'Page Index', 'Page Content') %></li>
+      <div class="pulitzer-span ten-percent"><%= link_to_posts(post_type_version, 'Page Index', 'Page Content') %></div>
     <% end %>
     <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
-      <li>
+      <div class="pulitzer-span ten-percent">
         <%= ajax_delete 'Delete', post_type_version_path(post_type_version), {}, dom_target(post_type_version) %>
-      </li>
+      </div>
+      <div class="pulitzer-span ten-percent">
+        <%= link_to 'Export', export_post_type_version_path(post_type_version), {} %>
+      </div>
     <% end %>
-  </ul>
+  </div>
 
 </div>

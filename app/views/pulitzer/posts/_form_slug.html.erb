@@ -1,9 +1,9 @@
-<%= form_for post, url: update_slug_post_path(post, version_id: version), html: ajax_form_hash(dom_target(version),
+<%= render 'pulitzer/shared/error_messages', object: post %>
+<%= form_for post, url: update_slug_post_path(post), html: ajax_form_hash(dom_target(post),
       error_target: dom_target(post)) do |f| %>
   <%= f.label :slug %>
   <%= f.text_field :slug %>
-  <%= f.submit %>
-  <%= link_to('Cancel', show_slug_post_path(post, version_id: version), :class => 'button',
+  <%= f.submit data: {disable_with: false} %>
+  <%= link_to('Cancel', show_slug_post_path(post), :class => 'button',
     data: { ajax_link: true, ajax_target: dom_target(post) } ) %>
 <% end %>
-<%= render 'pulitzer/shared/error_messages', object: post %>

@@ -34,7 +34,7 @@ class Pulitzer::JustificationStylesController < Pulitzer::ApplicationController
 
   def destroy
     @justification_style.destroy
-    head :ok
+    head :ok and return
   end
 
   protected
