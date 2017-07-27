@@ -18,7 +18,7 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
 
   def destroy
     @post_type_version.destroy
-    head :ok and return and return
+    head :ok and return
   end
 
   def template
