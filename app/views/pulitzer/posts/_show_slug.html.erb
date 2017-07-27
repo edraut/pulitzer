@@ -21,7 +21,7 @@
           <ul class="list">
             <li><%= post.slug %></li>
             <% unless post.post_type_version.singleton_post? %>
-              <li><%= ajax_link "Edit", edit_slug_post_path(post), {}, dom_target(post) %></li>
+              <li><%= ajax_link "Edit", pulitzer.edit_slug_post_path(post), {}, dom_target(post) %></li>
             <% end %>
           </ul>
         </div>
