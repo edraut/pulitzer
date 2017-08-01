@@ -7,6 +7,7 @@ Pulitzer::Engine.routes.draw do
       get :show_slug
       get :export
       patch :update_slug
+      post :clone
     end
   end
   resources :content_elements
