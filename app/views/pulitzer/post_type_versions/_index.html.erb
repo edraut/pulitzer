@@ -4,12 +4,12 @@
   <% if Pulitzer.skip_metadata_auth? || self.instance_eval(&Pulitzer.metadata_closure) %>
     <%= ajax_link "Create a blank version of this template",
           post_type_versions_path(post_type_version: {post_type_id: @post_type.id}),
-          {}, '#post_type_versions_container', http_method: 'POST', insert_method: 'append' %>
+          {}, '#post_type_versions_container', http_method: 'POST', insert_method: 'prepend' %>
     <br>
     <div class="pulitzer-span right">
       <div class="pulitzer-row bold margin-bottom">Import New Version from JSON file</div>
       <div class="pulitzer-row">
-        <%= form_for @post_type, url: import_version_post_type_path(@post_type), html: ajax_form_hash('#post_type_versions_container', insert_method: 'append').merge( multipart: true, method: 'PATCH') do |f| %>
+        <%= form_for @post_type, url: import_version_post_type_path(@post_type), html: ajax_form_hash('#post_type_versions_container', insert_method: 'prepend').merge( multipart: true, method: 'PATCH') do |f| %>
           <%= f.file_field :import_json %>
           <%= f.submit 'Import' %>
         <% end %>
@@ -18,7 +18,7 @@
     <% if @post_type.published_type_version %>
       <%= ajax_link "Clone the published version of this template",
             clone_post_type_versions_path(post_type_version: {post_type_id: @post_type.id}), {}, '#post_type_versions_container',
-            http_method: 'POST', insert_method: 'append' %>
+            http_method: 'POST', insert_method: 'prepend' %>
     <% end %>
   <% end %>
 </div>

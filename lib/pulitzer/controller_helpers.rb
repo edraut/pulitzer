@@ -23,7 +23,7 @@ module Pulitzer
         if ptv.plural?
           ptv.posts.find_by!(slug: params[:slug]).send "get_#{status}_version!"
         else
-          ptv.singleton_post.get_active_version!
+          ptv.singleton_post.send "get_#{status}_version!"
         end
       else
         nil

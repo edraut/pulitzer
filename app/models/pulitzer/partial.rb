@@ -1,5 +1,7 @@
 module Pulitzer
   class Partial < Pulitzer::ApplicationRecord
+    include ForeignOffice::Broadcaster if defined? ForeignOffice
+
     belongs_to :free_form_section
     belongs_to :post_type_version
     belongs_to :background_style
@@ -12,7 +14,10 @@ module Pulitzer
 
     accepts_nested_attributes_for :content_elements
     
+    attr_accessor :reload_show, :remove_show
+
     delegate :name, :post_type_content_element_types, :has_display?, :post_type_id, :version_number, to: :post_type_version
+    delegate :most_recent_version_number, to: :post_type
     delegate :template_path, to: :layout, allow_nil: true
 
     before_save :handle_sort_order
@@ -106,6 +111,11 @@ module Pulitzer
 
     def upgradable?
       version_number < (post_type_version&.post_type&.post_type_versions&.published&.maximum(:version_number) || 0)
+    end
+
+    def serialize
+      self.attributes.merge \
+        reload_show: self.reload_show
     end
   end
 end

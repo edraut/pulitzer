@@ -3,7 +3,7 @@ class Pulitzer::PostTypeVersionsController < Pulitzer::ApplicationController
 
   def index
     @post_type = Pulitzer::PostType.find(params[:post_type_id])
-    @post_type_versions = @post_type.post_type_versions
+    @post_type_versions = @post_type.post_type_versions.order(id: :desc)
     render_ajax
   end
 

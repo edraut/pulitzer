@@ -24,4 +24,8 @@ class Pulitzer::PostType < Pulitzer::ApplicationRecord
   def most_recent_published_post_type_version
     post_type_versions&.published&.order(version_number: :desc)&.first
   end
+
+  def most_recent_version_number
+    most_recent_published_post_type_version&.version_number
+  end
 end
