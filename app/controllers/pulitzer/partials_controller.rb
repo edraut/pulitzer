@@ -47,7 +47,7 @@ class Pulitzer::PartialsController < Pulitzer::ApplicationController
 
   def upgrade
     @partial = UpgradePartialVersion.new(@partial).call
-    render partial: 'show', locals: { partial: @partial }
+    render partial: 'show_wrapper', locals: { partial: @partial }
   end
 
   protected

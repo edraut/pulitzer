@@ -5,8 +5,8 @@ class Pulitzer::CloneVersion
     @version = version
     @post = @version.post
     @new_version = new_version
-    Rails.logger.info("Pulitzer::CloneVersion !!! ")
-    Rails.logger.info($0)
+    Rails.logger.debug("Pulitzer::CloneVersion !!! ")
+    Rails.logger.debug($0)
   end
 
   def call
