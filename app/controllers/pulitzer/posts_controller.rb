@@ -91,11 +91,12 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
   end
 
   def clone
-
     new_post = Pulitzer::Post.create(@post.dup.attributes)
-    @post = Pulitzer::PostsController::Clone.new(@post, new_post).call
-    #Pulitzer::ClonePostTypeVersion.perform_later(@post)
-    render_ajax locals: {post: new_post, post_type: new_post.post_type}
+    post_type_version = new_post.post_type_version
+    post_type_version.processing!
+    #Pulitzer::ClonePostJob.perform_later(@post, new_post)
+    Pulitzer::PostsController::Clone.new(@post, new_post).call
+    render_ajax locals: { post: new_post, post_type: new_post.post_type }
   end
 
   protected

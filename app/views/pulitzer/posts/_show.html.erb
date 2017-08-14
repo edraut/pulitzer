@@ -10,7 +10,7 @@
       <%= ajax_link 'Edit content', edit_post_path(post), {}, '[data-tab-id="templates"]' %>
     </li>
     <li>
-      <%= ajax_link 'Clone post', clone_post_path(post), {}, dom_target(post), http_method: 'POST', insert_method: 'append' %>
+      <%= ajax_link 'Clone post', clone_post_path(post), {}, '#posts_container', http_method: 'POST', insert_method: 'append' %>
     </li>
   </ul>
 </div>

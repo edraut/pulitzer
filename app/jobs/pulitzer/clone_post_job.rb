@@ -2,8 +2,8 @@ module Pulitzer
   class ClonePostJob < ActiveJob::Base
     queue_as Pulitzer.clone_queue
 
-    def perform(post)
-      Pulitzer::Pulitzer::PostsController::Clone.new(post).call
+    def perform(post, new_post)
+      Pulitzer::PostsController::Clone.new(post, new_post).call
     end
 
   end
