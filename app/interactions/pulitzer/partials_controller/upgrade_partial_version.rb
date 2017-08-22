@@ -15,7 +15,8 @@ class Pulitzer::PartialsController::UpgradePartialVersion
       old_ce = @partial.content_elements.find_by(label: ce.label)
       if old_ce
         cloned = old_ce.clone_me
-        cloned.update(post_type_content_element_type_id: ce.post_type_content_element_type_id, partial_id: ce.partial_id)
+        cloned.update(post_type_content_element_type_id: ce.post_type_content_element_type_id, partial_id: ce.partial_id,
+                      version_id: ce.version_id)
         ce.destroy
       end
     end
