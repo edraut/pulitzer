@@ -16,7 +16,7 @@
         <%= f.collection_select :arrangement_style_id, partial.available_arrangements, :id, :display_name, {}, {} %>
       </div>
     <% end %>
-    <div class="pulitzer-span ten-percent">    
+    <div class="pulitzer-span ten-percent">
       <%= f.collection_select :background_style_id, partial.available_backgrounds, :id, :display_name, {}, {} %>
     </div>
     <div class="pulitzer-span ten-percent">
@@ -34,4 +34,12 @@
       <%= ajax_delete 'delete', partial_path(partial), {class: 'button'}, dom_target(partial) %>
     </div>
   <% end %>
+</div>
+<div class="pulitzer-row">
+  <h4>Pulitzer Tags</h4>
+  <div id="<%=dom_id(partial, :tags) %>">
+    <% Pulitzer::Post::TAG_MODELS.each do |tag_model| %>
+      <%= render partial: 'pulitzer/partial_tags/show_wrapper', locals: { partial: partial, tag_model: tag_model } %>
+    <% end %>
+  </div>
 </div>
