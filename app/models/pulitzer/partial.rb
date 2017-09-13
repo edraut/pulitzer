@@ -9,9 +9,11 @@ module Pulitzer
     has_one :post_type, through: :post_type_version
 
     has_many :content_elements, dependent: :destroy
+    has_many :partial_tags, dependent: :destroy, index_errors: true, inverse_of: :partial
+    has_many :tags, through: :partial_tags, source: :label, source_type: "Pulitzer::Tag"
 
     accepts_nested_attributes_for :content_elements
-    
+
     delegate :name, :post_type_content_element_types, :has_display?, :post_type_id, :version_number, to: :post_type_version
     delegate :template_path, to: :layout, allow_nil: true
 
@@ -30,7 +32,7 @@ module Pulitzer
       json_hash[attrs_name].map!{|p_attrs|
         new_attrs = Pulitzer::ContentElement.convert_hash_to_nested p_attrs
       }
-      json_hash      
+      json_hash
     end
 
     def content_element(label)

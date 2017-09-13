@@ -11,6 +11,7 @@ Pulitzer::Engine.routes.draw do
   end
   resources :content_elements
   resources :post_tags
+  resources :partial_tags
 
   resources :content_elements
   resources :partials do
