@@ -73,16 +73,12 @@ module Pulitzer
 
     def render_cms_section(version, section_name)
       section = version.section(section_name)
-      if section
-        section.partials.collect do |partial|
-          if partial.has_display?
-            render partial: partial.full_view_path, locals: {partial: partial}
-          end
-        end.join.html_safe
-      else
-        Rails.logger.error "[Pulitzer] Version #{version.inspect} has no section named #{section_name}"
-        ""
-      end
+      fail SectionMissingError.new("Version #{version.inspect} is missing a section called '#{section_name}' but it's trying to render it.") unless section
+      section.partials.collect do |partial|
+        if partial.has_display?
+          render partial: partial.full_view_path, locals: {partial: partial}
+        end
+      end.join.html_safe
     end
   end
 end
