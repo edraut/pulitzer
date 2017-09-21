@@ -1,6 +1,7 @@
 module Pulitzer
   class Tag < Pulitzer::ApplicationRecord
     has_many :post_tags, as: :label, dependent: :destroy, inverse_of: :label
+    has_many :partial_tags, as: :label, dependent: :destroy, inverse_of: :label
     has_many :versions, through: :post_tags
     has_many :posts, through: :versions
 

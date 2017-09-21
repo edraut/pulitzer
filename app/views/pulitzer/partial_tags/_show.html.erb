@@ -1,0 +1,11 @@
+<h3><%= humanize_class_name(tag_model).pluralize %></h3>
+<% partial.partial_tags.where(label_type: tag_model).each do |partial_tag| %>
+  <ul class='inline-list' id="<%= dom_id(partial_tag) %>">
+    <li><%= partial_tag.label.name %></li>
+    <li><%= ajax_delete 'delete', partial_tag_path(partial_tag), {}, dom_target(partial_tag) %></li>
+  </ul>
+<% end %>
+
+<%= ajax_link "Add a new #{humanize_class_name(tag_model)}", new_partial_tag_path(partial_id: partial.id, tag_model: tag_model), {}, "#new_#{dom_id(partial, underscore_class_name(tag_model))}" %>
+
+<div id="new_<%= dom_id(partial, underscore_class_name(tag_model)) %>"></div>
