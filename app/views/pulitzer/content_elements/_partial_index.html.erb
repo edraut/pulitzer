@@ -3,7 +3,8 @@
     <%= render partial: '/pulitzer/content_elements/show_wrapper', locals: { element: content_element } %>
   <% end %>
 </div>
-<div class="pulitzer-row">
+
+<div class="pulitzer-row margin-left highlight-off-white">
   <h4>Pulitzer Tags</h4>
   <div id="<%=dom_id(partial, :tags) %>">
     <% Pulitzer::Post::TAG_MODELS.each do |tag_model| %>
