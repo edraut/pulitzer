@@ -3,7 +3,7 @@ module Pulitzer
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     extend ::FriendlyId
     has_many :versions, dependent: :destroy, index_errors: true, inverse_of: :post
-    has_one :active_version, -> { where(status: 'active') }, class_name: "Pulitzer::Version"
+    has_one :active_version, -> { where(status: 'active').includes(free_form_sections: {partials: [{post_type_version: [:background_styles, :justification_styles, :sequence_flow_styles, :arrangement_styles]}, :content_elements, :background_style, :justification_style, :sequence_flow_style, :arrangement_style]}) }, class_name: "Pulitzer::Version"
 
     accepts_nested_attributes_for :versions
 

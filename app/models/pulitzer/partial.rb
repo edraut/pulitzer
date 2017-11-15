@@ -36,7 +36,7 @@ module Pulitzer
     end
 
     def content_element(label)
-      self.content_elements.find_by(label: label)
+      self.content_elements.to_a.detect{|ce| ce.label == label}
     end
 
     def background_css_class
