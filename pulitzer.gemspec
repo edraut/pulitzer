@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mini_magick', '~> 4.3', '>= 4.3.0'
   s.add_dependency 'friendly_id', '~> 5.1', '>= 5.1.0'
   s.add_dependency 'select2-rails', '~> 4.0', '>= 4.0.0'
+  s.add_dependency 'aws-sdk', '< 3.0'
 
   s.add_development_dependency 'sqlite3', '~> 1.3', '< 2.0'
   s.add_development_dependency 'minitest', '~> 5.1', '< 6.0'
