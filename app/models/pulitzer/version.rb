@@ -2,8 +2,8 @@ module Pulitzer
   class Version < Pulitzer::ApplicationRecord
     include ForeignOffice::Broadcaster if defined? ForeignOffice
     enum status: [ :preview, :active, :archived, :abandoned, :processing, :processing_failed ]
-    has_many :content_elements, dependent: :destroy, index_errors: true, inverse_of: :version
-    has_many :free_form_sections, dependent: :destroy, index_errors: true, inverse_of: :version
+    has_many :content_elements, -> {includes(:post_type_content_element_type)}, dependent: :destroy, index_errors: true, inverse_of: :version
+    has_many :free_form_sections, -> {includes(partials: {content_elements: :post_type_content_element_type})}, dependent: :destroy, index_errors: true, inverse_of: :version
     has_many :post_tags, dependent: :destroy, index_errors: true, inverse_of: :version
     has_many :tags, through: :post_tags, source: :label, source_type: "Pulitzer::Tag"
     belongs_to :post
@@ -76,11 +76,19 @@ module Pulitzer
     end
 
     def publishable?
-      !empty_required_content_elements? && required_partials?
+      !missing_required_content_elements? && required_partials?
     end
 
-    def empty_required_content_elements?
-      content_elements.required.select{|ce| ce.empty_body?}.any? || free_form_sections.includes(partials: :content_elements).map(&:partials).flatten.map(&:content_elements).flatten.select{|ce| ce.empty_body? && ce.required?}.any?
+    def missing_required_content_elements
+      @missing_content_elements ||= content_elements.to_a.select{|ce| ce.empty_body? && ce.required?}
+    end
+
+    def missing_required_partial_elements
+      @missing_partial_elements ||= free_form_sections.to_a.map(&:partials).flatten.map(&:content_elements).flatten.select{|ce| ce.empty_body? && ce.required?}
+    end
+
+    def missing_required_content_elements?
+      missing_required_partial_elements.any? || missing_required_content_elements.any?
     end
 
     def required_partials?
@@ -94,6 +102,11 @@ module Pulitzer
         has_all_partials = partial_types.all?{|pt| fs.partials.where(post_type_version_id: pt.post_type_version_id).any?}
       end
       has_all_partials
+    end
+
+    def missing_requirement_messages
+      missing_required_content_elements.map{|ce| "#{ce.label} is required"} +
+      missing_required_partial_elements.map{|ce| "#{ce.partial.free_form_section.name} -> #{ce.partial.label} -> #{ce.label} is required"}
     end
   end
 end
