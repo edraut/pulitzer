@@ -4,6 +4,7 @@ module Pulitzer
 
     # Associations
     belongs_to :version
+    belongs_to :partial
     belongs_to :content_element_type
     belongs_to :post_type_content_element_type
     belongs_to :style

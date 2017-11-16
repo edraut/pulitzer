@@ -45,10 +45,11 @@ describe Pulitzer::VersionsController do
 
     it "responds with errors if the interaction has one" do
       ptcet = post_type_version.post_type_content_element_types.create(label: 'test', required: true, content_element_type: content_element_type)
-      version.content_elements.first.update_columns(body: nil, post_type_content_element_type_id: ptcet.id)
+      required_element = version.content_elements.first
+      required_element.update_columns(body: nil, post_type_content_element_type_id: ptcet.id)
       patch pulitzer.version_path id: version.id, status: 'active'
       expect(response.status).to eq 409
-      expect(response.body).to match "It's not possible to activate a version without filling required content elements"
+      expect(response.body).to match "#{required_element.label} is required"
     end
   end
 end
