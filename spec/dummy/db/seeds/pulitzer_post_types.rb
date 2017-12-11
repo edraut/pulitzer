@@ -56,6 +56,10 @@ module Seeds
       col = Pulitzer::CustomOptionList.create name: 'Sliders'
       co = col.custom_options.create(display: 'Rental Estimate', value: 'contactMgmt')
       co2 = col.custom_options.create(display: 'Agent Coterie', value: 'contactRealEstate')
+
+      text_section_post_type = Pulitzer::PostType.create( name: "Text Section", plural: true, kind: :partial)
+      txt_ptv = text_section_post_type.post_type_versions.create(status: :published)
+      txt_ptv.post_type_content_element_types.create(label: "Body", content_element_type_id: content_element_type.id)
     end
   end
 end

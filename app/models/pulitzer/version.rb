@@ -76,7 +76,7 @@ module Pulitzer
     end
 
     def publishable?
-      !missing_required_content_elements? && required_partials?
+      !missing_required_content_elements?
     end
 
     def missing_required_content_elements
@@ -88,25 +88,25 @@ module Pulitzer
     end
 
     def missing_required_content_elements?
-      missing_required_partial_elements.any? || missing_required_content_elements.any?
+      missing_required_partial_elements.any? || missing_required_content_elements.any? || missing_required_partial_types.any?
     end
 
-    def required_partials?
-      has_all_partials = true
-      free_form_section_types = post.post_type_version.free_form_section_types
-      free_form_sections      = self.free_form_sections.where(name: free_form_section_types.pluck(:name))
-      free_form_sections.each do |fs|
-        free_form_section_type = free_form_section_types.select{|ffst| ffst.name == fs.name }
-        partial_types     = free_form_section_type.first.partial_types
-        partials          = fs.partials.where(label: partial_types.pluck(:label))
-        has_all_partials = partial_types.all?{|pt| fs.partials.where(post_type_version_id: pt.post_type_version_id).any?}
+    def missing_required_partial_types
+      missing_required_partial_types = []
+      ffsts = post.post_type_version.free_form_section_types
+      ffsts.each do |ffst|
+        ffs = free_form_sections.find_by(name: ffst.name)
+        existing_partial_post_types = ffs&.partials&.map(&:post_type_version_id)
+        existing_partial_post_types ||= []
+        missing_required_partial_types += ffst.partial_types.to_a.select{|pt| existing_partial_post_types.exclude? pt.post_type_version_id}
       end
-      has_all_partials
+      missing_required_partial_types
     end
 
     def missing_requirement_messages
       missing_required_content_elements.map{|ce| "#{ce.label} is required"} +
-      missing_required_partial_elements.map{|ce| "#{ce.partial.free_form_section.name} -> #{ce.partial.label} -> #{ce.label} is required"}
+      missing_required_partial_elements.map{|ce| "#{ce.partial.free_form_section.name} -> #{ce.partial.label} -> #{ce.label} is required"} +
+      missing_required_partial_types.map{|pt| "#{pt.free_form_section_type.name} -> #{pt.post_type_version.name} is required"}
     end
   end
 end

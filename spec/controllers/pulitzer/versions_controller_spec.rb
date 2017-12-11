@@ -44,12 +44,16 @@ describe Pulitzer::VersionsController do
     end
 
     it "responds with errors if the interaction has one" do
+      main_content = post_type_version.free_form_section_types.find_by(name: "Main Content")
+      text_section = Pulitzer::PostType.named('Text Section').published_type_version
+      main_content.partial_types.create(post_type_version_id: text_section.id)
       ptcet = post_type_version.post_type_content_element_types.create(label: 'test', required: true, content_element_type: content_element_type)
       required_element = version.content_elements.first
       required_element.update_columns(body: nil, post_type_content_element_type_id: ptcet.id)
       patch pulitzer.version_path id: version.id, status: 'active'
       expect(response.status).to eq 409
       expect(response.body).to match "#{required_element.label} is required"
+      expect(response.body).to match Regexp.new("#{main_content.name} -.* #{text_section.name} is required")
     end
   end
 end
