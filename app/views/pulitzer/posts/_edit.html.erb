@@ -4,9 +4,23 @@
 <% end %>
 <h1>Editing <%= post.editor_title %></h1>
 
-<%= render partial: '/pulitzer/posts/slug_wrapper', locals: {post: post} %>
+<% if post.preview_version.present? %>
+  <%= render partial: '/pulitzer/posts/slug_wrapper', locals: {post: post} %>
+<% end %>
 
 <div class="pulitzer-row margin-bottom" id="<%= dom_id(post, :preview_version)%>">
-</div>
+  <% if post.preview_version.present? %>
+    <%= ajax_link_now '', pulitzer.edit_version_path(post.next_version), {}, dom_target(post, :preview_version) %>
 
-<%= ajax_link_now '', pulitzer.edit_version_path(post.next_version), {}, dom_target(post, :preview_version) %>
+  <% elsif post.processing_version.present? %>
+    <h2> Processing Preview for <%= post.processing_version.title %> </h2>
+    <div class="pulitzer-row">
+      <progress value="0" max="<%= post.active_version.present? ? post.active_version.total_processing_elements : 50 %>" <%= listener_attrs post.processing_version, :processed_element_count if defined? ForeignOffice %>></progress>
+    </div>
+    <a <%= listener_attrs post, :new_preview_version, trigger: true if defined? ForeignOffice %>
+       <%= ajax_link_attrs(dom_target(post, :preview_version)) %> > </a>
+    If the preview does not appear within a few minutes, click here to see if it's available.
+    <%= ajax_link "refresh preview", edit_version_path(post.processing_version), {}, dom_target(post, :preview_version) %>
+
+  <% end %>
+</div>
