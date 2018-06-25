@@ -3,8 +3,8 @@
     <%= link_to "Preview", @preview_path, target: '_blank' %>
   <% else %>
     <small>Preview not available.
-      <% if !post.preview_version&.publishable? %>
-        Missing required content
+      <% if !post.preview_version.publishable? %>
+        <%= post.preview_version.missing_requirement_messages.join(', ') %>
       <% end %>
     </small>
   <% end %>

@@ -11,6 +11,7 @@ describe Pulitzer::CreateFreeFormSectionPartials do
     Pulitzer::CreatePostTypeFreeFormSections.new(free_form_section_type).call
     expect(preview_version.free_form_sections.first.partials).to eq []
     create_partials = Pulitzer::CreateFreeFormSectionPartials.new(partial_type).call
+    preview_version.reload
     partial = preview_version.free_form_sections.first.partials.first
     expect(partial.label).to eq partial_type.label
     expect(partial.post_type_version_id).to eq partial_type.post_type_version_id

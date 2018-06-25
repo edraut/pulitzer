@@ -1,5 +1,10 @@
 <br>
 <%= image_tag(content_element.image_url(:thumb)) if content_element.image_url %>
+<% if content_element.width.present? && content_element.height.present? %>
+  <div class="ih-row quiet">
+    minimum dimensions (w x h): <%= content_element.width %> x <%= content_element.height %>
+  </div>
+<% end %>
 <div class="upload-group">
   <%= f.file_field :image, placeholder: 'Image' %>
 </div>

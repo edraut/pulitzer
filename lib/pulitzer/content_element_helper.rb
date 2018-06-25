@@ -48,11 +48,11 @@ module Pulitzer
     end
 
     def render_link(element,options = {})
-      content_tag(:a, element.title, options.merge(href: element.content, class: element.style.css_class_name))
+      content_tag(:a, element.title, options.merge(href: element.content, class: element.style&.css_class_name))
     end
 
     def render_button(element,options = {})
-      content_tag(:button, element.title, options.merge('data-pulitzer-action' => element.content, class: element.style.css_class_name))
+      content_tag(:button, element.title, options.merge('data-pulitzer-action' => element.content, class: element.style&.css_class_name))
     end
 
     def render_video_element(element, options = {})

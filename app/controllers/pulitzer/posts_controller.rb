@@ -96,6 +96,10 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
 
   def get_post
     @post = Pulitzer::Post.find(params[:id])
+    if @post.preview_version.blank?
+      preview_rebuilder = Pulitzer::PostsController::PreviewRebuilder.new(@post)
+      preview_rebuilder.rebuild
+    end
   end
 
 end

@@ -43,13 +43,13 @@ describe Pulitzer::Version do
 
 
     it 'Without any required partials' do
-      expect(version.required_partials?).to eq true
+      expect(version.missing_required_partial_types.empty?).to eq true
     end
 
     it 'With required partials' do
       Pulitzer::CreatePostTypeFreeFormSections.new(free_form_section_type).call
       Pulitzer::CreateFreeFormSectionPartials.new(partial_type).call
-      expect(preview_version.required_partials?).to eq true
+      expect(preview_version.missing_required_partial_types.empty?).to eq true
     end
 
     it 'With a missing partial' do
@@ -57,7 +57,7 @@ describe Pulitzer::Version do
       Pulitzer::CreateFreeFormSectionPartials.new(partial_type).call
       partial = preview_version.free_form_sections.first.partials.first
       partial.destroy
-      expect(preview_version.required_partials?).to eq false
+      expect(preview_version.missing_required_partial_types.any?).to eq true
     end
   end
 end
