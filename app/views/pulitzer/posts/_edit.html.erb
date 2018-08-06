@@ -19,7 +19,6 @@
     </div>
     <a <%= listener_attrs post, :new_preview_version, trigger: true if defined? ForeignOffice %>
        <%= ajax_link_attrs(dom_target(post, :preview_version)) %> > </a>
-       <%binding.pry%>
     If the preview does not appear within a few minutes, click here to see if it's available.
     <%= ajax_link "refresh preview", pulitzer.edit_version_path(post.processing_version), {}, dom_target(post, :preview_version) %>
 
