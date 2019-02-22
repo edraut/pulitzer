@@ -1,16 +1,16 @@
 <div class="pulitzer-row">
-  <div class="pulitzer-span two-fifths">
-    <%= post.title %>
-  </div>
-  <div class="pulitzer-span one-fifth">
-    <%= ajax_link "Edit post name", edit_title_post_path(post), {}, dom_target(post) %>
-  </div>
-  <div class="pulitzer-span one-fifth">
-    <%= ajax_link 'Edit content', edit_post_path(post), {}, '[data-tab-id="templates"]' %>
-  </div>
-  <!-- Incomplete, needs a post exporter that can handle partial links to their templates, styles, etc.
-  <div class="pulitzer-span one-fifth">
-    <%#= link_to 'Export Post to JSON', export_post_path(post), {} %>
-  </div>
-  -->
+  <ul class="inline-list">
+    <li>
+      <%= post.title %>
+    </li>
+    <li>
+      <%= ajax_link "Edit post name", edit_title_post_path(post), {}, dom_target(post) %>
+    </li>
+    <li>
+      <%= ajax_link 'Edit content', edit_post_path(post), {}, '[data-tab-id="templates"]' %>
+    </li>
+    <li>
+      <%= ajax_link 'Clone post', clone_post_path(post), {}, '#posts_container', http_method: 'POST', insert_method: 'append' %>
+    </li>
+  </ul>
 </div>

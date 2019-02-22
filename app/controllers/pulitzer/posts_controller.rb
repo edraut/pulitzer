@@ -1,5 +1,7 @@
 class Pulitzer::PostsController < Pulitzer::ApplicationController
+
   before_action :get_post, except: [:index, :new, :create]
+  before_action :get_version, only: [:edit_slug, :show_slug, :update_slug]
 
   def index
     @post_type_version = Pulitzer::PostTypeVersion.find params[:post_type_version_id]
@@ -86,6 +88,15 @@ class Pulitzer::PostsController < Pulitzer::ApplicationController
     else
       render partial: 'form_slug', locals: { post: @post }, status: :conflict
     end
+  end
+
+  def clone
+    new_post = Pulitzer::Post.create(@post.dup.attributes)
+    post_type_version = new_post.post_type_version
+    post_type_version.processing!
+    #Pulitzer::ClonePostJob.perform_later(@post, new_post)
+    Pulitzer::PostsController::Clone.new(@post, new_post).call
+    render_ajax locals: { post: new_post, post_type: new_post.post_type }
   end
 
   protected

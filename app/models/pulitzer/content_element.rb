@@ -74,7 +74,9 @@ module Pulitzer
     end
 
     def content
-      if custom_type?
+      if image_type?
+        image&.url
+      elsif custom_type?
         custom_content
       else
         body
